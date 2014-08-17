@@ -1,0 +1,67 @@
+---
+title: "Maternite"
+author: "JcB"
+date: "17/08/2014"
+output: word_document
+---
+
+births Births in a London Hospital
+==================================
+
+Description
+-----------
+Données provenant de 500 singleton births dans un hôpital de Londres.
+
+Usage
+
+data(births)
+
+Format (Métadonnées)
+------
+Un tableau (data frame) de 500 observations concernant les 8 variables suivantes:
+
+
+variable  |  signification   
+----------|---------------  
+__id__  |  Identifiant pour la mère et l'enfant   
+__bweight__  |  Poids de naissance
+__lowbw__ | Poids inférieur à 2500 g (0 = non, 1 = oui)
+__gestwks__| Durée de la grossesse (semaines)
+__preterm__| Durée de gestation inférieure à 37 weeks (0 = non, 1 = oui)
+__matage__| Age maternel
+__hyp__| Hypertension gravidique (0 = non, 1 = oui)
+__sex__| Sexe de l'enfant 1:garçon, 2:fille
+
+Source
+-------
+Anonymous
+
+References
+Michael Hills and Bianca De Stavola (2002). A Short Introduction to Stata 8 for Biostatistics,[Timberlake Consultants Ltd](http://www.timberlake.co.uk)
+
+[A short introduction to R for Epidemiology](http://bendixcarstensen.com/Epi/R-intro-SDC.pdf) page 6, paragraphe 2.5
+
+Exploration des données
+-----------------------
+
+```{r}
+library("Epi", lib.loc="/usr/lib/R/site-library")
+data(births)
+summary(births)
+str(births)
+births$sex <- as.factor(births$sex)
+births$hyp <- as.factor(births$hyp)
+births$preterm <- as.factor(births$preterm)
+births$lowbw <- as.factor(births$lowbw)
+summary(births)
+
+summary(births[births$preterm==0,])
+summary(births[births$preterm==1,])
+premature <- births[births$preterm==1,]
+aterme <- births[births$preterm==0,]
+hist(premature$bweight)
+hist(aterme$bweight)
+```
+
+
+
