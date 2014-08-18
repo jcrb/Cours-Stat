@@ -5,12 +5,19 @@ date: "17/08/2014"
 output: word_document
 ---
 
+source:
+
+- package __epi__
+- Gebolini Christophe: [Lire, compter, tester... avec R](http://cran.r-project.org/doc/contrib/Genolini-LireCompterTesterR.pdf)
+
 births Births in a London Hospital
 ==================================
 
 Description
 -----------
 Données provenant de 500 singleton births dans un hôpital de Londres.
+
+Origine: données __Births__ du pacfage __epi__.
 
 Usage
 
@@ -44,10 +51,9 @@ Michael Hills and Bianca De Stavola (2002). A Short Introduction to Stata 8 for 
 Exploration des données
 -----------------------
 
-```{r}
-library("Epi", lib.loc="/usr/lib/R/site-library")
+```{r births,echo=FALSE,comment=""}
+library("Epi")
 data(births)
-summary(births)
 str(births)
 births$sex <- as.factor(births$sex)
 births$hyp <- as.factor(births$hyp)
@@ -61,6 +67,11 @@ premature <- births[births$preterm==1,]
 aterme <- births[births$preterm==0,]
 hist(premature$bweight)
 hist(aterme$bweight)
+
+w <- seq(500, 5000, le=100)
+plot(w, dnorm(w,mean(aterme$bweight, na.rm=T),sd(aterme$bweight, na.rm=T)), xlim = c(500, 5000), type = "l")
+lines(w, dnorm(w,mean(premature$bweight, na.rm=T),sd(premature$bweight, na.rm=T)), xlim = c(500, 5000))
+
 ```
 
 
