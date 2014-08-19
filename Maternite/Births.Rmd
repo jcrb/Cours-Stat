@@ -10,6 +10,24 @@ source:
 - package __epi__
 - Gebolini Christophe: [Lire, compter, tester... avec R](http://cran.r-project.org/doc/contrib/Genolini-LireCompterTesterR.pdf)
 
+Plan
+====
+
+- Présentation de la structure d'un article médical
+- Statistique: méthode scientifique pour rendre les données compréhensibles afin de tirer des conclusions pertinentes (ex du cholera avec john snow). Quatre étapes
+        - statistique descriptive
+        - statistique inférentielle
+        - modélisation
+- domaines connexes: astronomie (Neptune), Big Data, sondages d'opinion, démographie, épidémiologie, cartographie, pharmacologie...
+- les données: matière première du statisticien
+- cas clinique: Births
+        - description des variables
+        - paramètres de position et de dispersion: moyenne, variance, écart-type, médiane
+        - représentation graphique
+        - corrélation
+        - comparaison de deux groupes: les tests  d'hypothèse
+        - ANOVA
+
 births Births in a London Hospital
 ==================================
 
