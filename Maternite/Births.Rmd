@@ -33,7 +33,7 @@ births Births in a London Hospital
 
 Description
 -----------
-Données provenant de 500 singleton births dans un hôpital de Londres.
+Données provenant de 500 naissances uniques (singleton births) dans un hôpital de Londres.
 
 Origine: données __Births__ du pacfage __epi__.
 
@@ -72,6 +72,7 @@ Exploration des données
 ```{r births,echo=FALSE,comment=""}
 library("Epi")
 data(births)
+head(births)
 str(births)
 births$sex <- as.factor(births$sex)
 births$hyp <- as.factor(births$hyp)
