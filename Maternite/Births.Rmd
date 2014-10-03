@@ -87,6 +87,18 @@ aterme <- births[births$preterm==0,]
 hist(premature$bweight)
 hist(aterme$bweight)
 
+# age maternel
+summary(births$matage)
+
+attach(births)
+
+hist(births$matage, main = "Histogramme de l'age maternel", ylab="nombre", xlab="Age (années)", col="gray", border="white")
+mean_matage <- mean(births$matage)
+sd_matage <- sd(births$matage)
+x <- seq(23, 43, 0.1)
+lines(x, dnorm(x, mean(matage), sd(matage)) * 1000, type = "l", col="blue")
+
+
 w <- seq(500, 5000, le=100)
 plot(w, dnorm(w,mean(aterme$bweight, na.rm=T),sd(aterme$bweight, na.rm=T)), xlim = c(500, 5000), type = "l")
 lines(w, dnorm(w,mean(premature$bweight, na.rm=T),sd(premature$bweight, na.rm=T)), xlim = c(500, 5000))
