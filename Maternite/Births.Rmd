@@ -2,7 +2,14 @@
 title: "Maternite"
 author: "JcB"
 date: "17/08/2014"
-output: word_document
+output:
+  html_document:
+    fig_caption: yes
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+  word_document:
+    fig_caption: yes
 ---
 
 source:
@@ -80,12 +87,14 @@ births$preterm <- as.factor(births$preterm)
 births$lowbw <- as.factor(births$lowbw)
 summary(births)
 
-summary(births[births$preterm==0,])
-summary(births[births$preterm==1,])
+aterme <- births[births$preterm==0,]
+preterm <- births[births$preterm==1,]
+summary(aterme)
+summary(preterm)
 premature <- births[births$preterm==1,]
 aterme <- births[births$preterm==0,]
 hist(premature$bweight)
-hist(aterme$bweight)
+hist(aterme$bweight, main="Histogramme des poids des enfants nés à terme", ylab="Fréquence", xlab="poids (grammes)", col="lightblue", border="white")
 
 # age maternel
 summary(births$matage)
@@ -100,10 +109,81 @@ lines(x, dnorm(x, mean(matage), sd(matage)) * 1000, type = "l", col="blue")
 
 
 w <- seq(500, 5000, le=100)
-plot(w, dnorm(w,mean(aterme$bweight, na.rm=T),sd(aterme$bweight, na.rm=T)), xlim = c(500, 5000), type = "l")
-lines(w, dnorm(w,mean(premature$bweight, na.rm=T),sd(premature$bweight, na.rm=T)), xlim = c(500, 5000))
+m1 <- mean(aterme$bweight, na.rm=T)
+sd1 <- sd(aterme$bweight, na.rm=T)
+m2 <- mean(premature$bweight, na.rm=T)
+sd2 <- sd(premature$bweight, na.rm=T)
+
+plot(w, dnorm(w, m1, sd1), xlim = c(500, 5000), type = "l", xlab="", ylab="", axes=0)
+lines(c(m1, m1), c(-1, dnorm(m1, m1, sd1)), lty=2)
+lines(w, dnorm(w, m2, sd(premature$bweight, na.rm=T)), xlim = c(500, 5000))
+lines(c(m2, m2), c(-1, dnorm(m2, m2, sd2)), lty=2)
+axis(side = 1)
+title(main="Poids des enfants prématurés et nés à terme", xlab="Poids (grammes)", ylab="")
+
+# corrélation
+d <- cor.test(births$bweight, births$gestwks, use="pairwise.complete.obs")
+d
+plot(births$bweight, births$gestwks, xlab="Poids de naissance (grammes)", ylab="Semaines gestationnelles", main="Corrélation poids-durée de gestation")
+abline(lm(births$gestwks ~ births$bweight))
+
+plot(births$bweight, births$gestwks, xlab="Poids de naissance (grammes)", ylab="Semaines gestationnelles", main="Corrélation poids-durée de gestation", col = ifelse(births$sex == 1, "red", "blue"))
+abline(lm(births$gestwks ~ births$bweight))
+legend("bottomright", legend=c("filles","garçons"), col=c("blue", "red"), pch=1, bty="n")
+
+# garçon plous lourds que les filles ?
+boxplot(births$bweight ~ births$sex, col=c("lightblue", "pink"), names=c("Garçons", "Filles"), ylab="Poids de naissance (grammes)", main="Poids selon de sexe")
+
+t.test(births$bweight ~ births$sex)
 
 ```
 
+test d'indépendance du chi2
+---------------------------
+un poids faible à la naissance est idépendant de présence d'une HTA chez la mère ?
+```{r chi2, comment=""}
+library(epicalc)
+
+t <- table(births$lowbw, births$hyp, dnn=c("Poids faible", "HTA gravidique"))
+colnames(t) <- c("non","oui")
+rownames(t) <- c("non","oui")
+addmargins(t)
+t
+c2 <- chisq.test(t)
+c2
+round(100*c2$residuals^2/c2$statistic, 1)
+round(100*c2$residuals, 1)
+
+cc(births$lowbw, births$hyp)
+
+```
+
+Phenobarb (nlme)
+=================
+
+Format
+This data frame contains the following columns:
+Subject an ordered factor identifying the infant.
+Wt a numeric vector giving the birth weight of the infant (kg).
+Apgar an ordered factor giving the the 5-minute Apgar score for the infant. This is an indication
+of health of the newborn infant.
+ApgarInd a factor indicating whether the 5-minute Apgar score is < 5 or >= 5.
+time a numeric vector giving the time when the sample is drawn or drug administered (hr).
+dose a numeric vector giving the dose of drug administered (ug/kg).
+conc a numeric vector giving the phenobarbital concentration in the serum (ug/L).
+
+Details
+
+Data from a pharmacokinetics study of phenobarbital in neonatal infants. During the first few days
+of life the infants receive multiple doses of phenobarbital for prevention of seizures. At irregular
+intervals blood samples are drawn and serum phenobarbital concentrations are determined. The
+data were originally given in Grasela and Donn(1985) and are analyzed in Boeckmann, Sheiner and
+Beal (1994), in Davidian and Giltinan (1995), and in Littell et al. (1996)
+
+```{r}
+library(nlme)
+d <- Phenobarb
+str(d)
+```
 
 
