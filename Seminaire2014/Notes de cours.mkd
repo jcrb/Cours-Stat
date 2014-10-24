@@ -1,0 +1,141 @@
+Quand et comment mettre en œuvre une démarche de recherche quantitative ?
+=========================================================================
+
+Quantitative psychological research
+-----------------------------------
+
+[Wkipedia](http://www.wikiwand.com/en/Quantitative_psychological_research)
+
+La recherche en psychologie quantitative est définie comme la recherche psychologique qui effectue la modélisation mathématique et l'estimation statistique ou l'inférence statistique ou un moyen de tester des théories objectives en examinant la relation entre les variables [1] La première définition distingue de la recherche psychologique qualitative. Cependant, il ya eu un long débat sur la différence entre la recherche quantitative et qualitative. Il a été soutenu que, puisque ce Discussion n'a pas trouvé une fin, les différences sont assez que la recherche quantitative et qualitative est précieux de façon que les deux doivent être utilisés dans la collecte de données. [2]
+
+Statistiques est largement utilisé dans la recherche en psychologie quantitative. Typiquement, un projet commence par la collecte de données basées sur une théorie ou une hypothèse, suivi par l'application de méthodes statistiques descriptives ou inférentielles. Souvent, il est nécessaire de recueillir un très grand volume de données, qui nécessitent la validation, la vérification et l'enregistrement. Les logiciels tels que le [PPSP](http://www.wikiwand.com/en/PSPP) et R sont habituellement utilisés à cette fin, et pour une analyse ultérieure. Les relations causales sont étudiés par des facteurs qui peuvent influer sur les phénomènes d'intérêt tout en contrôlant d'autres variables pertinentes pour les résultats expérimentaux manipuler. Les chercheurs pourraient mesurer et étudier la relation entre l'éducation et les effets psychologiques mesurables, tout en contrôlant d'autres variables clés. Enquêtes basées quantitativement sont largement utilisés par les psychologues et les statistiques telles que la proportion des répondants qui affichent un ou plusieurs traits psychologiques signalés. Dans ces enquêtes, les répondants sont invités une série de questions structurées et leurs réponses sont compilées. Le logiciel peut ensuite réaliser une analyse de corrélation ou d'autres procédures sur les données. Les sondages sont un exemple courant de la façon dont les statistiques et la recherche quantitative sont utilisés pour recueillir des données. [1]
+
+La recherche quantitative tombe dans la catégorie des études empiriques (ou études statistiques). Les modèles de recherche comprennent des études expérimentales, des études quasi-expérimentales, les dessins pré-test-postest, et d'autres. Randomisation, le contrôle de variables, et valables, des mesures fiables sont utilisées pour rapporter les résultats de l'objet plus petit bassin de la population. [3]
+
+__PSPP__ est un logiciel de statistiques utilisé pour l'analyse d'échantillons. C’est un logiciel libre, maintenu par le projet GNU, et distribué selon les termes de la licence publique générale GNU
+
+
+Quantitative marketing research
+-------------------------------
+[From Wikipedia, the free encyclopedia](http://www.wikiwand.com/en/Quantitative_marketing_research)
+
+La recherche quantitative en marketing est l'application de techniques de recherche quantitative pour le domaine du marketing. Il a des racines à la fois dans la vision positiviste du monde, et le point de vue du marketing moderne que le marketing est un processus interactif dans lequel l'acheteur et le vendeur parvenir à un accord satisfaisant sur ​​les «quatre P» du marketing: produit, prix, place (lieu ) et la promotion.
+
+En tant que méthode de recherche sociale, il implique généralement la construction des questionnaires et des échelles. Les personnes qui répondent (répondants) sont invités à remplir le questionnaire. Marketers utilisent les informations ainsi obtenues pour comprendre les besoins des individus sur le marché, et de créer des stratégies et des plans de marketing.
+
+Procédure générale typique
+
+En résumé, il y a cinq étapes majeures et importantes impliquées dans le processus de recherche:
+
+     1. Définir le problème.
+     2. Concevoir le protocole de recherche.
+     3. La collecte des données.
+     4. L'analyse des données.
+     5. Rédiger rapport et présentation.
+
+Une brève discussion sur ces étapes est:
+
+     1. définition du problème - Quel est le problème? Quels sont les différents aspects du problème? Quelles sont les informations nécessaires?
+     
+     2. Conceptualisation et l'opérationnalisation - Comment définissons-nous exactement les concepts impliqués? Comment traduire ces concepts en comportements observables et mesurables?
+     
+     3. Spécification de l'hypothèse - Qu'est-ce que nous voulons exactement tester?
+     
+     4. Spécification de conception de la recherche - Quel type de méthodologie à utiliser? - Exemples: questionnaires, sondages
+     
+     5. Spécification Question - Quelles sont les questions à poser? Dans quel ordre?
+     
+     6. Spécification de l'échelle - Comment préférences être évalués?
+     
+     7. Spécification de conception d'échantillonnage - Quelle est la population totale? Taille de l'échantillon est nécessaire pour cette population? Quelle méthode d'échantillonnage à utiliser - exemples: Probabilité d'échantillonnage: - (échantillonnage en grappes, échantillonnage stratifié, échantillonnage aléatoire simple, l'échantillonnage multiple, l'échantillonnage systématique) et non probabiliste échantillonnage: - (échantillonnage de commodité, le jugement d'échantillonnage, échantillonnage raisonné, quotas, l'échantillonnage boule de neige , etc)
+     
+     8. La collecte de données - Utilisation courrier, téléphone, internet, l'interception de centres commerciaux
+     
+     9. Codification et respécification - faire des ajustements pour les données brutes il est donc compatible avec les techniques statistiques et avec les objectifs de la recherche - exemples: attribution des numéros, des contrôles de cohérence, substitutions, délétions, pondération, les variables muettes, des transformations d'échelle, la normalisation à l'échelle
+     
+     10. L'analyse statistique - Effectuer diverses techniques descriptives et déductives (voir ci-dessous) sur les données brutes. Faire des inférences à partir de l'échantillon à l'ensemble de la population. Testez les résultats de signification statistique.
+     
+     11. Interpréter et intégrer les résultats - Que signifient les résultats? Quelles conclusions peut-on tirer? Comment ces résultats se rapportent à des recherches similaires?
+     
+     12.Rédiger le rapport de recherche - Rapport a généralement des rubriques telles que: 
+     1) résumé; 
+     2) les objectifs; 
+     3) la méthodologie; 
+     4) principales conclusions; 
+     5) des cartes détaillées et des diagrammes. 
+Présenter le rapport au client lors d'une présentation de 10 minutes. Soyez prêt pour les questions.
+
+L'étape de la conception peut s'agir d'une étude pilote afin de découvrir tous les problèmes cachés. Les étapes de codification et d'analyse sont généralement effectuées par ordinateur, en utilisant un logiciel statistique. Les étapes de la collecte de données, peuvent dans certains cas être automatisées, mais nécessitent souvent la main-d'oeuvre importante à entreprendre. L'interprétation est une compétence maîtrisée que par l'expérience.
+
+     
+
+Statistics: An Introduction Using R
+-----------------------------------
+
+source: Statistics: An Introduction Using R, Second Edition. Michael J. Crawley.
+© 2015 John Wiley & Sons, Ltd. Published 2015 by John Wiley & Sons, Ltd.
+
+La partie la plus difficile de tout le travail statistique est de commencer. Et l'une des choses les plus difficiles pour commencer est de choisir le bon type d'analyse statistique. Le choix dépend de la nature de vos données et de la question particulière à laquelle vous essayez de répondre. 
+La vérité est qu' il n'existe aucun substitut à l'expérience: le moyen de savoir ce qu'il faut faire, c'est d'avoir fait correctement beaucoup de fois avant.
+
+La clé est de comprendre quel type de variable réponse vous avez, et de connaître la
+la nature de vos variables explicatives. La variable à expliquer (response variable) est la chose sur laquelle vous travaillez: c'est la variable dont vous essayez de comprendre les variations.. C'est celle qui va figurer sur l'axe des Y du graphique (ordonnée).
+ 
+La variable explicative va sur l'axe des x du  graphique (en abscisse); 
+
+Ce qui vous intéresse c'est dans quelle mesure la variation de la variable à expliquer est associé à une variation de la variable explicative.
+
+Une mesure continue est un variables comme la taille ou le poids qui peut prendre n'importe quelle valeur réelle. 
+
+Une variable catégorielle est un facteur de deux ou plusieurs niveaux: le sexe est un facteur à deux niveaux (hommes et femmes), et arc-en- pourrait être un facteur de sept niveaux (rouge, orange, jaune, vert, bleu, indigo, violet).
+
+A partir de la il est essentiel de définir
+- laquelle de vos variables est celle à expliquer
+- quelles sont les variables qui l'expliquent ?
+- est-ce que les variables explicatves sont continues, catégorielles ou un mélange des deux ?
+- quel est la nature de la variable à expliquer: une mesure continue, un décompte (count), une proportion, une durée de survie, une catégorie ?
+
+Les réponses permettent d'orienter le choix de la méthode statistique:
+
+variable explicative |  type de méthode
+-----------------------|-----------------
+(a) toutes les variables sont continues  |  Régression
+(b) toutes les variables sont catégorielles  |  Analyse de la variance (ANOVA)
+(c) certaines variables sont continues, d'autres sont catégorielles  |  Analyse de la covariance (ANCOVA)
+
+
+variable expliquée  |  type de méthode
+--------------------|-----------------
+(a) Continuous  |  Regression, ANOVA or ANCOVA
+(b) Proportion  |  Logistic regression
+(c) Count  |  Log linear models
+(d) Binary  |  Binary logistic analysis
+(e) Time at death  |  Survival analysis
+
+tout Variable
+
+Si vous mesurez la même chose deux fois, vous obtiendrez deux réponses différentes. Si vous mesurez
+la même chose à plusieurs reprises, vous obtiendrez des réponses différentes parce que la chose sera
+ont vieilli. Si vous mesurez des individus différents, ils diffèrent à la fois génétique et
+des raisons environnementales (nature et culture). L'hétérogénéité est universel: hétéro spatiale
+généité signifie que les lieux sont toujours différentes, et signifie hétérogénéité temporelle que les temps
+toujours différentes.
+Parce que tout varie, trouver que les choses varient n'est tout simplement pas intéressant. Nous avons besoin d'un
+moyen de discrimination entre la variation qui est scientifiquement intéressant, et variation
+reflète simplement fond hétérogénéité. C'est pourquoi vous avez besoin de statistiques. C'est ce que cet ensemble
+livre est sur.
+Le concept clé est le degré de variation que nous nous attendons à produire par hasard
+seul, quand rien scientifiquement intéressant se passait. Si nous mesurons plus grand différence
+rences que nous pourrions nous attendre par hasard, nous disent que le résultat est statistiquement significatif. Si nous
+pas mesurer plus de variation que nous pourrions raisonnablement s'attendre à se produire par hasard, alors
+nous disons que notre résultat n'est pas statistiquement significative. Il est important de comprendre que ce n'est
+pas-à-dire que le résultat n'est pas important. Différences non significatives dans la durée de la vie humaine
+entre deux traitements médicamenteux peuvent être massivement importante (surtout si vous êtes patient
+impliqués). Non significatif n'est pas la même chose que «pas différente». Le manque de signification peut être
+simplement due au fait que notre réplication est trop faible.
+D'autre part, quand rien ne va vraiment sur​​, nous voulons le savoir. Il fait
+la vie beaucoup plus simple si nous pouvons être raisonnablement sûr qu'il n'y a pas de relation entre y et x.
+Certains étudiants pensent que «le seul bon résultat est un résultat significatif». Ils estiment que leur
+étude a échoué quelque part si elle montre que «A n'a pas d'effet significatif sur B '.
+
+
