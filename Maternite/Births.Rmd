@@ -14,7 +14,7 @@ output:
 
 source:
 
-- package __epi__
+- package __Epi__
 - Gebolini Christophe: [Lire, compter, tester... avec R](http://cran.r-project.org/doc/contrib/Genolini-LireCompterTesterR.pdf)
 
 Plan
@@ -162,28 +162,48 @@ Phenobarb (nlme)
 =================
 
 Format
-This data frame contains the following columns:
-Subject an ordered factor identifying the infant.
-Wt a numeric vector giving the birth weight of the infant (kg).
-Apgar an ordered factor giving the the 5-minute Apgar score for the infant. This is an indication
-of health of the newborn infant.
-ApgarInd a factor indicating whether the 5-minute Apgar score is < 5 or >= 5.
-time a numeric vector giving the time when the sample is drawn or drug administered (hr).
-dose a numeric vector giving the dose of drug administered (ug/kg).
-conc a numeric vector giving the phenobarbital concentration in the serum (ug/L).
+------
+Ce data frame contient les colonnes suivantes:
+
+- _Subject_ un facteur ordonnépour identifier les enfants.
+- _Wt_ un vecteur numérique indiquant le poids de naissance de l'enfant (kg).
+- _Apgar_ un facteur ordonnéindiquant le score d'Apgar à 5 minutes. C'est une indication de l'état de santé de l'enfant.
+- _ApgarInd_ un facteur indiquant si le score d'Apgar à 5 mn est < 5 ou >= 5.
+- _time_ un vecteur numérique donnant le temps où l'échantillon est prélevé ou le médicament administré (hr).
+- _dose_ un vecteur numérique donnant la dose de médicament administrée (ug/kg).
+- _conc_ un vecteur numérique donnant la concentration de phenobarbital dans le serum (ug/L).
 
 Details
+-------
 
-Data from a pharmacokinetics study of phenobarbital in neonatal infants. During the first few days
-of life the infants receive multiple doses of phenobarbital for prevention of seizures. At irregular
-intervals blood samples are drawn and serum phenobarbital concentrations are determined. The
-data were originally given in Grasela and Donn(1985) and are analyzed in Boeckmann, Sheiner and
-Beal (1994), in Davidian and Giltinan (1995), and in Littell et al. (1996)
-
+Données d'une étude de pharmacocinétique du phénobarbital chez les nouveau-nés. Au cours des premiers jours
+de la vie les enfants reçoivent plusieurs doses de phénobarbital pour la prévention des crises convulsives.
+Des échantillons de sang sont prélevés de manière irrégulière et les concentrations sériques de phénobarbital sont déterminées.
+Les données ont été initialement donnés par Grasela et Donn (1985) et sont analysés dans Boeckmann, Sheiner et
+Beal (1994), dans Davidian et Giltinan (1995), et en Littell et al. (1996).
 ```{r}
 library(nlme)
 d <- Phenobarb
 str(d)
 ```
 
+Courbe normale
+==============
 
+ref: Practical data science pp 334-335.
+
+```{r courbe_normale}
+library(ggplot2)
+x <- seq(from=-5, to=5, length.out = 100)  # intervalle [-5 à 5]
+f <- dnorm(x)                              # loi normale de moyenne 0 et sd = 1
+ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line()
+
+ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line() + geom_vline(xintercept=c(-3,-2,-1,1,2,3), linetype=2)
+
+```
+
+- 68% des observations sont dans l'intervalle (m - sd, m + sd)
+- 95% des observations sont dans l'intervalle (m - 2*sd, m + 2*sd)
+- 99% des observations sont dans l'intervalle (m - 3*sd, m + 3*sd)
+
+Une observation se situant à plus de 3 ecart-type est anormale.

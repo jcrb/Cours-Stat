@@ -99,52 +99,52 @@ The following object is masked from 'package:base':
 ```
 
 ```
-       id         bweight     lowbw      gestwks     preterm   
- Min.   :  1   Min.   : 628   0:440   Min.   :24.7   0   :427  
- 1st Qu.:126   1st Qu.:2862   1: 60   1st Qu.:37.9   1   : 63  
- Median :250   Median :3188           Median :39.1   NA's: 10  
- Mean   :250   Mean   :3137           Mean   :38.7             
- 3rd Qu.:375   3rd Qu.:3551           3rd Qu.:40.1             
- Max.   :500   Max.   :4553           Max.   :43.2             
-                                      NA's   :10               
-     matage   hyp     sex    
- Min.   :23   0:428   1:264  
- 1st Qu.:31   1: 72   2:236  
- Median :34                  
- Mean   :34                  
- 3rd Qu.:37                  
- Max.   :43                  
-                             
+       id           bweight     lowbw      gestwks      preterm   
+ Min.   :  1.0   Min.   : 628   0:440   Min.   :24.69   0   :427  
+ 1st Qu.:125.8   1st Qu.:2862   1: 60   1st Qu.:37.94   1   : 63  
+ Median :250.5   Median :3188           Median :39.12   NA's: 10  
+ Mean   :250.5   Mean   :3137           Mean   :38.72             
+ 3rd Qu.:375.2   3rd Qu.:3551           3rd Qu.:40.09             
+ Max.   :500.0   Max.   :4553           Max.   :43.16             
+                                        NA's   :10                
+     matage      hyp     sex    
+ Min.   :23.00   0:428   1:264  
+ 1st Qu.:31.00   1: 72   2:236  
+ Median :34.00                  
+ Mean   :34.03                  
+ 3rd Qu.:37.00                  
+ Max.   :43.00                  
+                                
 ```
 
 ```
-       id         bweight      lowbw        gestwks     preterm   
- Min.   :  1   Min.   :1546   0   :406   Min.   :37.0   0   :427  
- 1st Qu.:124   1st Qu.:2980   1   : 21   1st Qu.:38.5   1   :  0  
- Median :250   Median :3282   NA's: 10   Median :39.5   NA's: 10  
- Mean   :250   Mean   :3281              Mean   :39.4             
- 3rd Qu.:377   3rd Qu.:3582              3rd Qu.:40.2             
- Max.   :500   Max.   :4553              Max.   :43.2             
- NA's   :10    NA's   :10                NA's   :10               
-     matage       hyp        sex     
- Min.   :23.0   0   :375   1   :225  
- 1st Qu.:32.0   1   : 52   2   :202  
- Median :34.0   NA's: 10   NA's: 10  
- Mean   :34.1                        
- 3rd Qu.:37.0                        
- Max.   :43.0                        
- NA's   :10                          
+       id           bweight      lowbw        gestwks      preterm   
+ Min.   :  1.0   Min.   :1546   0   :406   Min.   :37.04   0   :427  
+ 1st Qu.:124.5   1st Qu.:2980   1   : 21   1st Qu.:38.47   1   :  0  
+ Median :250.0   Median :3282   NA's: 10   Median :39.49   NA's: 10  
+ Mean   :249.9   Mean   :3281              Mean   :39.39             
+ 3rd Qu.:377.0   3rd Qu.:3582              3rd Qu.:40.24             
+ Max.   :500.0   Max.   :4553              Max.   :43.16             
+ NA's   :10      NA's   :10                NA's   :10                
+     matage        hyp        sex     
+ Min.   :23.00   0   :375   1   :225  
+ 1st Qu.:32.00   1   : 52   2   :202  
+ Median :34.00   NA's: 10   NA's: 10  
+ Mean   :34.08                        
+ 3rd Qu.:37.00                        
+ Max.   :43.00                        
+ NA's   :10                           
 ```
 
 ```
-       id         bweight      lowbw       gestwks     preterm  
- Min.   : 22   Min.   : 628   0   :25   Min.   :24.7   0   : 0  
- 1st Qu.:166   1st Qu.:1606   1   :38   1st Qu.:32.7   1   :63  
- Median :240   Median :2404   NA's:10   Median :35.1   NA's:10  
- Mean   :255   Mean   :2169             Mean   :34.2            
- 3rd Qu.:360   3rd Qu.:2684             3rd Qu.:36.3            
- Max.   :479   Max.   :3606             Max.   :37.0            
- NA's   :10    NA's   :10               NA's   :10              
+       id           bweight      lowbw       gestwks      preterm  
+ Min.   : 22.0   Min.   : 628   0   :25   Min.   :24.69   0   : 0  
+ 1st Qu.:166.0   1st Qu.:1606   1   :38   1st Qu.:32.72   1   :63  
+ Median :240.0   Median :2404   NA's:10   Median :35.14   NA's:10  
+ Mean   :254.8   Mean   :2169             Mean   :34.17            
+ 3rd Qu.:360.5   3rd Qu.:2684             3rd Qu.:36.31            
+ Max.   :479.0   Max.   :3606             Max.   :36.99            
+ NA's   :10      NA's   :10               NA's   :10               
      matage       hyp       sex    
  Min.   :24.0   0   :44   1   :31  
  1st Qu.:31.0   1   :19   2   :32  
@@ -155,11 +155,11 @@ The following object is masked from 'package:base':
  NA's   :10                        
 ```
 
-![plot of chunk births](./Births_files/figure-html/births1.png) ![plot of chunk births](./Births_files/figure-html/births2.png) 
+![](./Births_files/figure-html/births-1.png) ![](./Births_files/figure-html/births-2.png) 
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-     23      31      34      34      37      43 
+  23.00   31.00   34.00   34.03   37.00   43.00 
 ```
 
 ```
@@ -168,36 +168,36 @@ The following object is masked _by_ .GlobalEnv:
     preterm
 ```
 
-![plot of chunk births](./Births_files/figure-html/births3.png) ![plot of chunk births](./Births_files/figure-html/births4.png) 
+![](./Births_files/figure-html/births-3.png) ![](./Births_files/figure-html/births-4.png) 
 
 ```
 
 	Pearson's product-moment correlation
 
 data:  births$bweight and births$gestwks
-t = 22.41, df = 488, p-value < 2.2e-16
+t = 22.4135, df = 488, p-value < 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.6656 0.7533
+ 0.6656286 0.7532743
 sample estimates:
-   cor 
-0.7122 
+      cor 
+0.7122162 
 ```
 
-![plot of chunk births](./Births_files/figure-html/births5.png) ![plot of chunk births](./Births_files/figure-html/births6.png) ![plot of chunk births](./Births_files/figure-html/births7.png) 
+![](./Births_files/figure-html/births-5.png) ![](./Births_files/figure-html/births-6.png) ![](./Births_files/figure-html/births-7.png) 
 
 ```
 
 	Welch Two Sample t-test
 
 data:  births$bweight by births$sex
-t = 3.492, df = 492.9, p-value = 0.0005233
+t = 3.4916, df = 492.914, p-value = 0.0005233
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
-  86.17 307.97
+  86.17495 307.96706
 sample estimates:
 mean in group 1 mean in group 2 
-           3230            3033 
+       3229.902        3032.831 
 ```
 
 test d'indépendance du chi2
@@ -252,7 +252,7 @@ c2
 	Pearson's Chi-squared test with Yates' continuity correction
 
 data:  t
-X-squared = 18.12, df = 1, p-value = 2.073e-05
+X-squared = 18.1213, df = 1, p-value = 2.073e-05
 ```
 
 ```r
@@ -281,7 +281,7 @@ Poids faible    non    oui
 cc(births$lowbw, births$hyp)
 ```
 
-![plot of chunk chi2](./Births_files/figure-html/chi2.png) 
+![](./Births_files/figure-html/chi2-1.png) 
 
 ```
 
@@ -301,24 +301,25 @@ Phenobarb (nlme)
 =================
 
 Format
-This data frame contains the following columns:
-Subject an ordered factor identifying the infant.
-Wt a numeric vector giving the birth weight of the infant (kg).
-Apgar an ordered factor giving the the 5-minute Apgar score for the infant. This is an indication
-of health of the newborn infant.
-ApgarInd a factor indicating whether the 5-minute Apgar score is < 5 or >= 5.
-time a numeric vector giving the time when the sample is drawn or drug administered (hr).
-dose a numeric vector giving the dose of drug administered (ug/kg).
-conc a numeric vector giving the phenobarbital concentration in the serum (ug/L).
+------
+Ce data frame contient les colonnes suivantes:
+
+- _Subject_ un facteur ordonnépour identifier les enfants.
+- _Wt_ un vecteur numérique indiquant le poids de naissance de l'enfant (kg).
+- _Apgar_ un facteur ordonnéindiquant le score d'Apgar à 5 minutes. C'est une indication de l'état de santé de l'enfant.
+- _ApgarInd_ un facteur indiquant si le score d'Apgar à 5 mn est < 5 ou >= 5.
+- _time_ un vecteur numérique donnant le temps où l'échantillon est prélevé ou le médicament administré (hr).
+- _dose_ un vecteur numérique donnant la dose de médicament administrée (ug/kg).
+- _conc_ un vecteur numérique donnant la concentration de phenobarbital dans le serum (ug/L).
 
 Details
+-------
 
-Data from a pharmacokinetics study of phenobarbital in neonatal infants. During the first few days
-of life the infants receive multiple doses of phenobarbital for prevention of seizures. At irregular
-intervals blood samples are drawn and serum phenobarbital concentrations are determined. The
-data were originally given in Grasela and Donn(1985) and are analyzed in Boeckmann, Sheiner and
-Beal (1994), in Davidian and Giltinan (1995), and in Littell et al. (1996)
-
+Données d'une étude de pharmacocinétique du phénobarbital chez les nouveau-nés. Au cours des premiers jours
+de la vie les enfants reçoivent plusieurs doses de phénobarbital pour la prévention des crises convulsives.
+Des échantillons de sang sont prélevés de manière irrégulière et les concentrations sériques de phénobarbital sont déterminées.
+Les données ont été initialement donnés par Grasela et Donn (1985) et sont analysés dans Boeckmann, Sheiner et
+Beal (1994), dans Davidian et Giltinan (1995), et en Littell et al. (1996).
 
 ```r
 library(nlme)
@@ -348,4 +349,29 @@ str(d)
 ##  - attr(*, "order.groups")= logi TRUE
 ```
 
+Courbe normale
+==============
 
+ref: Practical data science pp 334-335.
+
+
+```r
+library(ggplot2)
+x <- seq(from=-5, to=5, length.out = 100)  # intervalle [-5 à 5]
+f <- dnorm(x)                              # loi normale de moyenne 0 et sd = 1
+ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line()
+```
+
+![](./Births_files/figure-html/courbe_normale-1.png) 
+
+```r
+ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line() + geom_vline(xintercept=c(-3,-2,-1,1,2,3), linetype=2)
+```
+
+![](./Births_files/figure-html/courbe_normale-2.png) 
+
+- 68% des observations sont dans l'intervalle (m - sd, m + sd)
+- 95% des observations sont dans l'intervalle (m - 2*sd, m + 2*sd)
+- 99% des observations sont dans l'intervalle (m - 3*sd, m + 3*sd)
+
+Une observation se situant à plus de 3 ecart-type est anormale.

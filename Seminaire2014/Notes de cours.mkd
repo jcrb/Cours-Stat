@@ -138,4 +138,29 @@ la vie beaucoup plus simple si nous pouvons être raisonnablement sûr qu'il n'y
 Certains étudiants pensent que «le seul bon résultat est un résultat significatif». Ils estiment que leur
 étude a échoué quelque part si elle montre que «A n'a pas d'effet significatif sur B '.
 
+Organiser son travail
+=====================
 
+source: [microsimulation](http://robinlovelace.net/spatial-microsim-book/)
+
+Chaque projet doit avoir son propre dossier autonome contenant tout ce qui est nécessaire pour reproduire l'analyse, à l'exception peut-être de grands ensembles de données (DATASET). Cela pourrait inclure les données brutes initiales (inchangées), le code R pour l'analyse, les sorties graphiques et les fichiers  contenant les résultats de l'analyse. Pour clarifier le travail en cours, il est judicieux d'organiser ce contenu dans des dossiers, comme illustré ci-dessous (merci à Colin Gillespie pour cette astuce):
+```
+|-- book.Rmd
+|-- data
+|-- figures
+|-- output
+|-- R
+|   |-- load.R
+|   `-- parallel-ipfp.R
+`-- spatial-microsim-book.Rproj
+```
+Il contient le document pour la rédaction (book.Rmd - ce pourrait aussi être un fichier .docx ou .tex) et le fichier .Rproj de RStudio dans le répertoire source. Lee autres entités sont des dossiers: un pour les données d'entrée, une pour les figures générées, un pour les données produites et l'autre pour les scripts R. Les scripts de R devraient avoir des noms significatifs et ne comporter que du code qui fonctionne et est commenté. Un répertoire de sauvegarde supplémentaire pourrait être utilisé pour stocker du code expérimental. 
+Il n'y a pas d'obligation à respecter cette structure, mais des projets à utilisant des microdonnées spatiales ont tendance à être complexes de sorte qu'une organisation précoce du travail est un gain de temps et d'efficacité à long terme.
+
+
+Les données brutes doivent être conservées en toute sécurité sur un disque dur externe ou un serveur si elles sont importantes ou sensibles.
+
+Qu'est-ce que la micro-simulation spatiale?
+--------------------------------------------
+
+Microsimulation spatiale est une technique statistique de répartition des individus sur de zones administratives à partir de données d'enquête , basées sur des variables partagées entre une superficie et des données individuelles. Comme avec beaucoup d'expressions nouvelles et rarement utilisés, cette définition n'est pas partagée par tout le monde. Le sens de microsimulation spatiale varie selon le contexte et qui pose la question. Pour un économiste, microsimulation spatiale est susceptible d'impliquer une sorte de modélisation de processus temporel comme la façon individuelle des agents dans différents domaines répondre à l'évolution des prix ou des politiques. Pour un planificateur de transport, le terme peut impliquer la simulation de mouvements précis de véhicules sur le réseau de transport. Pour votre voisin d'à côté, cela peut signifier que vous avez commencé charabia parlant! D'où la nécessité de réfléchir à ce microsimulation spatiale est, et ce qu'il est pas, dès le départ.

@@ -1,0 +1,112 @@
+Datas
+=====
+
+[1] [Data Cleaning is a critical part of the Data Science process](http://blog.revolutionanalytics.com/2014/08/data-cleaning-is-a-critical-part-of-the-data-science-process.html)
+==========================================
+
+it’s an absolute myth that you can send an algorithm over raw data and have insights pop up (Jeffrey Heer, professor of computer science at the University of Washington)
+
+c'est est un mythe absolu selon lequel vous pouvez envoyer un algorithme sur des données brutes et avoir des idées qui en jaillissent.
+
+Cleaning up data to the point where you can work with it is a huge amount of work. If you’re trying to reconcile a lot of sources of data that you don’t control like in this flight search example, it can take 80% of your time.
+
+Nettoyer les données jusqu'à ce que vous puissiez travailler avec elles est un énorme travail... qui peut consommer 80% de votre temps.
+NB: loi de Pareto (80/20)
+
+[2] Open Intro Stat 
+====================
+(01A_Intro_to_Data.pdf)
+Certains définissent la statistique comme le domaine qui se concentre sur la transformation de l'information en connaissance. La première étape de
+ce processus est de résumer et décrire l'information brute - les données.
+
+[3]Practical Data Science with R
+================================
+(~/Documents/Data Science)
+
+date: 2014-05-10 chapitre 2: travailler avec de très gros fichiers et une base de données. Pour illustrer, on utilise les données du recensement américain (US census) de 2011.
+Une règle 'dure' du data science est que je puisse reproduire mes propres résultats. Pour cela, la première étape est de documenter comment je me suis procuré les données. Mon cahier de notes (notebook) doit être accessible en ligne et va noter les informations suivantes:
+ORIGINE DES DONNÉES
+-------------------
+
+```
+Où ai-je trouvé les données? Il est important de noter autant de renseignements que possible sur l'adresse des données et leur documentation car les fichiers de données ne contiennent pas de liens vers la source.
+
+ACS: american community survey  
+PUMS: 
+```
+La page des données se trouve:  
+
+http://www.census.gov/acs/www/data_documentation/pums_data/
+
+```
+Comment j'ai navigué de la page d'accueil au fichier de données actuel. Quelles ont été les étapes, les licences qu'il a fallu accepter.
+```
+On y choisit le lien: 2011 ACS 1-year PUMS, puis on coche l'option _PUMS-CSV + 2011 ACS 1-year Public Use Microdata Samples (PUMS) - CSV format_.
+
+```
+noter l'adresse des fichiers
+```
+Cliquer sur _view_. Dans la lisste des liens qui s'affiche un download les deux fichiers suivants:
+
+- United States Population Records (http://www2.census.gov/acs2011_1yr/pums/csv_pus.zip)	(13 mn)
+- United States Housing Unit Records (http://www2.census.gov/acs2011_1yr/pums/csv_hus.zip)(5 mn)
+
+Les fichiers sont transférés dans le dossier __Data Science__
+
+```
+Il faut noter les caractéristiques des fichiers grâce au fonction __ls -lh__ et __shasum__ .
+La seconde méthode donne un résumé unique très concis du fichier appelé __hash__ qui est 
+un nombre unique. Si une autre personne utilise le fichier de données cela permet de vérifier 
+qu'il s'agit bien du même jeu de données.
+```
+Il faut lancer une console et se déplacer dans le dossier:
+```
+jcb@XPS:~/Documents/Data Science$ ls -lh *.zip
+
+-rw-r--r-- 1 jcb jcb 239M mai   10 19:18 csv_hus.zip
+-rw-r--r-- 1 jcb jcb 580M mai   10 19:09 csv_pus.zip
+
+jcb@XPS:~/Documents/Data Science$ shasum *.zip
+
+cdfdfb326956e202fdb560ee34471339ac8abd6c  csv_hus.zip
+aa0f4add21e327b96d9898b850e618aeca10f6d0  csv_pus.zip
+
+[4] home/jcb/Documents/R_Progamming_Hopkins/Cleaning Data
+==========================================================
+
+[5] Structure of data analysis.pdf
+===================================
+
+Étapes dans l'analyse des données
+---------------------------------
+· Définir la question de recherche
+· Définir l'ensemble de données idéal
+· Déterminer à quelles données vous pouvez avoir accès
+· Récupérer les données
+· nettoyer les données
+· Analyse exploratoire des données
+· Prédiction/modélisation des données
+· Interpréter les résultats
+· Discuter les résultats: 
+    - discuter toutes les étapes:
+        - Question
+        - Data source
+        - Processing
+        - Analysis
+        - Conclusions
+    - Challenge measures of uncertainty
+    - Challenge choices of terms to include in models
+    - Think of potential alternative analyses
+· Synthétiser/écrire les résultats
+    - Rappeler la question de recherche
+    - résumer les analyses dans le récit
+    - Ne pas inclure toutes les analyses, mais celles qui sont pertinentes pour la démonstration ou la discussion.
+    - Présenter les analyse en fonction du récit plutôt que chronologiquement
+    - inclure les figures pertinentes.
+    
+· Créer un code reproductible
+
+[6] [Tidy data](http://vita.had.co.nz/papers/tidy-data.pdf)
+===========================================================
+Hadley Wickham
+

@@ -1,0 +1,26 @@
+function OAS_RICH(position) {
+if (position == 'Middle1') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/L11/1965433147/Middle1/BMJ/bmj-wintercharityfrance-021213/Winter-Charity-french-300x250.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmj-wintercharityfrance-021213/Winter-Charity-french-300x250.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Middle2') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/L11/1349039468/Middle2/BMJ/bmj-awardsmpu-081113/BMJA-entries-MPU_for_bmj.com.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmj-awardsmpu-081113/BMJA-entries-MPU_for_bmj.com.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Position1') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/L11/2016622854/Position1/BMJ/bmjredesign-spotstest-050711/BMJ_app_140x155_01.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmjredesign-spotstest-050711/BMJ_app_140x155_01.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Position2') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/1189138422/Position2/default/empty.gif/2f45743264564c4e69376341415a526c?x" target="_top"><IMG SRC="http://imagec16.247realmedia.com/0/default/empty.gif"  WIDTH=1 HEIGHT=1 ALT="" BORDER=0 BORDER="0"></A>');
+}
+if (position == 'Position3') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/1032363627/Position3/default/empty.gif/2f45743264564c4e69376341415a526c?x" target="_top"><IMG SRC="http://imagec16.247realmedia.com/0/default/empty.gif"  WIDTH=1 HEIGHT=1 ALT="" BORDER=0 BORDER="0"></A>');
+}
+if (position == 'Right1') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/L11/1044006053/Right1/BMJ/sky-ipad-230712/BMJ_app_120x600_01.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/sky-ipad-230712/BMJ_app_120x600_01.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Right2') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/L11/1297365352/Right2/BMJ/sky-dtbsky-250811/dtb_all_120x600.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/sky-dtbsky-250811/dtb_all_120x600.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Top') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/doubleclick/DARTIframe.html/L11/1745214768/Top/BMJ/bmj-awards123weekstogo-/BMJA-3weeks-728x90.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmj-awards123weekstogo-/BMJA-3weeks-728x90.gif"  ALT=""  BORDER="0"></A>');
+}
+}

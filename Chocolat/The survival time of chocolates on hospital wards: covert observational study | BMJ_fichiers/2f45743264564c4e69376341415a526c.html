@@ -1,0 +1,234 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Advertisement</title></head><body style="margin:0px;" bgcolor="#ffffff"><script type="text/javascript">
+(function() {
+  var DEBUG = ''.toLowerCase() == 'true';
+  var csiStart = (+new Date);
+  var studioObjects = window['studioV2'] = window['studioV2'] || {};
+  var publisherSideFilePath = '';
+  if(publisherSideFilePath == '') {
+    publisherSideFilePath = '/doubleclick/DARTIframe.html';
+  } else if (publisherSideFilePath.charAt(publisherSideFilePath.length - 1) == '/') {
+    publisherSideFilePath += 'DARTIframe.html';
+  }
+  var bookingTimeMetaData = {
+  };
+
+  var runtimeMetaData = {
+  };
+
+  var exitUrlPatternMacroValues = {
+  };
+  var macroParser = function (macroName, value) {
+    return (value.indexOf(macroName) < 0) ? value : '';
+  };
+  var adServerData = {
+    eventReportingUrl: 'http://ad.doubleclick.net/activity;src=4085574;met=1;v=1;pid=96058805;aid=273009986;ko=0;cid=54613911;rid=54498892;rv=1;',
+    clickUrl: 'http://adclick.g.doubleclick.net/aclk?sa=L&ai=BZGRl2ZDNUofeEImq8AOw_YGYCgAAAAAQASAAOABQ4ouPrwdYl6-FGmD70eqC4AmCAQljYS1nb29nbGWyAQt3d3cuYm1qLmNvbcgBCdoBKGh0dHA6Ly93d3cuYm1qLmNvbS9jb250ZW50LzM0Ny9ibWouZjcxOTioAwHgBAKgBh_gBsau-QE&num=0&sig=AOD64_3PMpJfw06jmICAx5uu2X4MYE1EiA&client=&adurl=http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c%3F',
+    clickUrlTimesToEscape: '0',
+    impressionUrl: '',
+    geoData: 'ct=FR&st=&city=5022&dma=0&zp=&bw=3',
+    siteName: 'N8276.140179.BRITISHMEDICALJOURN',
+    siteId: '1399133',
+    adId: '273009986',
+    buyId: '7532870',
+    creativeId: '54613911',
+    placementId: '96058805',
+    advertiserId: '4085574',
+    keyValueOrdinal: '0',
+    renderingVersion: '1',
+    renderingId: '54498892',
+    randomNumber: '2143135256',
+    dynamicData: '',
+    stringReportingUrl: 'http://ad.doubleclick.net/activity;src=4085574;stragg=1;v=1;pid=96058805;aid=273009986;ko=0;cid=54613911;rid=54498892;rv=1;rn=2143135256;',
+    urlToGetKeywordsFor: '%LivePreviewSiteUrl',
+    bookingTimeMetaData: bookingTimeMetaData,
+    exitSuffix: macroParser('exit_suffix', ''), // XFA GA Beacon.
+    generatedAdSlot: false,
+    exitUrlPatternMacroValues: exitUrlPatternMacroValues,
+    activeViewClkStr: macroParser('eav', 'B8RC72ZDNUofeEImq8AOw_YGYCgAAAAAQATgByAEJ4AQCoAYf'),
+    tag: {
+      adContainerElementId: macroParser('ad_container_id', ''),
+      hideObjects: '',
+      top: '',
+      left: '',
+      zIndex: '',
+      duration: '',
+      wmode: '',
+      preferHtml5Artwork: '' == 'true',
+      adSenseKeywords: '',
+      adSenseLatitude: '',
+      adSenseLongitude: '',
+      publisherSideFilePath: publisherSideFilePath,
+      runtimeMetaData: runtimeMetaData,
+      lidarEnabled: false,
+      expansionMode: '',
+      renderFloatInplace: ''.toLowerCase() == 'true',
+      tryToWriteHtmlInline: ''.toLowerCase() == 'true'
+    }
+  };
+
+  var mediaServer = location.protocol == 'https:' ?
+       'https://s0.2mdn.net' :
+       'http://s0.2mdn.net';
+
+  var backupImageUrl = '/ads/richmedia/studio/23008356/23301549_20130529124505572_parachute_160x600_static.jpg';
+  if (!/^https?:/.test(backupImageUrl)) {
+    backupImageUrl = mediaServer + backupImageUrl;
+  }
+  var backupImage = {
+    exitUrl: 'http://ad.doubleclick.net/activity;src=4085574;met=1;v=1;pid=96058805;aid=273009986;ko=0;cid=54613911;rid=54498892;rv=1;cs=q;eid1=1617629;ecn1=1;etm1=0;_dc_redir=url?http://adclick.g.doubleclick.net/aclk?sa=L&ai=BZGRl2ZDNUofeEImq8AOw_YGYCgAAAAAQASAAOABQ4ouPrwdYl6-FGmD70eqC4AmCAQljYS1nb29nbGWyAQt3d3cuYm1qLmNvbcgBCdoBKGh0dHA6Ly93d3cuYm1qLmNvbS9jb250ZW50LzM0Ny9ibWouZjcxOTioAwHgBAKgBh_gBsau-QE&num=0&sig=AOD64_3PMpJfw06jmICAx5uu2X4MYE1EiA&client=&adurl=http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c%3Fhttp://www.novonordiskpro.com/',
+    target: '_blank',
+    imageUrl: backupImageUrl,
+    width: '160',
+    height: '600',
+    backupDisplayActivityUrl: [
+      adServerData.eventReportingUrl,
+      '&timestamp=', (+new Date), ';',
+      'eid1=9;ecn1=1;etm1=0;'].join(''),
+    thirdPartyBackupImpressionUrl: ''
+  };
+
+  var versionPrefix = DEBUG ? 'db_' : '';
+  var templateVersion = '200_17';
+  var renderingScriptPath = '/879366';
+  var rendererDisplayType = '';
+  rendererDisplayType += 'flash_';
+  var rendererFormat = 'expanding';
+  var rendererName = rendererDisplayType + rendererFormat;
+  var renderingLibrary = renderingScriptPath + '/' + rendererName + '_rendering_lib_' +
+      versionPrefix + templateVersion + '.js';
+  // Adserver has a logic to detect media files and prepend host name.
+  if (!/^https?:/.test(renderingLibrary)) {
+    renderingLibrary = mediaServer + renderingLibrary;
+  }
+
+  var adCreativeDefinitions = {};
+
+  var creativeId = '54613911';
+  var adId = adCreativeDefinitions[adServerData.adId] ? adServerData.adId : 0;
+  // The unique creative is identified by combination of creative id and ad id.
+  // When the same creative(same creative id and same ad id) is served on the page more
+  // than once then they will share the creative definition yet there will be
+  // multiple instances of 'adResponses'.s
+  var creativeKey = [creativeId, adId].join('_');
+  var creativeDef = adCreativeDefinitions[adServerData.adId] ?
+      adCreativeDefinitions[adServerData.adId] :
+      '/ads/richmedia/studio/creative/24009327/24009327_1a79fc896474dfa3a93158bdcacb107d_creative_def.js';
+  if(!/^https?:/.test(creativeDef)) {
+    creativeDef = mediaServer + creativeDef;
+  }
+  studioObjects['creativeCount'] = studioObjects['creativeCount'] || 0;
+  var creativeDto = {
+    id: creativeId,
+    uniqueId: creativeId + '_' + studioObjects['creativeCount']++,
+    templateVersion: templateVersion,
+    adServerData: adServerData,
+    isPreviewEnvironment: '%PreviewMode' == 'true',
+    hasFlashAsset: true,
+    hasHtmlAsset: false,
+    flashVersion: '9',
+    httpsMediaServer: 'https://s0.2mdn.net',
+    httpMediaServer: 'http://s0.2mdn.net',
+    renderingScriptPath: renderingScriptPath,
+    renderingLibrary: renderingLibrary,
+    rendererName: rendererName,
+    creativeDefinitionUrl: creativeDef,
+    creativeKey: creativeKey,
+    thirdPartyImpressionUrls: [''],
+    thirdPartyArtworkImpressionUrl: '',
+    breakoutToTop: false,
+    dimensions: {
+      width: '160px',
+      height: '600px'
+    },
+    csiStart: csiStart,
+    csiAdRespTime: csiStart - (parseFloat('') || 0),
+    csiEvents: {},
+    hasModernizrFeatureChecks: false,
+    html5FeatureChecks: [
+    ]
+  };
+
+  var inGdnIframe = window['IN_ADSENSE_IFRAME'] || false;
+  var inYahooSecureIframe = window.Y && Y.SandBox && Y.SandBox.vendor;
+  var inWinLiveIframe = false;
+  try {
+    inWinLiveIframe = !!window.$WLXRmAd;
+  } catch(e) {}
+  var inSafeFrame = window.$sf && window.$sf.ext;
+  var isMsnAjaxIframe = (typeof(inDapMgrIf) != 'undefined' && inDapMgrIf);
+  var breakoutInpage = ''.toLowerCase() == 'true';
+  var shouldBreakout = (((true ||
+                          false) &&
+                         !inGdnIframe &&
+                         !inYahooSecureIframe &&
+                         !inSafeFrame &&
+                         !inWinLiveIframe) ||
+                        (false && breakoutInpage)) &&
+                       self != top &&
+                       !creativeDto.isPreviewEnvironment;
+
+  if (adServerData.tag.adContainerElementId == '' &&
+      (false || true ||
+         adServerData.tag.renderFloatInplace)) {
+    var containerId = ['creative', creativeDto.uniqueId].join('_');
+    var divHtml = ['<div id="', containerId, '"></div>'].join('');
+    document.write(divHtml);
+    adServerData.tag.adContainerElementId = containerId;
+    adServerData.generatedAdSlot = true;
+  }
+  var creatives = studioObjects['creatives'] = studioObjects['creatives'] || {};
+  var creative = creatives[creativeKey] = creatives[creativeKey] || {};
+  var adResponses = creative['adResponses'] = creative['adResponses'] || [];
+  creative['shouldBreakout'] = creative['shouldBreakout'] || shouldBreakout;
+  var iframeBusterLibrary = renderingScriptPath + '/iframe_buster_' +
+      versionPrefix + templateVersion + '.js';
+  if(!/^https?:/.test(iframeBusterLibrary)) {
+    iframeBusterLibrary = mediaServer + iframeBusterLibrary;
+  }
+  var loadedLibraries = studioObjects['loadedLibraries'] = studioObjects['loadedLibraries'] || {};
+  var versionedLibrary = loadedLibraries[templateVersion] = loadedLibraries[templateVersion] || {};
+  var typedLibrary = versionedLibrary[rendererName] = versionedLibrary[rendererName] || {};
+  adResponses.push({
+    creativeDto: creativeDto,
+    backupImage: backupImage
+  });
+  if (shouldBreakout) {
+    if (versionedLibrary['breakout']) {
+      versionedLibrary['breakout']();
+    } else if (!versionedLibrary['breakoutLoading']) {
+      versionedLibrary['breakoutLoading'] = true;
+      document.write('<scr' + 'ipt type="text/javascript" src="' + iframeBusterLibrary + '" async="async"></scr' + 'ipt>');
+    }
+  } else if (typedLibrary['bootstrap'] && creative['creativeDefinition']) {
+    typedLibrary['bootstrap']();
+  } else {
+    if (!creative['definitionLoading']) {
+      creative['definitionLoading'] = true;
+      creativeDto.csiEvents['pb'] = (+new Date);
+      document.write('<scr' + 'ipt type="text/javascript" src="' + creativeDto.creativeDefinitionUrl + '" async="async"></scr' + 'ipt>');
+    }
+    if (!typedLibrary['loading']) {
+      typedLibrary['loading'] = true;
+      creativeDto.csiEvents['gb'] = (+new Date);
+      document.write('<scr' + 'ipt type="text/javascript" src="' + renderingLibrary + '" async="async"></scr' + 'ipt>');
+    }
+  }
+  if (isMsnAjaxIframe) {
+    window.setTimeout("document.close();", 1000);
+  }
+})();
+</script><div id="creative_54613911_0"><a target="_blank" href="http://ad.doubleclick.net/activity;src=4085574;met=1;v=1;pid=96058805;aid=273009986;ko=0;cid=54613911;rid=54498892;rv=1;cs=q;eid1=1617629;ecn1=1;etm1=0;_dc_redir=url?http://adclick.g.doubleclick.net/aclk?sa=L&amp;ai=BZGRl2ZDNUofeEImq8AOw_YGYCgAAAAAQASAAOABQ4ouPrwdYl6-FGmD70eqC4AmCAQljYS1nb29nbGWyAQt3d3cuYm1qLmNvbcgBCdoBKGh0dHA6Ly93d3cuYm1qLmNvbS9jb250ZW50LzM0Ny9ibWouZjcxOTioAwHgBAKgBh_gBsau-QE&amp;num=0&amp;sig=AOD64_3PMpJfw06jmICAx5uu2X4MYE1EiA&amp;client=&amp;adurl=http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c%3Fhttp://www.novonordiskpro.com/"><img src="2f45743264564c4e69376341415a526c_data/23301549_20130529124505572_parachute_160x600_static.jpg" border="0" height="600" width="160"></a></div><script type="text/javascript" src="2f45743264564c4e69376341415a526c_data/iframe_buster_200_17.js" async="async"></script>
+<noscript>
+  <a target="_blank" href="http://ad.doubleclick.net/activity;src=4085574;met=1;v=1;pid=96058805;aid=273009986;ko=0;cid=54613911;rid=54498892;rv=1;cs=q;eid1=1617629;ecn1=1;etm1=0;_dc_redir=url?http://adclick.g.doubleclick.net/aclk?sa=L&ai=BZGRl2ZDNUofeEImq8AOw_YGYCgAAAAAQASAAOABQ4ouPrwdYl6-FGmD70eqC4AmCAQljYS1nb29nbGWyAQt3d3cuYm1qLmNvbcgBCdoBKGh0dHA6Ly93d3cuYm1qLmNvbS9jb250ZW50LzM0Ny9ibWouZjcxOTioAwHgBAKgBh_gBsau-QE&num=0&sig=AOD64_3PMpJfw06jmICAx5uu2X4MYE1EiA&client=&adurl=http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c%3Fhttp://www.novonordiskpro.com/">
+    <img border="0" alt="" src="//s0.2mdn.net/ads/richmedia/studio/23008356/23301549_20130529124505572_parachute_160x600_static.jpg"
+        width="160" height="600" />
+  </a>
+  <img width="0px" height="0px" style="visibility:hidden" border="0" alt=""
+       src="http://ad.doubleclick.net/activity;src=4085574;met=1;v=1;pid=96058805;aid=273009986;ko=0;cid=54613911;rid=54498892;rv=1;&timestamp=2143135256;eid1=9;ecn1=1;etm1=0;" />
+  <img width="0px" height="0px" style="visibility:hidden" border="0" alt=""
+      src="" />
+  <img width="0px" height="0px" style="visibility:hidden" border="0" alt=""
+      src="" />
+</noscript>
+<div style="display: none;"><iframe src="2f45743264564c4e69376341415a526c_data/DARTIframe.html" style="width: 0px; height: 0px;" id="peerIframe54613911" name="peerIframe54613911" height="0" width="0"></iframe></div></body></html>

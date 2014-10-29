@@ -1,0 +1,45 @@
+function OAS_RICH(position) {
+if (position == 'Middle1') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/9624056/Middle1/BMJ/bmj-awardsmpuros-081113/BMJA-entries-MPU_for_bmj.com.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmj-awardsmpuros-081113/BMJA-entries-MPU_for_bmj.com.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Middle2') {
+document.write ('<script LANGUAGE="JavaScript1.1"\n');
+document.write ('\n');
+document.write ('SRC="http://oasc05134.247realmedia.com/RealMedia/ads/adstream_jx.ads/BMJbmj/healthfitness /1{TIME_DATE_STAMP}@Middle1">\n');
+document.write ('\n');
+document.write ('</script>');
+}
+if (position == 'Position1') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/293900774/Position1/BMJ/bmjredesign-spotstest-050711/BMJ_app_140x155_01.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmjredesign-spotstest-050711/BMJ_app_140x155_01.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Position2') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/1404784034/Position2/default/empty.gif/2f45743264564c4e69376341415a526c?x" target="_top"><IMG SRC="http://imagec16.247realmedia.com/0/default/empty.gif"  WIDTH=1 HEIGHT=1 ALT="" BORDER=0 BORDER="0"></A>');
+}
+if (position == 'Position3') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/279852148/Position3/default/empty.gif/2f45743264564c4e69376341415a526c?x" target="_top"><IMG SRC="http://imagec16.247realmedia.com/0/default/empty.gif"  WIDTH=1 HEIGHT=1 ALT="" BORDER=0 BORDER="0"></A>');
+}
+if (position == 'Right1') {
+document.write ('<IFRAME SRC="http://ad-emea.doubleclick.net/adi/N8276.140179.BRITISHMEDICALJOURN/B7532870.3;sz=160x600;click0=http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c?;ord=1111820773?" WIDTH=160 HEIGHT=600 MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no BORDERCOLOR=');
+document.write ("'");
+document.write ('#000000');
+document.write ("'");
+document.write ('>\n');
+document.write ('<SCRIPT language=');
+document.write ("'");
+document.write ('JavaScript1.1');
+document.write ("'");
+document.write (' SRC="http://ad-emea.doubleclick.net/adj/N8276.140179.BRITISHMEDICALJOURN/B7532870.3;abr=!ie;sz=160x600;click0=http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c?;ord=1111820773?">\n');
+document.write ('</SCRIPT>\n');
+document.write ('<NOSCRIPT>\n');
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/1111820773/Right1/BMJ/bmj-treisbaros-080114/tresibasky.html/2f45743264564c4e69376341415a526c?http://ad-emea.doubleclick.net/jump/N8276.140179.BRITISHMEDICALJOURN/B7532870.3;abr=!ie4;abr=!ie5;sz=160x600;ord=1111820773?">\n');
+document.write ('<IMG SRC="http://ad-emea.doubleclick.net/ad/N8276.140179.BRITISHMEDICALJOURN/B7532870.3;abr=!ie4;abr=!ie5;sz=160x600;ord=1111820773?" BORDER=0 WIDTH=160 HEIGHT=600 ALT="Advertisement"></A>\n');
+document.write ('</NOSCRIPT>\n');
+document.write ('</IFRAME>\n');
+}
+if (position == 'Right2') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L11/1218137647/Right2/BMJ/sky-dtbsky-250811/dtb_all_120x600.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/sky-dtbsky-250811/dtb_all_120x600.gif"  ALT=""  BORDER="0"></A>');
+}
+if (position == 'Top') {
+document.write ('<A HREF="http://oas.services.bmj.com/5c/www.bmj.com/content/347/bmj.f7198/L19/292330263/Top/BMJ/bmj-wintercharityfrance-021213/Winter-Charity-french-728x90.gif/2f45743264564c4e69376341415a526c?x" target=" "><IMG SRC="http://imagec16.247realmedia.com/0/BMJ/bmj-wintercharityfrance-021213/Winter-Charity-french-728x90.gif"  ALT=""  BORDER="0"></A>');
+}
+}

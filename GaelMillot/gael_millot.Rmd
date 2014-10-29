@@ -1,0 +1,75 @@
+---
+title: "GaelMillot"
+author: "JcB"
+date: "29/10/2014"
+output: pdf_document
+---
+
+Ce document est élaboré à partir de l'ouvrage eponyme __Comprendre et réaliser les tests statistiques à l'aide de R. Manuel pour les débutants.__  De Boeck editeur.
+
+__R__ est un logiciel libre et gratuit exrêmement puissant dont le principal inconvénient est la difficulté d'apprentissage. Il existe une version pour Linux, Mac et Windows. Pour le trouver avec un moteur de recherche utilisez le mot clé __CRAN R__ (CRAN pour Comprehensive R Archives Network).
+
+Télécharger R à l'adresse http://www.r-project.org/. R s'utilise en ligne de commandes à partir d'unr console, ce qui peut être assez déroutant pour un premier contact. Il est recommandé d'installer ensuite le logiciel __R Studio__ qui crée une interface beaucoup plus conviviale pour utiliser R, et met à disposition une palette d'outil pour faciliter la production de documents et s'inscrire dans la démarche de __recherche reproductible__.
+
+Le livre est basé sur les données du fichier _mais.txt_
+
+Structure de la table MAIS
+--------------------------
+
+```{r}
+mais <- read.table("../GaelMillot/mais.txt", header=TRUE, sep="\t")
+names(mais)
+str(mais)
+```
+
+Test de normalité
+-----------------
+
+Beaucoup de tests statistiques usuels recquièrent que les données soient distribuées selon une Loi normale. Un test de normalité devrait être un préalable dans ces situations.
+
+On  s'intéresse à la normalité de la hauteur des pieds de maïs dans la parcelle Est.
+
+#### Aspect graphique
+
+On résupère le fchier des données et on sélectionne la colonne 1:
+
+```{r hist_pieds}
+obs1 <- data.frame(mais[which(mais$Parcelle == "Est"), "Hauteur"])
+d <- obs1[,1]
+
+hist(as.numeric(d), main="Histogramme - Hauteur des pieds de maïs", xlab="Hauteur (cm)", ylab="Fréquence")
+```
+
+- Hauteur moyenne `r mean(d, na.rm=TRUE)`
+- écart-type `r sd(d, na.rm=TRUE)`
+
+#### Test de Shapiro-Wilk
+
+Peut-on dire que la variable _hauteur des pieds de maïs_ se distribue selon une loi normale ?
+
+Pour répondre à la question on utilise le test de Shapiro-Wilk:
+
+- hypothèse nulle (H0): la hauteur des pieds de maïs se distribue selon une Loi normale. On accepte cette hypothèse si la p-value résultant du test est plus grande (supérieure à) que 0.05
+- hypothèse alternative (H1): ce n'et pas une Loi normale
+
+```{r shapiro}
+shapiro.test(d)
+```
+
+La p-value est très supérieure à 0.05. On accepte l'hypothèse nulle, la distribution de hauteur des pieds de maïs est normale.
+
+#### Test de Kolmogorov-Smirnov
+
+On teste si la distribution est conforme à une Loi normale dont on connait __à priori__ les paramètres (moyenne, écart-type).
+
+Peut-on dire que la variable hauteur des pieds de maïs se distribue selon une loi normale de moyenne `r 270` et d'écart-type `r 35` ?
+
+Pour répondre à la question on utilise le test de Kolmogorov-Smirnov:
+
+- hypothèse nulle (H0): la hauteur des pieds de maïs se distribue selon une Loi normale de moyenne 270 cm avec un écart-type de 35 cm. On accepte cette hypothèse si la p-value résultant du test est plus grande (supérieure à) que 0.05
+- alternative (H1): ce n'est pas une Loi normale (si p-value est inférieure à 0.05)
+
+```{r kolmo}
+ks.test(d, "pnorm", 270,35)
+```
+Conclusion: on ne peut pas rejeter l'hypothèse nulle. Donc on accepte que la distribution de la hauteur des pieds de maïs s'ajuste à une Loi normale N(270,35).

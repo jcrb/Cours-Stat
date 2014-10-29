@@ -1,0 +1,1 @@
+twttr.receiveCount({"count":1971,"url":"http:\/\/www.bmj.com\/content\/347\/bmj.f7198\/"});
