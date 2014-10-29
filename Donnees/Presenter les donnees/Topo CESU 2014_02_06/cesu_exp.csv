@@ -1,0 +1,20 @@
+titre,,,,,,
+Objectif(s),,,,,,
+Investigateur,,,,,,
+Institution,CESU 67,,,,,
+,,,,,,
+unité,AS,Date de,DEC,Note,Pre,Post
+expérimentale,IDE,naissance,TRAD,globale,test,test
+,AMB,,,,,
+,,,,,,
+ID,METIER,AGE,GROUPE,NOTE,PT,OT
+1,IDE,22,DEC,10,6,8
+2,IDE,25,DEC,8,5,6
+3,IDE,23,DEC,7,5,5
+4,IDE,31,DEC,8,4,5
+5,AS,20,DEC,7,3,5
+6,AS,21,TRAD,9,5,8
+7,AS,24,TRAD,10,8,8
+8,AS,25,TRAD,10,7,7
+9,AMB,28,TRAD,5,5,4
+10,AMB,30,TRAD,6,4,4
