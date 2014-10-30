@@ -1,15 +1,15 @@
 ---
 title: "GaelMillot"
-author: "JcB"
+author: "Jc Bartier"
 date: "29/10/2014"
 output: pdf_document
 ---
 
-Ce document est élaboré à partir de l'ouvrage eponyme __Comprendre et réaliser les tests statistiques à l'aide de R. Manuel pour les débutants.__  De Boeck editeur.
+Ce document est élaboré à partir de l'ouvrage eponyme __Comprendre et réaliser les tests statistiques à l'aide de R. Manuel pour les débutants.__  De Boeck editeur (https://perso.curie.fr/Gael.Millot/Telecharger.htm).
 
 __R__ est un logiciel libre et gratuit exrêmement puissant dont le principal inconvénient est la difficulté d'apprentissage. Il existe une version pour Linux, Mac et Windows. Pour le trouver avec un moteur de recherche utilisez le mot clé __CRAN R__ (CRAN pour Comprehensive R Archives Network).
 
-Télécharger R à l'adresse http://www.r-project.org/. R s'utilise en ligne de commandes à partir d'unr console, ce qui peut être assez déroutant pour un premier contact. Il est recommandé d'installer ensuite le logiciel __R Studio__ qui crée une interface beaucoup plus conviviale pour utiliser R, et met à disposition une palette d'outil pour faciliter la production de documents et s'inscrire dans la démarche de __recherche reproductible__.
+Télécharger R à l'adresse http://www.r-project.org/. R s'utilise en ligne de commandes à partir d'une console, ce qui peut être assez déroutant pour un premier contact. Il est recommandé d'installer ensuite le logiciel __R Studio__ qui crée une interface beaucoup plus conviviale pour utiliser R, et met à disposition une palette d'outil pour faciliter la production de documents et s'inscrire dans la démarche de __recherche reproductible__. Ce document a été créé avec l'option _Latex_ de RStudio.
 
 Le livre est basé sur les données du fichier _mais.txt_
 
@@ -23,7 +23,9 @@ str(mais)
 ```
 
 Test de normalité
------------------
+=================
+
+article: http://eric.univ-lyon2.fr/~ricco/cours/cours/Test_Normalite.pdf
 
 Beaucoup de tests statistiques usuels recquièrent que les données soient distribuées selon une Loi normale. Un test de normalité devrait être un préalable dans ces situations.
 
@@ -37,13 +39,14 @@ On résupère le fchier des données et on sélectionne la colonne 1:
 obs1 <- data.frame(mais[which(mais$Parcelle == "Est"), "Hauteur"])
 d <- obs1[,1]
 
-hist(as.numeric(d), main="Histogramme - Hauteur des pieds de maïs", xlab="Hauteur (cm)", ylab="Fréquence")
+hist(as.numeric(d), main="Histogramme - Hauteur des pieds de maïs", xlab="Hauteur (cm)", ylab="Fréliquence")
 ```
 
 - Hauteur moyenne `r mean(d, na.rm=TRUE)`
 - écart-type `r sd(d, na.rm=TRUE)`
 
-#### Test de Shapiro-Wilk
+Test de Shapiro-Wilk
+--------------------
 
 Peut-on dire que la variable _hauteur des pieds de maïs_ se distribue selon une loi normale ?
 
@@ -58,7 +61,8 @@ shapiro.test(d)
 
 La p-value est très supérieure à 0.05. On accepte l'hypothèse nulle, la distribution de hauteur des pieds de maïs est normale.
 
-#### Test de Kolmogorov-Smirnov
+Test de Kolmogorov-Smirnov
+--------------------------
 
 On teste si la distribution est conforme à une Loi normale dont on connait __à priori__ les paramètres (moyenne, écart-type).
 
@@ -73,3 +77,32 @@ Pour répondre à la question on utilise le test de Kolmogorov-Smirnov:
 ks.test(d, "pnorm", 270,35)
 ```
 Conclusion: on ne peut pas rejeter l'hypothèse nulle. Donc on accepte que la distribution de la hauteur des pieds de maïs s'ajuste à une Loi normale N(270,35).
+
+
+Test de Lilliefors
+------------------
+
+Wikipédia: http://www.wikiwand.com/fr/Test_de_Lilliefors
+
+Le test de Lilliefors est une adaptation du test de Kolmogorov-Smirnov permettant de tester l'hypothèse nulle sur une distribution normale quand les paramètres de la loi normale ne sont pas connus, c'est-à-dire quand ni l'espérance mu ni l'écart type sigma ne sont connus. Ce test fut proposé par Hubert Lilliefors qui était professeur de statistique à l'Université George Washington.
+
+#### Principe du test
+
+1. Estimer la moyenne et la variance de la distribution en se basant sur les données.
+
+2. Trouver le maximum de variance entre la fonction de répartition empirique et la fonction de répartition de la distribution normale d'espérance et de variance estimée en 1, comme dans le test de Kolmogorov-Smirnov.
+
+3. Enfin, estimer si le maximum de variance est assez grand pour être statistiquement significatif ce qui entraînerait le rejet de l'hypothèse nulle en fonction de la distribution de Lilliefors.
+
+Avec __R__ il faut charger la librairie _nortest_. La formule est simple: __lillie.test(x__) où x est le vecteur des valeursdont on veut tester la normalité.
+
+```{r lilie, echo=FALSE, comment=""}
+library(nortest)
+a <- lillie.test(d)
+# pour franciser le résultat
+a$method <- "Test de normalité de Lilliefors (Kolmogorov-Smirnov)"
+a
+ifelse(a$p.value > 0.05, "On accepte l'hypothèse de normalité de données", "Les données ne peuvent pas être considérées comme normales")
+
+```
+
