@@ -1,0 +1,72 @@
+---
+title: "CDC"
+author: "JcB"
+date: "22/11/2014"
+output: html_document
+---
+
+file <- "Maternite/CDC_files/2002FemPreg.dat"
+d <- readLines(file, n = 1)
+d
+
+```{r}
+path <- "Maternite/CDC_files/"
+
+# le dictionnaire des données
+dict <- "2002FemPreg.dct"
+dict.data <- read.table(dict, skip=1, nrow = 243)
+head(dict.data)
+dict.data$V1 <- as.character(dict.data$V1)
+
+# le fichier des données
+file <- "2002FemPreg.dat"
+
+# réserve de la place pour un array
+c <- array()
+# extrait la position des colonnes du fichier data à partir des infos contenues dans la première comonne du dictionnaire. On utilise une expression régulière pour extraire les chiffres. La formule retourne une liste de deux éléments où le premier et vide (?). Le vecteur c contient la liste  des positio
+for(i in 1:243){
+    a <- dict.data[i, 1] 
+    b <- strsplit(a, "[^[:digit:]]+")
+    c[i] <- as.numeric(b[[1]][2])
+}
+# il manque la valeur finale. On l'obtient en lisant la 1ere ligne du dichier data et en comptant le nombre de caractères par nchar(). Cette valeur est alors ajoutée au vecteur c.
+e <- readLines(file, n = 1)
+c[length(c) + 1] <- nchar(e) + 1
+# on calcule les différences successives pour obtenir la largeur de chaque colonne en nombre de caractères. Le résultat est placé dans le vecteur d.
+d <- diff(c,1)
+# on peut lire le fichier des données
+data <- read.fwf(file, d)
+colnames(data) <- dict.data$V3
+
+# colonnes retenues pour le travail:
+d2 <- data[, c("caseid", "outcome", "prglngth", "pregordr", "birthord", "birthwgt_lb", "birthwgt_oz", "agepreg", "finalwgt")]
+# age transformé en années
+d2$agepreg <- d2$agepreg / 100
+# pour le poids des enfants 97, 98 et 99 correspondent à NA: 97 NOT ASCERTAINED, 98 REFUSED, 99 DON'T KNOW
+d2$birthwgt_lb[d2$birthwgt_lb %in% c(97,98,99) ] <- NA
+d2$birthwgt_oz[d2$birthwgt_oz %in% c(97,98,99) ] <- NA
+# un poids parait aberrant: 51 livres! => on introduit une correction
+d2$birthwgt_lb[d2$birthwgt_lb > 20] <- NA
+# on peut combiner les pounds et les oz. en créant une var suoolémentaire:
+d2$totalwgt_lb <- d2$birthwgt_lb + d2$birthwgt_oz / 16.0
+# transformation des pounds en kg: 1 pound = 0.45359237 kilograms
+d2$totalwgt_kg <- d2$totalwgt_lb * 0.45359237
+
+head(d2)
+
+# o sauvegarde les fichiers créés
+write.csv(d2, file = "fichier_travail.Rda") # fichier simplifié
+write.csv(data, file = "fichier_complet.Rda") # fichier original. On le met dans .gitignore pour alléger les transferts
+
+```
+
+analyse
+-------
+
+```{r analyse}
+live <- d2[d2$outcome == 1,] # enfants vivants
+hist(d2$birthwgt_lb, xlab="pounds", main="Poids de naissance", col="blue", border="lightblue")
+
+
+```
+

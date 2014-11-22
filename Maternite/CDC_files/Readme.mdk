@@ -1,0 +1,10 @@
+Think Stats, 2nd Edition.pdf
+============================
+
+Livre édité par OReilly et disponible en [pdf](). Introduction aux méthodes statistiques basé sur une enquête transversale du CDC consacrée notemment au grossesse aux USA. La même source de données est utilisée tout au long du livre (programmes en Python).
+
+sources:
+
+- [Site Web de l'enquête du CDC](http://1.usa.gov/1pi2BP2)
+- fichier de données utilisé: [2002FemPreg.dat](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NSFG/2002FemPreg.dat)
+- dictionnaire des données: [2002FemPreg.dct](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NSFG/stata/)
