@@ -1,0 +1,115 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 3.3. Practice
+
+[ds-hhi]: http://is-r.tumblr.com/post/38140710276/the-inverse-herfindahl-hirschman-index-as-an-effective "The Inverse Herfindahl–Hirschman Index as an “Effective Number of Parties (David Sparks)"
+[wiki-hhi]: https://en.wikipedia.org/wiki/Herfindahl_index "Herfindahl index (Wikipedia)"
+[wiki-browsers]: http://en.wikipedia.org/wiki/Usage_share_of_web_browsers "Usage share of web browsers (Wikipedia)"
+[sc-browsers]: http://gs.statcounter.com/#browser-ww-monthly-200807-201301
+[mb-browsers]: http://mezzoblue.com/archives/2011/11/01/a_new_number/
+[so-juba]: http://stackoverflow.com/questions/14871249/can-i-use-gsub-on-each-element-of-a-data-frame
+
+<p class="info"><strong>Instructions:</strong> this week's exercise is called <code><a href="3_hhi.R">3_hhi.R</a></code>. Download or copy-paste that file into a new R script, then open it and run it with the working directory set as the <code>IDA</code> folder. If you download the script, make sure that your browser preserved its <code>.R</code> file extension.</p>
+
+```{r run-exercise, include = FALSE, results = 'hide'}
+source("code/3_hhi.R")
+```
+
+The rest of this page documents the exercise and expands on what you learn from it.
+
+## Computing the Herfindhal-Hirschman Index
+
+The exercise shows how to compute market concentration for Internet browsers by writing a [Herfindhal-Hirschman Index][wiki-hhi] (HHI) function, and also shows you how to defend that function against bad input. The HHI function written in the exercise will eventually contain comments and defensive statements. It will look like this:
+
+```{r hhi-function}
+# HHI function.
+hhi
+```
+
+The actual formula for the Herfindhal-Hirschman Index is $HHI =\sum_{i=1}^N s_i^2$ where $s$ is the usage share of each of $N$ browsers: it's a sum of squared market shares, with applications to any market and to other things like [political parties][ds-hhi].
+
+## Visualizing browser usage from 2008 to 2013
+
+We can expand on that example by using historical data from [StatCounter][sc-browsers], a company that tracks browser usage worldwide. Here's what this market has looked like in recent years:
+
+[![Browser trends for 2012, by Dave Shea auto "http://mezzoblue.com/archives/2011/11/01/a_new_number/"](https://farm7.staticflickr.com/6213/6302832047_4bd4ee3bd9_b.jpg)][mb-browsers]
+
+Data from 2008 to 2013 can be collected from [Wikipedia][wiki-browsers] with a little help from the `XML` package to read the HTML-formatted data from Wikipedia. The following packages are required:
+
+```{r browser-packages, message = FALSE}
+# Load packages.
+require(ggplot2)
+require(reshape)
+require(XML)
+```
+
+The next code block anticipates on next week's session: it downloads and converts data from a Wikipedia table, and then saves it to a plain text file. Many thanks to Juba for a [slight optimization][so-juba] in the data cleaning routine, at the point where we use the `gsub()` function to remove percentage symbols from the values.
+
+```{r browsers-data}
+# Target file.
+file <- "data/browsers.0813.csv"
+# Load the data.
+if(!file.exists(file)) {
+  # Target a page with data.
+  url <- "http://en.wikipedia.org/wiki/Usage_share_of_web_browsers"
+  # Get the StatCounter table.
+  tbl <- readHTMLTable(url, which = 16, as.data.frame = FALSE)
+  # Extract the data.
+  data <- data.frame(tbl[-7])
+  # Clean numbers.
+  data[-1] <- as.numeric(gsub("%", "", as.matrix(data[-1])))
+  # Clean names.
+  names(data) <- gsub("\\.", " ", names(data))
+  # Normalize.
+  data[-1] <- data[-1] / 100
+  # Format dates.
+  data[, 1] <- paste("01", data[, 1])
+  # Check result.
+  head(data)
+  # Save.
+  write.csv(data, file, row.names = FALSE)
+}
+```
+
+The data can now be loaded from the hard drive and prepared for analysis. Our first step is to convert dates to proper date objects, which will avoid plotting issues. This process uses time code format for day-month-year, `%d %B %Y`, where `%d` is the day of month, `%B` the full month name and `%Y` the year with century. This process is explored again when we get to time series in [Session 9][090].
+
+[090]: 090_ts.html
+
+```{r browsers-load}
+# Load from CSV.
+data <- read.csv(file)
+# Convert dates.
+data$Period <- strptime(data$Period, "%d %B %Y")
+# Check result.
+head(data)
+```
+
+We now compute the normalized [Herfindhal-Hirschman Index][wiki-hhi], which is $HHI^* = {\left ( HHI - 1/N \right ) \over 1-1/N }$, with $HHI =\sum_{i=1}^N s_i^2$ where $s$ is the usage share of each of $N$ browsers.
+
+```{r browsers-hhi}
+# Normalized Herfindhal-Hirschman Index.
+HHI <- (rowSums(data[2:6]^2) - 1 / ncol(data[2:6])) / (1 - 1/ncol(data[2:6]))
+# Form a dataset by adding the dates.
+HHI <- data.frame(HHI, Period = data$Period)
+```
+
+The final plot uses stacked areas corresponding to the user share of each browser, and overlays a smoothed trend of the normalized HHI curve as a dashed line.
+
+```{r browsers-plot-auto, fig.width = 10, fig.height = 7.5, tidy = FALSE, warning = FALSE, message = FALSE}
+# Reshape.
+melt <- melt(data, id = "Period", variable = "Browser")
+# Plot the HHI through time.
+ggplot(melt, aes(x = Period)) + labs(y = NULL, x = NULL) +
+  geom_area(aes(y = value, fill = Browser), 
+            color = "white", position = "stack") + 
+  geom_smooth(data = HHI, aes(y = HHI, linetype = "HHI"), 
+              se = FALSE, color = "black", size = 1) +
+  scale_fill_brewer("Browser\nusage\nshare\n", palette = "Set1") +
+  scale_linetype_manual(name = "Herfindhal-\nHirschman\nIndex\n", 
+                        values = c("HHI" = "dashed"))
+```
+
+The data manipulations performed here are next week's topic: getting data in and out, and reshaping it to aggregate figures for analysis and plotting.
+
+> __Next week__: [Data](040_data.html).

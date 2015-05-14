@@ -1,0 +1,149 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 2.2. Variables and factors
+
+In R, everything is an object. The list of objects in memory `ls()` is an object itself, as shown in the example below, which lists all objects in the current workspace and wipes them from memory.
+  
+```{r clear-workspace, eval=FALSE}
+# List workspace objects.
+ls()
+# Erase entire workspace.
+rm(list = ls())
+```
+
+Let's use some real, anonymized data from Autumn 2012. These are the grades from my three mathematics classes in first year. I have removed any student identification, so you have to trust me that these are the real grades (and yes, some grades range above 20/20!).  The `downloader` package provides a handy command to download the data from the course repository, so we install and load it first.
+
+```{r grades-import}
+# Install downloader package.
+if(!"downloader" %in% installed.packages()[, 1])
+  install.packages("downloader")
+# Load package.
+require(downloader)
+# Target file.
+file = "data/grades.2012.csv"
+# Download the data if needed.
+if (!file.exists(file)) {
+  # Locate the data.
+  url = "https://raw.github.com/briatte/ida/master/data/grades.csv"
+  # Download the data.
+  download(url, file, mode = "wb")
+}
+# Load the data.
+grades <- read.table(file, header = TRUE)
+# Check result.
+head(grades)
+```
+
+Let's now use a package to create fake names for the students. We again need to install and load the package first: in later sessions, we will use a standard code block to install-and-load packages.
+
+```{r grades-with-random-names}
+# Install randomNames package. Remember that R is case-sensitive.
+if(!"randomNames" %in% installed.packages()[, 1])
+  install.packages("randomNames")
+# Load package.
+require(randomNames)
+# How many rows of data do we have?
+(count = nrow(grades))
+# Let's generate that many random names.
+names <- randomNames(count)
+# Let's finally stick them to the matrix.
+grades <- cbind(grades, names)
+# Check result.
+head(grades)
+```
+
+## Data frames
+
+Let's show a final type of object: the data frame.
+
+```{r df}
+# Convert to data frame.
+grades <- as.data.frame(grades)
+# Check result.
+head(grades)
+# Check structure of a data frame.
+str(grades)
+```
+
+Data frames are very malleable objects: we can rearrange the variables easily with commands like `melt` from the `reshape` package.
+
+```{r melt, message=FALSE}
+# Install and load reshape package.
+if(!"reshape" %in% installed.packages()[, 1])
+  install.packages("reshape")
+# Load package.
+require(reshape)
+# Reshape data from 'wide' (lots of columns) to 'long' (lots of rows).
+grades <- melt(grades, id.vars = "names")
+# Check result to show how each grade is now held on a separate row.
+head(grades[order(grades$names), ])
+```
+
+Let's finish with a few plots.
+
+```{r grades-plots, tidy = FALSE}
+# Install and load ggplot2 package.
+if(!"ggplot2" %in% installed.packages()[, 1])
+  install.packages("ggplot2")
+# Load package.
+require(ggplot2)
+# Plot all three exams.
+qplot(data = grades, x = value, 
+      group = variable, 
+      geom = "density")
+# Add color and transparency.
+qplot(data = grades, x = value, 
+      color = variable, 
+      fill = variable, 
+      alpha = I(.3), geom = "density")
+```
+
+Now use the code on this page to:
+
+1. Download [this data extract from the U.S. National Health Interview Survey 2005][nhis-data]. Use `RCurl` as shown above. Call the data `nhis`.
+
+[nhis-data]: https://raw.github.com/briatte/ida/master/data/nhis.2005.csv
+
+```{r nhis-data-import, include=FALSE}
+file = "data/nhis.2005.csv"
+# Download the data if needed.
+if (!file.exists(file)) {
+  # Locate the data.
+  url = "https://raw.github.com/briatte/ida/master/data/nhis.2005.csv"
+  # Download the data.
+  download(url, file, mode = "wb")
+}
+# Load the data.
+nhis <- read.table(file, header = TRUE)
+# Check result.
+head(nhis)
+```
+
+2. Create an object called `bmi` that corresponds to the Body Mass Index from the `height` and `weight` columns of the `nhis` object. Use the U.S. formula since the data use inches and pounds. Bind the `bmi` object to the `nhis` object.
+
+```{r nhis-bmi, include=FALSE}
+# Compute BMI vectore.
+bmi <- 703 * nhis[ ,4] / nhis[ ,3]^2
+# Bind to matrix.
+nhis <- cbind(nhis, bmi)
+```
+
+3. Plot the results using `qplot(data = ..., x = ..., geom = "density")`.
+
+```{r nhis-qplot-1, include=FALSE}
+# The plot.
+qplot(data = nhis, x = bmi, geom = "density")
+```
+
+4. Bonus question: explore how `ggplot2` works and produce plots with the `x` and `y` variables. Guess what they stand for.
+
+```{r nhis-qplot-2, include=FALSE}
+# Another plot. Variable x stands for gender.
+qplot(data = nhis, x = bmi, group = x, color = factor(x), geom = "density")
+# One more plot. Variable y stands for for racial group.
+qplot(data = nhis, x = bmi, group = x, color = factor(x), geom = "density") +
+  facet_grid(y ~ .)
+```
+
+> __Next__: [Practice](023_practice.html).

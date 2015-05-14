@@ -1,0 +1,108 @@
+---
+title: "La régression linéaire"
+author: "JcB"
+date: "24/11/2014"
+output: html_document
+---
+
+source: [biologyforfun](https://biologyforfun.wordpress.com/2014/11/23/interpreting-regression-coefficient-in-r/)
+
+Les modèles linéaires sont des techniques statistiques simples et est souvent (sinon toujours) le point de départ utile pour une analyse plus complexe. Il ne est cependant pas si simple de comprendre ce que signifie le coefficient de régression même dans le cas le plus simple quand il n'y a pas d'interactions dans le modèle. Nous pouvons obtenir beaucoup plus d'informations (à mon sens) de ces coefficient de régression que d'un autre technique largement utilisée qui est ANOVA. Comparer les avantages et inconvénients respectifs des deux approches est au-delà de la portée de ce post. Ici, je voudrais expliquer ce que signifie chaque coefficient de régression dans un modèle linéaire et comment nous pouvons améliorer leur compréhension suivante partie de la discussion dans [Schielzeth](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2010.00012.x/full) (2010) Methods in Ecology and Evolution papier.
+
+Utilisons un exemple hypothétique qui nous suivra tout au long de ce post, disons que nous avons recueilli 10 grammes de sols sur 100 sites d'échantillonnage, où la moitié des sites ont été enrichis avec de l'azote et l'autre moitié a été conservée comme témoin. Nous avons également une mesure de la température de printemps et des précipitations moyennes annuelles provenant des stations météorologiques voisines. Nous sommes intéressés à savoir comment la température et les précipitations affectent la biomasse des microorganismes du sol, et de regarder l'effet de l'addition d'azote. Pour simplifier les choses, nous ne attendons pas d'interaction ici.
+
+```{r}
+# let's simulate the data the explanatory variables: temperature (x1),
+# precipitation (x2) and the treatment (1=Control, 2= N addition)
+set.seed(1)
+x1 <- rnorm(100, 10, 2)
+x2 <- rnorm(100, 100, 10)
+x3 <- gl(n = 2, k = 50)
+modmat <- model.matrix(~x1 + x2 + x3, data = data.frame(x1, x2, x3))
+# vector of fixed effect
+betas <- c(10, 2, 0.2, 3)
+# generate data
+y <- rnorm(n = 100, mean = modmat %*% betas, sd = 1)
+# first model
+m <- lm(y ~ x1 + x2 + x3)
+summary(m)
+```
+Let’s go through each coefficient: the intercept is the fitted biomass value when temperature and precipitation are both equal to 0 for the Control units. In this context it is relatively meaningless since a site with a precipitation of 0mm is unlikely to occur, we cannot therefore draw further interpretation from this coefficient. Then x1 means that if we hold x2 (precipitation) constant an increase in 1° of temperature lead to an increase of 2mg of soil biomass, this is irrespective of whether we are in the control or nutrient added unit. Similarly x2 means that if we hold x1 (temperature) constant a 1mm increase in precipitation lead to an increase of 0.19mg of soil biomass. Finally x32 is the difference between the control and the nutrient added group when all the other variables are held constant, so if we are at a temperature of 10° and a precipitation of 100mm, adding nutrient to the soil lead to changes from 10+2x10+0.19x100= 49mg to 52mg of soil biomass. Now let’s make a figure of the effect of temperature on soil biomass
+
+```{r}
+plot(y ~ x1, col = rep(c("red", "blue"), each = 50), pch = 16, xlab = "Temperature [°C]", 
+    ylab = "Soil biomass [mg]")
+abline(a = coef(m)[1], b = coef(m)[2], lty = 2, lwd = 2, col = "red")
+```
+
+What happened there? It seems as if our model is completely underestimating the y values … Well what we have been drawing is the estimated effect of temperature on soil biomass for the control group and for a precipitation of 0mm, this is not so interesting, instead we might be more interested to look at the effect for average precipitation values:
+
+```{r}
+plot(y ~ x1, col = rep(c("red", "blue"), each = 50), pch = 16, xlab = "Temperature [°C]", 
+    ylab = "Soil biomass [mg]")
+abline(a = coef(m)[1] + coef(m)[3] * mean(x2), b = coef(m)[2], lty = 2, lwd = 2, 
+    col = "red")
+abline(a = coef(m)[1] + coef(m)[4] + coef(m)[3] * mean(x2), b = coef(m)[2], 
+    lty = 2, lwd = 2, col = "blue")
+# averaging effect of the factor variable
+abline(a = coef(m)[1] + mean(c(0, coef(m)[4])) + coef(m)[3] * mean(x2), b = coef(m)[2], 
+    lty = 1, lwd = 2)
+legend("topleft", legend = c("Control", "N addition"), col = c("red", "blue"), 
+    pch = 16)
+```
+
+Now this look better, the black line is the effect of temperature on soil biomass averaging out the effect of the treatment, it might be of interest if we are only interested in looking at temperature effects.
+
+In this model the intercept did not make much sense, a way to remedy this is to center the explanatory variables, ie removing the mean value from the variables.
+
+```{r}
+# now center the continuous variable to change interpretation of the
+# intercept
+data_center <- data.frame(x1 = x1 - mean(x1), x2 = x2 - mean(x2), x3 = x3)
+modmat <- model.matrix(~x1 + x2 + x3, data = data.frame(x1 = x1, x2 = x2, x3 = x3))
+data_center$y_center <- rnorm(n = 100, mean = modmat %*% betas, sd = 1)
+
+# second model
+m_center <- lm(y_center ~ x1 + x2 + x3, data_center)
+summary(m_center)
+```
+
+Now through this centering we know that under average temperature and precipitation conditions the soil biomass in the control plot is equal to 50.25mg, in the nitrogen enriched plot we have 53mg of soil biomass. The slopes are not changing we are just shifting where the intercept lie making it directly interpretable. Let’s do a plot
+
+```{r}
+plot(y_center ~ x2, data_center, col = rep(c("red", "blue"), each = 50), pch = 16, 
+    xlab = "Precipitation [mm]", ylab = "Biomass [mg]")
+abline(a = coef(m_center)[1], b = coef(m_center)[3], lty = 2, lwd = 2, col = "red")
+abline(a = coef(m_center)[1] + coef(m_center)[4], b = coef(m_center)[3], lty = 2, 
+    lwd = 2, col = "blue")
+# averaging effect of the factor variable
+abline(a = coef(m_center)[1] + mean(c(0, coef(m_center)[4])), b = coef(m_center)[3], 
+    lty = 1, lwd = 2)
+legend("bottomright", legend = c("Control", "N addition"), col = c("red", "blue"), 
+    pch = 16)
+```
+
+We might also be interested in knowing which from the temperature or the precipitation as the biggest impact on the soil biomass, from the raw slopes we cannot get this information as variables with low standard deviation will tend to have bigger regression coefficient and variables with high standard deviation will have low regression coefficient. One solution is to derive standardized slopes that are in unit of standard deviation and therefore directly comparable in terms of their strength between continuous variables:
+
+```{r}
+# now if we want to find out which of the two continuous variables as the
+# most importance on y we can compute the standardized slopes from the
+# unstandardized ones:
+std_slope <- function(model, variable) {
+    return(coef(model)[variable] * (sd(m$model[[variable]])/sd(m$model[[1]])))
+}
+
+std_slope(m, "x1")
+
+##     x1 
+## 0.7912
+
+std_slope(m, "x2")
+
+##     x2 
+## 0.4067
+```
+
+De cela, nous pouvons conclure que la température a un plus grand impact sur la biomasse que les précipitations. Si nous voulions comparer les variables continues avec la variable binaire nous pourrions normaliser nos variables en divisant par deux fois l'écart-type selon Gelman (2008) Statistiques en médecine.
+
+Ici nous avons vu dans un contexte linéaire simple comment obtenir beaucoup d'informations de notre coefficient de régression estimée, cette compréhension peut alors s' appliquer à des modèles plus complexes comme GLM ou GLMM. Ces modèles nous offrent beaucoup plus d'informations que la simple catégorisation binaire en significatif / non significative .

@@ -1,0 +1,148 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 8.2. Ordinary least squares
+
+```{r packages, message = FALSE, warning = FALSE}
+# Load packages.
+packages <- c("downloader", "foreign", "ggplot2", "RColorBrewer", "reshape")
+packages <- lapply(packages, FUN = function(x) {
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x)
+    library(x, character.only = TRUE)
+  }
+})
+```
+
+[kenworthy]: http://lanekenworthy.net/2008/02/03/bread-peace-and-the-2008-election/
+[tmc-bartels]: http://themonkeycage.org/2013/01/08/obama-toes-the-line/
+
+Let's try out multiple linear regression by [modeling presidential approval][kenworthy] as a function of economic performance in the last quarters before the election. The model is based on data provided by Larry Bartels (thanks!), and we will start by replicating [his plot][tmc-bartels] of the main variables of interest.
+
+```{r bartels-data}
+# Target locations.
+link = "https://raw.github.com/briatte/ida/master/data/bartels.presvote.4812.csv"
+file = "data/bartels.presvote.4812.csv"
+# Download the data.
+if(!file.exists(file)) download(link, file, mode = "wb")
+# Load the data.
+bartels <- read.csv(file, stringsAsFactors = FALSE)
+```
+
+Bartel's observation is that the vote margin of the incumbent's party is related to income growth, measured as the variation in disposable income per capita in the last quarters of a presidential term. The relationship is visually striking, and a simple linear regression model confirms that higher income growth predicts a higher vote margin to the incumbent.
+
+```{r bartels-model-1}
+# Scatterplot.
+ggplot(bartels, aes(inc1415, incm, label = year)) +
+  geom_smooth(method = "lm") +
+  geom_text()
+# Simple OLS.
+m1 = lm(incm ~ inc1415, data = bartels)
+# Results.
+summary(m1)
+```
+
+Bartel's next step is to introduce presidential tenure into the regression equation, in order to control income growth by the number of years spent by the incumbent in power. The regression equation takes the form \(\hat Y = \beta_1 X_1 + \beta_2 X_2 + \epsilon\), where the \(\beta\) coefficients are partial derivatives to \(y\), the dependent variable.
+
+```{r bartels-model-2}
+m2 = lm(incm ~ inc1415 + I(tenure), data = bartels)
+summary(m2)
+```
+
+The coefficient that this model produces for the tenure variable indicates that tenure is a penalizer of approximately `r round(coef(m2)[3], 2)` in the equation (as noted by Bartels). Adjusting to tenure produces more accurate prediction of the dependent variable, as is observable by looking at the distribution of the residuals in each model:
+
+```{r bartels-models-plot, fig.width = 12, fig.height = 9}
+# Extract model results.
+m = rbind.fill(lapply(list(m1, m2), function(x) {
+  model = as.character(x$call)[2]
+  data.frame(model, 
+             year = bartels$year,
+             residuals = residuals(x), 
+             yhat = fitted.values(x))
+  }))
+# Histogram of the residuals.
+qplot(data = m, x = residuals, color = model, geom = "density") +
+  scale_color_brewer("Models:", type = "qual", palette = "Set1") +
+  theme(legend.position = "top")
+```
+
+Another way to look at the same phenomenon is to [bootstrap][ac-bs] the estimated coefficients, which will show which parts of the model are most and least robust. The code of the visually weighted regression function that we use to bootstrap the estimated coefficients is adapted from a function by [Felix Schönbrodt][fs-vwreg].
+
+[ac-bs]: http://freakonometrics.hypotheses.org/5501
+[fs-vwreg]: http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+
+```{r bartels-vwreg, results = 'hide', message = FALSE}
+# Get vwReg function.
+source("code/8_vwreg.r")
+# Get color palette.
+palette = brewer.pal(9, "RdYlGn")
+# Code plot builder.
+ggfit <- function(x) {
+  bartels$yhat = fitted.values(x)
+  g = vwReg(incm ~ yhat, bartels, method = lm, palette = palette) + 
+    geom_text(label = bartels$year)
+  g + labs(y = "Incumbent Party Margin")
+}
+# Bootstrapped fitted values.
+g1 = ggfit(m1)
+g2 = ggfit(m2)
+```
+
+The final plots use a color gradient to show what happens to the linear fit of the models when some data are retrenched from the sample: with larger standard errors, the confidence intervals of the trend grow to shown large margins of uncertainty. The robust segment of the model is shown in green tint.
+
+```{r bartels-vwreg-auto, fig.width = 12, fig.height = 9}
+# Plot incumbent margin v. income growth.
+g1 + labs(x = "Income Growth")
+# Plot incumbent margin v. income growth, with tenure adjustment.
+g2 + labs(x = "Income Growth, tenure-adjusted")
+```
+
+This type of visualization is useful to find ways to predict nonlinear relationships. The exame below shows how to plot the worldwide fertility rate against average female education, while controlling for a quadratic effect in their relationship. The ANOVA test serves to compare the error terms of the models.
+
+```{r qog-vwreg, results = 'hide', cache = TRUE}
+# Download Quality of Government Standard dataset.
+zip = "data/qog.cs.zip"
+qog = "data/qog.cs.csv"
+if(!file.exists(zip)) {
+  dta = "data/qog.cs.dta"
+  download("http://www.qogdata.pol.gu.se/data/qog_std_cs.dta", dta, mode = "wb")
+  write.csv(read.dta(dta, warn.missing.labels = FALSE), qog)
+  zip(zip, file = c(dta, qog))
+  file.remove(dta, qog)
+}
+qog = read.csv(unz(zip, qog), stringsAsFactors = FALSE)
+# Remove missing values.
+qog = na.omit(with(qog, data.frame(ccodealp, wdi_fr, bl_asy25f)))
+# Regression models.
+m1 = lm(wdi_fr ~ bl_asy25f, qog)
+m2 = lm(wdi_fr ~ bl_asy25f + I(bl_asy25f^2), qog)
+# ANOVA fit test.
+anova(m1, m2)
+```
+
+The plot is, again, produced by the `vwreg` function.
+
+```{r qog-vwreg-ggfit, results = 'hide'}
+# Code plot builder.
+ggfit = function(x, ...) {
+  vwReg(formula(x), data = qog, method = lm, spag = TRUE, shade = FALSE,
+        slices = 50, ...)
+  }
+# Visually weighted regression of linear model, without and with quadratic term.
+p1 = ggfit(m1, spag.color = palette[1])
+p2 = ggfit(m2, spag.color = palette[9], add = TRUE)
+```
+
+The final plot shows the amount of correction produced by the quadratic term.
+
+```{r qog-vwreg-plot-auto, fig.width = 12, fig.height = 9}
+# Construct plot for the regression results.
+p1 + p2 + geom_point() +
+  labs(y = "Fertility rate (number of births per woman)",
+       x = "Average education years among 25+ year-old females")
+# View model results
+summary(m1)
+summary(m2)
+```
+
+> __Next__: [Practice](083_practice.html)

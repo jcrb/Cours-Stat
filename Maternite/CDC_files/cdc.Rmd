@@ -5,11 +5,13 @@ date: "22/11/2014"
 output: html_document
 ---
 
+Le livre [Think Stats, 2nd Edition](http://it-ebooks.info/book/4370/) téléchargeable au format .pdf. Une approche intéressante car développe toute l'approche statistique à partir d'un exemple concret qui sert de fil conducteur tout au long du livre. E l'occurrence il s'agit d'une enquête du centre des maladies américain (CDC) concernant notamment les accouchements. ça m'intéresse car depuis cette année, je fais des cours de stat aux sage-femmes et cela donne des exemples concrets. Les programmes sont en python mais je les transpose en R. Je viens de terminer le premier chapitre qui concerne le chargement des données. Ps simple d'ailleurs car les données source sont volumineuses et fournies sous forme de fichiers compacts, sans séparateurs de colonnes et qu'il faut redécouper sans se tromper
+
 file <- "Maternite/CDC_files/2002FemPreg.dat"
 d <- readLines(file, n = 1)
 d
 
-```{r}
+```{}
 path <- "Maternite/CDC_files/"
 
 # le dictionnaire des données
@@ -55,17 +57,24 @@ d2$totalwgt_kg <- d2$totalwgt_lb * 0.45359237
 head(d2)
 
 # o sauvegarde les fichiers créés
-write.csv(d2, file = "fichier_travail.Rda") # fichier simplifié
-write.csv(data, file = "fichier_complet.Rda") # fichier original. On le met dans .gitignore pour alléger les transferts
+write.csv(d2, file = "fichier_travail.csv") # fichier simplifié
+write.csv(data, file = "fichier_complet.csv") # fichier original. On le met dans .gitignore pour alléger les transferts
 
 ```
 
 analyse
 -------
 
+```{r init2}
+path =""
+d <- read.csv(paste0(path, "fichier_travail.csv"))
+
+```
+
+
 ```{r analyse}
-live <- d2[d2$outcome == 1,] # enfants vivants
-hist(d2$birthwgt_lb, xlab="pounds", main="Poids de naissance", col="blue", border="lightblue")
+live <- d[d$outcome == 1,] # enfants vivants
+hist(d$birthwgt_lb, xlab="pounds", main="Poids de naissance", col="blue", border="lightblue")
 
 
 ```

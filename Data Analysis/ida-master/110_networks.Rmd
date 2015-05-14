@@ -1,0 +1,105 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 11. Networks
+
+Networks are a common aspect of your daily life, and since you have been logging your network of friends and colleagues on services like Facebook or [LinkedIn][li-inmaps], there are tons of data available. There is also a large amount of research on networks with [tough questions][cs-contagion], such as the analytical difference between homophily (connecting to those like us) and contagion (becoming like our connections). We will stick to description and simple measures of influence.
+
+[li-inmaps]: http://inmaps.linkedinlabs.com/ "LinkedIn Maps ('Your professional world. Visualized.')"
+[cs-contagion]: http://vserver1.cscs.lsa.umich.edu/~crshalizi/weblog/773.html "Knights, Muddy Boots, and Contagion; or, Social Influence Gets Medieval (Cosma Shalizi)"
+
+There are several software options for network analysis, like [Gephi][gephi], [Pajek][pm-pajek] or [VOSON][voson] (for hyperlink networks). We will stay in R and use the `sna` and `igraph` libraries, which use [different but compatible formats][lb-intergraph] to store network data. Some examples will be taken from [Baptiste Coulmont's graphs][bc-igraph] of small cliques.
+
+[bc-igraph]: http://coulmont.com/index.php?s=igraph "Examples of igraph plots (Baptiste Coulmont)"
+[lb-intergraph]: http://groupefmr.hypotheses.org/363 "Jongler avec les objets R, le package intergraph (Laurent Beauguitte)"
+[gephi]: https://gephi.org/ "Gephi software"
+[voson]: http://voson.anu.edu.au/ "VOSON software (Virtual Observatory for the Study of Online Networks)"
+[pm-pajek]: http://quanti.hypotheses.org/512/ "Analyse des réseaux : une introduction à Pajek (Pierre Mercklé)"
+
+## A random network
+
+```{r packages, echo = FALSE, message = FALSE}
+# Load packages.
+packages <- c("intergraph", "GGally", "ggplot2", "network", "RColorBrewer", "sna")
+packages <- lapply(packages, FUN = function(x) {
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x)
+    library(x, character.only = TRUE)
+  }
+})
+```
+
+We'll start with [simulating a random network][fs-sim] of $n = 30$ individuals (`ego`), for which we simulate a bidirectional friendship relationship: if individual 'Ego' is a friend of individual 'Alter', then the reciprocal is true. Each individual has the possibility to associate with any other individual in the network, resulting in a network matrix of $30^2 = 900$ rows, with one extra row per individual that connects it to itself ($n-n$) and that will be ignored when generating relationships. The result is the `rnet` dataset.
+
+[fs-sim]: http://www.econometricsbysimulation.com/2012/10/simulating-social-network-data.html "Simulating Social Network Data (Francis Smart)"
+
+```{r smart-random-network-1}
+# Set network size.
+n = 30
+# Create n series of n.
+ego = rep(1:n, each = n)
+# Create n sequences of n.
+alter = rep(1:n, times = n)
+# Default to no friendship between ego and alter.
+friendship = 0
+# Assemble dataset.
+rnet = data.frame(ego, alter, friendship)
+# First rows.
+head(rnet)
+```
+
+To generate random relationships, we draw from a binomial distribution where the probability of a friendship is artificially set to $Pr(friendship) = .15$. The result is a network that displays approximately 15% of all possible `friendship` ties in the `rnet` dataset.
+
+```{r smart-random-network-2}
+# Probability of friendship tie.
+conDen <- .15
+# Assign ties to random nodes.
+for (i in 1:n)
+  for (ii in (i+1):n)
+    if ((rbinom(1, 1, conDen) == 1) & (i != ii)) {
+      rnet$friendship[(rnet$ego ==i  & rnet$alter == ii)] = 1
+      rnet$friendship[(rnet$ego ==ii & rnet$alter == i )] = 1
+      }
+# Inspect random network ties.
+summary(rnet)
+```
+
+The network is drawn with the [`ggnet` function][gh-ggnet]. The plot function processes the subset of the `rnet` data frame for which the `friendship` variable indiciates that there is a relationship to draw. The ties are undirected: there are no arrows between the nodes because the friendship ties are strictly reciprocal.
+
+[gh-ggnet]: https://github.com/briatte/ggnet
+
+```{r smart-randomnetwork-3-auto, message = FALSE, warning = FALSE, tidy = FALSE}
+# Form network object.
+net = network(rnet[rnet$friendship == 1, ], directed = FALSE)
+net
+# Plot random network.
+ggnet(net,
+      label = TRUE,
+      color = "white")
+```
+
+This function is used in the next pages to plot a few social networks. You can train yourself by plotting fictional networks, like the one below using [the _Grey's Anatomy_ network by Gary Weissman][gw-grey], or turn to Solomon Messing's analysis of [U.S. student affiliations][sm-student] for a real-world example of network data.
+
+[sm-student]: https://solomonmessing.wordpress.com/2012/09/30/working-with-bipartiteaffiliation-network-data-in-r/
+[gw-grey]: http://www.r-bloggers.com/grey%E2%80%99s-anatomy-network-of-sexual-relations/
+
+```{r greys-anatomy-auto, message = FALSE, warning = FALSE, tidy = FALSE, cache = TRUE}
+# Locate data.
+link = "http://www.babelgraph.org/data/ga_edgelist.csv"
+file = "data/ga.network.csv"
+# Download data.
+if(!file.exists(file)) download(link, file, mode = "wb")
+# Create network.
+net = network(read.csv(file), directed = FALSE)
+# Plot network.
+ggnet(net, 
+      label = TRUE, 
+      color = "white", 
+      top8 = TRUE, 
+      size = 18,
+      legend.position = "none")
+```
+
+The next pages make more use of the `ggnet` function with Twitter data and word associations plotted as network ties.
+
+> __Next__: [Influence](111_influence.html).

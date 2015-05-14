@@ -1,0 +1,139 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 8.1. Linear correlation
+
+```{r packages, message = FALSE, warning = FALSE}
+# Load packages.
+packages <- c("arm", "car", "countrycode", "downloader", "ggplot2")
+packages <- lapply(packages, FUN = function(x) {
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x)
+    library(x, character.only = TRUE)
+  }
+})
+```
+
+[anglim]: https://github.com/jeromyanglim/oecd_life_analysis/blob/master/oecd-life.md
+[oecd-bli]: http://www.oecdbetterlifeindex.org/
+[sanchez]: https://gastonsanchez.wordpress.com/2012/08/27/scatterplot-matrices-with-ggplot/
+[turner]: http://gettinggeneticsdone.blogspot.fr/2011/07/scatterplot-matrices-in-r.html
+
+Let's start with the simplest form of a linear relationship between two continuous variables. The following example uses data from the [OECD Better Life Index][oecd-bli], which is available for 36 countries, and draws on code by [Jeromy Anglim][anglim]. We drop the last row of the data on import, as it does not represent a country (it holds the OECD average figures).
+
+```{r oecd-data, message=FALSE}
+# Target source.
+url = "https://raw.github.com/jeromyanglim/oecd_life_analysis/master/oecd-life.csv"
+# Target file.
+file = "data/oecd.bli.2011.tsv"
+# Download dataset.
+if(!file.exists(file)) download(url, file, mode = "wb")
+# Import TSV file.
+oecd <- read.csv(file, sep = "\t", stringsAsFactors = FALSE)[1:36, ]
+```
+
+The next step is to clean up the data, which contains non-numeric characters in the data columns like `%` or `USD`. The `gsub()` function is a search-and-replace utility that uses a language called regular expressions. It is used here to remove all characters that are not part of the numeric set, except in the first column that holds country names.
+
+```{r oecd-cleanup}
+# Extract numeric data.
+oecd[-1] <- as.numeric(gsub("[^0-9.]", "", as.matrix(oecd[-1])))
+```
+
+Let's finally add country codes to the data, which will be useful to plot the data. The `countrycode` package can convert country names to ISO-3C three-letter acronyms. We conclude the data preparation by checking on a few columns of the finalized dataset. The entire list of variables is available, as usual, through the `names()` function.
+
+```{r oecd-codes, message=FALSE}
+# Add country codes.
+oecd$iso3c <- countrycode(oecd$COUNTRY, "country.name", "iso3c")
+# Check result.
+head(oecd)[c(1, 4, 6, 13, 26)]
+```
+
+## Visualizing linear relationships
+
+Our first example of a linear relationship will consider the association between water quality and life expectancy. We work under the basic assumption that access to safe water contributes either directly or indirectly to decreasing the burden of disease in the general population, therefore leading to higher longevity. We plot both variables and their means.
+
+```{r oecd-lifeexp-auto, tidy = FALSE}
+# Compute average life expectancy.
+ymean <- mean(oecd$Life.expectancy)
+# Compute average water quality.
+xmean <- mean(oecd$Water.quality)
+# Plot both variables with country codes as data points.
+g <- qplot(data = oecd, y = Life.expectancy, x = Water.quality, 
+      label = iso3c, geom = "text") +
+  geom_vline(x = xmean, linetype = "dashed") +
+  geom_hline(y = ymean, linetype = "dashed")
+# Show plot.
+g
+```
+
+The association between both variables is imperfect, but a majority of countries are situated in the top-right and bottom-left quadrant: when water quality increases, life expectancy increases, and vice versa. This corresponds to a positive correlation. The two other quadrants would instead correspond to a negative correlation. Both are shown below in different colors.
+
+```{r oecd-quadrants-auto, tidy = FALSE}
+# Create a dummy denoting positive or negative correlation.
+bottom.left <- (oecd$Water.quality < xmean) & (oecd$Life.expectancy < ymean)
+top.right   <- (oecd$Water.quality > xmean) & (oecd$Life.expectancy > ymean)
+correlation <- ifelse(bottom.left | top.right, "positive", "negative")
+# Add colored circles to discriminate the data points.
+g + geom_point(size=16, alpha = .4, aes(color = correlation)) +
+  scale_colour_manual("Correlation", 
+                      values = c("positive" = "green", "negative" = "red")) +
+  theme(legend.position = "top", legend.margin = unit(1.5, "inches"))
+```
+
+A simpler way to express the association is to fit a smoothed trend through the data. What then appears is an approximate line that goes through the bottom-left quadrant, then through the intersection of the means, and then through the top-right quadrant. This trend confirms that the data shows an 'upward', positive, linear correlation.
+
+```{r oecd-loess-auto, message = FALSE, tidy = FALSE}
+g + geom_smooth(fill = "green", color = "forestgreen", alpha = .2)
+```
+
+## Measuring linear correlations
+
+The smoothed trend above is calculated through an algorithm that uses the local sum of squares in the data. We won't go into that right now, but the sum of squares is relevant here, because one way to express a bivariate linear relationship as the one observed here is to compute its correlation coefficient $r$, using a formula by Karl Pearson:
+
+$$r = \frac{\sum ^n _{i=1}(X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum ^n _{i=1}(X_i - \bar{X})^2} \sqrt{\sum ^n _{i=1}(Y_i - \bar{Y})^2}}$$
+
+The numerator the formula is the covariance of the two variables, which is positive when the variables show similar behaviour (when they increase and decrease together), and negative otherwise. The denominator of the formula is the product of the standard deviations of the variables, which converts the covariance to a value between $-1$ (perfect negative correlation) and $+1$ (perfect positive correlation).
+
+The `cor()` function computes Pearson's correlation coefficient. We use the `with()` function to tell R that both variables are in the same `oecd` dataset. The result indicates a moderate correlation, as previously observed.
+
+```{r oecd-correlation}
+# Correlation coefficient.
+with(oecd, cor(Life.expectancy, Water.quality))
+```
+
+## Correlation matrixes
+
+It is customary to build huge correlation tables out of all continuous variables of a dataset to see what correlations exists throughout the data (see, e.g., Kabacoff 7.3). It is also customary to test these correlations for statistical significance (see, e.g. Teetor 9.17). We suggest instead opting for graphical options (see also Chang 13.1). An example appears below :
+
+```{r oecd-correlation-plot}
+# Absolute correlation plot.
+corrplot(oecd[-c(1, 26)], color = TRUE)
+```
+
+The plot shows, for instance, that the correlation between job security and the employment rate is very low, contrary to claims that high job security threatens the creation of jobs in the private sector. Be careful when reading the matrix: all correlations are shown in absolute value, so negative correlations show as positive ones, as with this example:
+
+```{r oecd-negative-correlation-auto, warning = FALSE, message = FALSE, tidy = FALSE}
+# Compute correlation coefficient.
+with(oecd, cor(Life.Satisfaction, Long.term.unemployment.rate, use = "complete.obs"))
+# Plot with smoothed trend.
+qplot(data = oecd, y = Life.Satisfaction, x = Long.term.unemployment.rate,
+      label = iso3c, geom = "text") +
+  geom_smooth(fill = "red", color = "darkred", alpha = .2)
+```
+
+This example shows further aspects of correlation. First, because there are missing values in the variables, we had to exclude observations for which either life satisfaction or long-term unemployment were unavailable. Second, the plot clearly shows that correlation can be moderately high even when the pattern in the data is not genuinely linear.
+
+## Scatterplot matrixes
+
+We will finish this section by returning to scatterplots. There are several ways to produce scatterplot matrixes in R, the simplest of which is the base `pairs()` function (see Chang 5.13 for its customization). Another option from the `car` package will also show smoothed trends (disabled here), density and linear fits.
+
+```{r oecd-scatterplot-matrix, message=FALSE}
+# Scatterplot matrix.
+pairs(oecd[c(15:17, 25)])
+# More sophisticated output.
+scatterplotMatrix(oecd[c(15:17, 25)], smoother=NULL)
+```
+
+The functions listed on this page should give you enough ways to explore your data for linear patterns. The `ggplot2` engine is not as capable with scatterplot matrixes than it is with many other graphics, so we left it aside here, but see [online examples][turner] and [tweaks][sanchez] of the `ggpairs()` function if you absolutely want your scatterplot matrixes to get the `ggplot2` treatment.
+
+> __Next__: [Ordinary least squares](082_ols.html).

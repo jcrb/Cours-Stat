@@ -1,0 +1,127 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 11.1. Influence
+
+This session is inspired by the Tony Hirst's [exploration of Twitter networks][th-twitter] and content. [His method][th-openrefine] is not based on R: he uses [Open Refine][openrefine] to process the data and then uses [Gephi][gephi] to visualize it as network plots and [run some basic network analysis][th-gephi]. For consistency, we will run everything in R, knowing that there are alternative workflows like Hirst's.
+
+[th-twitter]: http://blog.ouseful.info/tag/twitter/
+[th-openrefine]: http://blog.ouseful.info/2012/10/02/grabbing-twitter-search-results-into-google-refine-and-exporting-conversations-into-gephi/
+[openrefine]: http://openrefine.org/
+[th-gephi]: http://blog.ouseful.info/2012/11/09/drug-deal-network-analysis-with-gephi-tutorial/
+[gephi]: http://gephi.org/
+
+```{r packages, message = FALSE, warning = FALSE}
+# Load packages.
+packages <- c("downloader", "intergraph", "GGally", "ggplot2", "network", "RColorBrewer", "sna")
+packages <- lapply(packages, FUN = function(x) {
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x)
+    library(x, character.only = TRUE)
+  }
+})
+```
+
+We will use our very own [`ggnet` function][gh-ggnet] to produce the plots with `ggplot2`: see [this blog post][pb-ggnet] (in French) and [these slides][fb-raddicts] (in English/French) for some construction notes, and see David Spark's [networks][ds-bezier] with [Bézier curves][wiki-bc] for an elegant variation of network plots drawn with `ggplot2`. 
+
+[fb-raddicts]: http://goo.gl/VHnwsg "Collaboration Networks Among French Members of Parliament (François Briatte, R Addicts 2013)"
+[gh-ggnet]: https://github.com/briatte/ggnet "ggnet (GitHub)"
+[pb-ggnet]: http://politbistro.hypotheses.org/1752 "339 députés sur Twitter (Polit'bistro)"
+[wiki-bc]: https://en.wikipedia.org/wiki/B%C3%A9zier_curve "Bézier curve (Wikipedia)"
+[ds-bezier]: http://is-r.tumblr.com/post/38459242505/beautiful-network-diagrams-with-ggplot2 "Beautiful network diagrams with ggplot2 (David Sparks)"
+
+Regarding the data, it used to be pretty straightforward to mine Twitter data with R and the `twitteR` library, and there are nice examples of such exercises on Gaston Sanchez's "[Mining Twitter][gs-mt]" and on the Oxford Internet Institute's "[Network Visualization][oii-nv]". [Both][gs-gh] of [them][oii-gh] are on GitHub) if you want to take a look at the code.
+
+[gs-mt]: https://sites.google.com/site/miningtwitter/ "Mining Twitter (Gaston Sanchez)"
+[gs-gh]: https://github.com/gastonstat/Mining_Twitter "Mining Twitter: GitHub repository (Gaston Sanchez)"
+[oii-nv]: http://oxfordinternetinstitute.github.io/InteractiveVis/network/
+[oii-gh]: https://github.com/oxfordinternetinstitute/InteractiveVis
+
+You can still replicate these examples, but only if you authenticate with Twitter first, which we will skip. Instead, we will rely on the data that were collected to illustrate the `ggnet` function. This network contains 339 Twitter accounts used by French MPs in May 2013 (see [this blog post][pb-deputes] for data construction details).
+
+[pb-deputes]: http://politbistro.hypotheses.org/1752
+
+```{r ggnet-data}
+# Locate and save the network data.
+net = "data/network.tsv"
+ids = "data/nodes.tsv"
+zip = "data/twitter.an.zip"
+if(!file.exists(zip)) {
+  download("https://raw.github.com/briatte/ggnet/master/network.tsv", net)
+  download("https://raw.github.com/briatte/ggnet/master/nodes.tsv", ids)
+  zip(zip, file = c(net, ids))
+  file.remove(net, ids)
+}
+# Get data on current French MPs.
+ids = read.csv(unz(zip, ids), sep = "\t")
+# Get data on their Twitter accounts.
+net = read.csv(unz(zip, net), sep = "\t")
+# Copy network data for later use.
+ndf = net
+# Convert it to a network object.
+net = network(net)
+```
+
+Once the two datasets have been converted to a `network` object, plotting the network is very easy: we just pass the object to the `ggnet` function, along with some information on how to color and weight the points with parliamentary groups. The [README][ggnet-readme] file for the ggnet function has more examples.
+
+[ggnet-readme]: https://github.com/briatte/ggnet/blob/master/README.md
+
+```{r ggnet-plot-auto, message = FALSE, fig.width = 12, fig.height = 9, tidy = FALSE}
+mps = data.frame(Twitter = network.vertex.names(net))
+# Set the French MP part colours.
+mp.groups = merge(mps, ids, by = "Twitter")$Groupe
+mp.colors = brewer.pal(9, "Set1")[c(3, 1, 9, 6, 8, 5, 2)]
+# First ggnet example plot.
+ggnet(net, 
+      weight = "degree", 
+      quantize = TRUE,
+      node.group = mp.groups, 
+      node.color = mp.colors,
+      names = c("Group", "Links")) + 
+  theme(text = element_text(size = 16))
+```
+
+The method used here to position the data points into a [force-directed graph][wiki-fdg] is the Fruchterman-Reingold algorithm. The algorithm contains a random component at its initial stage and therefore generates a different result on each run. Run the following function several times to view the same network under similar layouts with different random parameters.
+
+[wiki-fdg]: https://en.wikipedia.org/wiki/Force-based_algorithms "Force-based algorithms (Wikipedia)"
+
+## Network centrality
+
+The nodes of the network are MPs with Twitter accounts, and the network is formed by all "follower/following" directed links between them. Use these simple [custom functions][gh-ggnet-functions] to explore the network by asking simple questions, like "who is following..." or "how many members of each group is following…":
+
+[gh-ggnet-functions]: https://github.com/briatte/ggnet/blob/master/functions.R
+
+```{r ggnet-exploration, eval = FALSE}
+# Recall network data structure.
+head(ndf)
+# Load network functions.
+code = "https://raw.github.com/briatte/ggnet/master/functions.R"
+downloader::source_url(code, prompt = FALSE)
+# A few simple examples.
+x = who.follows(ndf, "nk_m")
+y = who.is.followed.by(ndf, "JacquesBompard")
+# A more subtle measure.
+lapply(levels(ids$Groupe), top.group.outlinks, net = ndf)
+```
+
+In this network, the indegree is the number of followers, i.e. the sum of nodes that link to a node, and the outdegree is the number of outgoing connexions from this same node. The total [degree][wiki-degree] of a node (the sum of its indegree and outdegree) is a possible measure of [network centrality][wiki-centrality], as is [betweenness][wiki-betweenness]:
+
+[wiki-degree]: https://en.wikipedia.org/wiki/Degree_(graph_theory) "Degree in graph theory (Wikipedia)"
+[wiki-centrality]: https://en.wikipedia.org/wiki/Centrality "Centrality (Wikipedia)"
+[wiki-betweenness]: https://en.wikipedia.org/wiki/Betweenness_centrality "Betweenness centrality (Wikipedia)"
+
+```{r betweenness}
+# Calculate network betweenness.
+top.mps = order(betweenness(net), decreasing = TRUE)
+# Get the names of the vertices.
+top.mps = cbind(top.mps, network.vertex.names(net)[top.mps])
+# Show the top 5.
+head(top.mps)
+```
+
+Centrality is useful to detect influent or important network members, as clearly illustrated by Claude Bartolone's central position among all French MPs on Twitter (Bartolone currently chairs the lower house of the French parliament). For a fun exploration of network centrality, see Kieran Healey's [brilliant take][kjh-revere] on the issue, [using R][kjh-revere-gh] in the 18th century.
+
+[kjh-revere]: http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/
+[kjh-revere-gh]: https://github.com/kjhealy/revere
+
+> __Next__: [Network(d)s](112_networkds.html).

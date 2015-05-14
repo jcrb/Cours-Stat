@@ -1,0 +1,33 @@
+
+[Practical Regression and Anova using R]()
+
+document téléchargé + fascicule relié
+
+data
+----
+
+[Diabète et grossesse](http://archive.ics.uci.edu/ml/datasets/Pima+Indians+Diabetes) dans le répertoire de données de l'[UCI](http://www.ics.uci.edu/~mlearn/MLRepository.html)
+
+Les statistiques
+
+- commencent par un problème
+- continuent avec une collection de données
+- réalisent une analyse des données
+- pour aboutir à une conclusion
+
+Toujours définir le problème avant de commencer !
+
+Formulation
+------------
+
+_La formulation d'un problème est souvent plus essentielle que sa solution qui peut être simplement une question de d'habileté mathématique ou expérimentale. A.Einstein_
+
+Pour formuler un problème correctement, vous devez:
+
+- comprendre le contexte. Le statisticien travaille généralement en collaboration avec d'autres et doit comprendre un minimum sur le sujet abordé. C'est pour lui une façon d'approfondir ses connaissance dans un domaine qu'il ne connait pas.
+
+- comprendre l'objectif. 
+
+- soyez certain de comprendre ce que veut le client. Ne pas faire plus complqué que ce qui est nécessaire.
+
+- transposer le problème en question statistique. C'est une étape difficile où des erreurs irréparables peuvent être commises
