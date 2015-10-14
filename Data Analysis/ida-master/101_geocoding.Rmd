@@ -1,0 +1,76 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 10.1. Geocoded information
+
+Most of the geocoding work that we want to show here can be [done with `ggmap`][milanor-ggmap], a map extension to `ggplot2` that uses Google Maps or other services to provide geocoded map backgrounds.
+
+[milanor-ggmap]: http://www.milanor.net/blog/?p=534
+[wb-aid]: http://aiddata.org/content/index/AidData-Raw/geocoded-data
+
+```{r packages, message = FALSE}
+packages <- c("downloader", "ggmap", "plyr")
+packages <- lapply(packages, FUN = function(x) {
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x)
+    library(x, character.only = TRUE)
+  }
+})
+```
+
+Let's plot [World Bank projects in Africa][wb-aid]. (<ins>Update:</ins> the link went dead, so I'm bundling the data with the course.)
+ 
+```{r africa-data}
+# Get the data.
+# url = "http://aiddata.org/weceem_uploads/_ROOT/File/geocoding/AllWorldBank_IBRDIDA.zip"
+zip = "data/wb.projects.zip"
+# if(!file.exists(zip)) download(url, zip, mode = "wb")
+# Read from the ZIP file.
+wb = read.csv(unz(zip, "AllWorldBank_IBRDIDA.csv"))
+# Subset to Africa.
+wb = subset(wb, Region == "AFRICA")
+# Inspect variables.
+v = c("Project.ID", "Latitude", "Longitude", "Country", "Total.Amt")
+head(wb)[v]
+```
+
+The next step involves injecting some information from an online map bank into R. The `get_map` function calls the [Open Street Map][osm] API, which returns a `ggmap` raster object that you can pass to `ggmap`. That map can be overplotted with geocododed information, as shown below with aid projects from the World Bank, colored by country and sized by total amount of funding.
+
+```{r africa-osm-auto, warning = FALSE, message = FALSE, fig.width = 12, fig.height = 9, tidy = FALSE}
+# Get OpenStreetMap data.
+map =  get_map(location = 'Africa', zoom = 4)
+# Plot World Bank projects.
+ggmap(map) + 
+  geom_point(data = wb, 
+             aes(x = Longitude, y = Latitude, color = Country, size = Total.Amt),
+             alpha = .3) + 
+  scale_size_area(max_size = 8) + 
+  labs(y = NULL, x = NULL) +
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        legend.position = "none")
+```
+
+The `get_map` function puts more than one map service at your fingertips: here's an example with the [Stamen watercolor][stamen] map. The map still uses a different color for each country and passes the same plot options to remove the unnecessary axis and title information. It would be easy to write a quick map function to avoir recoding each plot (have a try).
+
+[stamen]: http://content.stamen.com/watercolor_process
+
+```{r africa-stamen-auto, warning = FALSE, message = FALSE, fig.width = 12, fig.height = 9, tidy = FALSE, cache = TRUE}
+# Get OpenStreetMap data.
+ton = get_map(location = 'Africa', zoom = 4, source = "stamen", maptype = "watercolor")
+# Plot World Bank projects.
+ggmap(ton) + 
+  geom_point(data = wb, 
+             aes(x = Longitude, y = Latitude, color = Country, size = Total.Amt)) + 
+  scale_size_area(max_size = 8) +
+  labs(y = NULL, x = NULL) +
+  theme(axis.text = element_blank(), 
+        axis.ticks = element_blank(),
+        legend.position = "none")
+```
+
+If you geodata consists of routes, like flights, it contains vertices of the form $(x_1, y_1) - (x_2,y_2)$ (start-end points) that can be plotted by latitude and longitude. If you need to visualize these ties, there are ways to [plot network data over maps][yau-circles] with a different R package. We will quickly return to network data next week, in a simpler context.
+
+[yau-circles]: http://flowingdata.com/2011/05/11/how-to-map-connections-with-great-circles/
+
+> __Next__: [Choropleth maps](102_choropleths.html).

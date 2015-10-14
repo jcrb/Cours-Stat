@@ -1,0 +1,85 @@
+============================
+Report:  Export Report
+Created: 01/05/2015 11:06:43
+============================
+
+-------------------------------------------------------------
+File 1: /home/jcb/Documents/CESU/Cours-Stat/EpiData/test1.epx 
+-------------------------------------------------------------
+
+File 1: /home/jcb/Documents/CESU/Cours-Stat/EpiData/test1.epx
+-------------------------------
+Title       Projet test         
+Created     01/05/2015 10:57:29 
+Last Edited 01/05/2015 10:57:29 
+Version     1                   
+Cycle       1                   
+-------------------------------
+Backup on shutdown: yes
+Encrypted data: no
+
+Dataforms:
+-------------------------------------------------------------------------------------------------------
+Caption    Created             Structure Edited    Data Edited         Sections Fields Records Deleted  
+-------------------------------------------------------------------------------------------------------
+Dataform 1 01/05/2015 10:57:29 01/05/2015 10:57:29 01/05/2015 10:57:29        1      0       0       0  
+-------------------------------------------------------------------------------------------------------
+
+------------------------
+Caption    Fields in key 
+------------------------
+Dataform 1               
+------------------------
+
+Specifications for Export:
+----------------------------------------
+Option                             Value 
+----------------------------------------
+Records Exported                   1 - 0 
+Encoding                            UTF8 
+Export records marked for deletion    No 
+Byte Order Mark                       No 
+Export Field Names (first row)       Yes 
+Quote Character                        " 
+Field Separator                        , 
+Date Separator                         - 
+Time Separator                         : 
+Decimal Separtor                       . 
+New Line Style                     Linux 
+Fixed Format                          No 
+----------------------------------------
+
+Exported Items:
+----------------------------------------------------------------
+Name Type Length Missing Value(s) Value Label Question / Caption 
+----------------------------------------------------------------
+
+Files created:
+----------------------------------------------------------------
+Content: Filename:                                               
+----------------------------------------------------------------
+Report   /home/jcb/Documents/CESU/Cours-Stat/EpiData/test1_1.log 
+csv      /home/jcb/Documents/CESU/Cours-Stat/EpiData/test1_1.csv 
+----------------------------------------------------------------
+
+Study information:
+-------------------------------------------------
+Name:                 Value:                      
+-------------------------------------------------
+Title                 Projet test                 
+Purpose                                           
+Geographical Coverage France                      
+Data Collection       01/01/2015 - 21/12/2015     
+Author                JCB                         
+Created               01/05/2015 10:57:29         
+Last Edited           01/05/2015 10:57:29         
+Version                                         1 
+Funding               NO                          
+Identifier            V1                          
+Language              en                          
+Publisher             CESU                        
+Rights                FREE                        
+Abstract              Ceci est mon premier projet 
+Design                                            
+Unit of Observation    ans et plus                
+-------------------------------------------------

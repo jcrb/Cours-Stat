@@ -1,0 +1,35 @@
+---
+title: "Haguenau"
+author: "JcB"
+date: "14/10/2015"
+output: html_document
+---
+
+
+
+La démarche statistique
+=======================
+
+1. Collecte de données
+--------------------
+et leur mise en forme pour être exploitées, c'est 80% du travail.
+
+2. Statistiques descriptives
+-------------------------
+Nous allons générer des statistiques qui résument les données de façon concise, et d'évaluer les différents
+des moyens pour visualiser les données.
+
+3. L'analyse exploratoire des données
+-------------------------------------
+Nous allons rechercher des modèles, les différences, et d'autres caractéritiques qui répondent aux questions
+nous sommes intéressés à. Dans le même temps, nous allons vérifier les incohérences et identifier
+limitations.
+
+4. estimation
+-------------
+Nous allons utiliser les données à partir d'un échantillon pour estimer les caractéristiques de la population générale.
+
+5. Tests d'hypothèses
+---------------------
+Où l'on voit les effets apparents, comme une différence entre deux groupes, nous évaluerons
+si l'effet pourrait être dû au hasard.

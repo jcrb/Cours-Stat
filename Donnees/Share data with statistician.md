@@ -208,10 +208,14 @@ La troisième zone est divisée verticalement en 2:
 - les colonnes les plus à gauche contiennent les variables de type "facteur" (factorielles)
 - les colonnes les plus à droite contiennent les mesures
 
-**métadonnées** ce sont des données à propos des données. Elles servent à comprendre le contexte dans lequel se fait l'étude: nom de l'auteur des investigateurs, version du questionnaire, méthodes de description des variables: 'pour la rubrique sexe préciser H ou F'. Cette zone est facultative ou faire l'objet d'un document séparé
+**métadonnées** ce sont des données à propos des données. Elles servent à comprendre le contexte dans lequel se fait l'étude: nom de l'auteur des investigateurs, version du questionnaire, méthodes de description des variables: 'pour la rubrique sexe préciser H ou F'. Cette zone est facultative ou faire l'objet d'un document séparé. Les éléments importants sont:
 
-**nom des colonnes** formée d'une seule ligne. Sert à stocker le nom opérationnel des colonnes. Règles:
-- le nom est succint (5 caractères)
+- le nom complet des variables
+- lesunités dans lesquelles elles sont mesurées
+- quand les variables ont été collectées
+
+**nom des colonnes** formée d'une seule ligne. Sert à stocker le nom opérationnel des colonnes. Par conventionnRègles:
+- le nom est succint (5-10 caractères). C'est un compromis entre praticité (on va le taper souvent) et clareté. Utiliser le point ou l'underscore pour séparer les termes composés (date.saisie ou poids_naissance).
 - il ne doit pas contenir d'espace ou de caractères qui pourrait être mal interprété (,;/\)
 - remplacer les espace par des underscore
 - pas de caractères accentués  
@@ -280,3 +284,31 @@ Les variables quantitatives ou numériques sont celles qui se mesurent avec des 
 Cependant les frontières entre les variables ne sont pas infranchissables: l'age par exemple peut être considéré comme une var quantitative ou qualitative (catégorielle) selon les circonstances.
 
 Un **ensemble de données** est formé d'**observations** enregistrées sous formes de **variables** que l'on peut diviser en 2 groupes (**dépendantes** et **indépendantes**) chacune pouvant s'exprimer sous forme **catégorielle** ou **numérique**.
+
+Vocabulaire
+===========
+
+[Mung](http://www.wikiwand.com/en/Mung_%28computer_term%29) or munge is computer jargon for a series of changes to a piece of data, which are often well defined and individually reversible, but which transform the original item into an unrecognizable form. The changes may be destructive, e.g. by corrupting a computer file, or simply concealing, e.g. changes to an email address to disguise it from spambots.
+
+[data munging](http://www.wikiwand.com/en/Data_wrangling) (cleaning data from one "raw" form into a structured, purged one) Data munging or data wrangling is loosely the process of manually converting or mapping data from one "raw" form into another format that allows for more convenient consumption of the data with the help of semi-automated tools. This may include further munging, data visualization, data aggregation, training a statistical model, as well as many other potential uses. Data munging as a process typically follows a set of general steps which begin with extracting the data in a raw form from the data source, "munging" the raw data using algorithms (e.g. sorting) or parsing the data into predefined data structures, and finally depositing the resulting content into a data sink for storage and future use.[1] Given the rapid growth of the internet[2] such techniques will become increasingly important in the organization of the growing amounts of data available.
+
+Organisation (shape) des données
+================================
+
+[Ecological Models and Data in R](http://ms.mcmaster.ca/~bolker/emdbook/book.pdf)
+
+La plupart des logiciels statistiques attendent qu'une observation individuelle soit formée d'un enregistrement unique formant une ligne de données. C'est ce qu'on appelle le format __long__ ou __indexé__. Exemple le suivi des cas d'ebola:
+
+date | pays | nb.cas 
+-----|------|--------:
+2014-12-01 | Liberia | 100  
+2014-12-05 | Liberia | 120   
+2014-12-10 | Liberia | 140 
+
+Inversement on peut aussi utiliser le format __large__ (wide):
+
+pays  | 2014-12-01 | 2014-12-05 | 2014-12-10 
+------|------------|------------|-----------
+Liberia | 100 | 120 | 140  
+
+Le format long nécessite plus de lignes mais c'est typiquement celui qui est attendu par les logiciels statistiques. Il est possible de passer d'un format large à un format long et inversement (table pivot sous excel, reshape avec R)

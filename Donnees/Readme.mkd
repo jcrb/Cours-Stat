@@ -1,6 +1,27 @@
 Datas
 =====
 
+Bibliographie
+-------------
+[Organizing Your Data](http://www.bu.edu/datamanagement/outline/elements/organize/)
+
+[Organize your data](http://www.library.gatech.edu/research-data/organization)
+
+[ORGANIZING AND ANALYZING YOUR DATA](http://www.wilder.org/Wilder-Research/Publications/Studies/Program%20Evaluation%20and%20Research%20Tips/Organizing%20and%20Analyzing%20Your%20Data%20-%20Tips%20for%20Conducting%20Program%20Evaluation%20Issue%2013,%20Fact%20Sheet.pdf)
+
+[Data Management Guide ](http://guides.lib.washington.edu/content.php?pid=259952&sid=2350038)
+
+[A Quick Guide to Organizing Computational Biology Projects](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)
+
+[Digital tools for researchers](http://connectedresearchers.com/online-tools-for-researchers/)
+
+[Organize Files and Data](http://www.usgs.gov/datamanagement/plan/organizefiles.php)
+
+[PLOS Computational Biology: Ten Simple Rules](http://www.ploscollections.org/article/browse/issue/info%3Adoi%2F10.1371%2Fissue.pcol.v03.i01)
+
+[Qualitative Research Methods:A DATA COLLECTOR’S FIELD GUIDE](http://www.fhi360.org/sites/default/files/media/documents/Qualitative%20Research%20Methods%20-%20A%20Data%20Collector%27s%20Field%20Guide.pdf)
+
+
 [1] [Data Cleaning is a critical part of the Data Science process](http://blog.revolutionanalytics.com/2014/08/data-cleaning-is-a-critical-part-of-the-data-science-process.html)
 ==========================================
 

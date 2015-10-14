@@ -1,0 +1,22 @@
+Introduction to Data Analysis
+=============================
+
+François Briatte and Ivaylo Petev
+Sciences Po, Euro-American Campus
+Spring 2013
+
+This course is an introduction to analyzing data with the R software. It features some mathematics and statistics as well as some statistical computing and data visualization. You will need a laptop with an Internet connection to follow the class.
+
+To get started, download the entire course. To take a look at what the course material is made of, view it on GitHub first. It's not a large download.
+
+Le dossier complet du cours est dans le dossier
+
+[source](http://f.briatte.org/teaching/ida/index.html)
+
+Passe en revue toutes les données intéressantes:
+- récupéraion via internet
+- séries chronologiques
+- graphismes
+- cartographie...
+
+A EXPLORER

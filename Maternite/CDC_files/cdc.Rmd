@@ -5,11 +5,34 @@ date: "22/11/2014"
 output: html_document
 ---
 
+Le livre [Think Stats, 2nd Edition](http://it-ebooks.info/book/4370/) téléchargeable au format .pdf. Une approche intéressante car développe toute l'approche statistique à partir d'un exemple concret qui sert de fil conducteur tout au long du livre. E l'occurrence il s'agit d'une enquête du centre des maladies américain (CDC) concernant notamment les accouchements. ça m'intéresse car depuis cette année, je fais des cours de stat aux sage-femmes et cela donne des exemples concrets. Les programmes sont en python mais je les transpose en R. Je viens de terminer le premier chapitre qui concerne le chargement des données. Pas simple d'ailleurs car les données source sont volumineuses et fournies sous forme de fichiers compacts, sans séparateurs de colonnes et qu'il faut redécouper sans se tromper.
+
+La page consacrée à cette étude se touve [ici](http://www.cdc.gov/nchs/nsfg.htm), la [documentation technique](http://www.cdc.gov/nchs/nsfg/nsfg_2011_2013_puf.htm) et les [données](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NSFG/) sont également fournies (il faut accepter les conditions d'utilisation).
+
+```{}
 file <- "Maternite/CDC_files/2002FemPreg.dat"
 d <- readLines(file, n = 1)
 d
+```
 
-```{r}
+The National Survey of Family Growth
+====================================
+Since 1973, the US Centers for Disease Control and Prevention (CDC) have conducted the National Survey of Family Growth (NSFG), which is intended to gather “information on family life, marriage and divorce, pregnancy, infertility, use of contraception, and men’s and women’s health. The survey results are used...to plan health services and health education programs, and to do statistical studies of families, fertility, and health.”
+We will use data collected by this survey to investigate whether first babies tend to come late, as well as answer other questions. In order to use this data effectively, we have to understand the design of the study.
+The NSFG is a __cross-sectional__ study, which means that it captures a snapshot of a group at a point in time. The most common alternative is a __longitudinal__ study, which observes a group repeatedly over a period of time.
+The NSFG has been conducted seven times; each deployment is called a __cycle__. We will use data from Cycle 6, which was conducted from January 2002 to March 2003.
+The goal of the survey is to draw conclusions about a __population__; the target population of the NSFG is people in the United States aged 15-44. Ideally surveys would collect data from every member of the population, but that’s seldom possible. Instead we collect data from a subset of the population called a __sample__. The people who participate in a
+survey are called __respondents__.
+In general, cross-sectional studies are meant to be __representative__, which means that every member of the target population has an equal chance of participating. That ideal is hard to achieve in practice, but people who conduct surveys come as close as they
+can.
+The NSFG is not representative; instead it is deliberately __oversampled__. The designers of the study recruited three groups—Hispanics, African Americans and teenagers—at rates higher than their representation in the U.S. population, in order to make sure that
+the number of respondents in each of these groups is large enough to draw valid statistical inferences.
+Of course, the drawback of oversampling is that it is not as easy to draw conclusions about the general population based on statistics from the survey. We will come back to this point later.
+When working with this kind of data, it is important to be familiar with the __code‐book__, which documents the design of the study, the survey questions, and the encoding of the responses. The codebook and user’s guide for the NSFG data are available from the [CDC’s website](http://1.usa.gov/1pi2BP2).
+
+Nettoyage des données
+=====================
+```{}
 path <- "Maternite/CDC_files/"
 
 # le dictionnaire des données
@@ -55,17 +78,24 @@ d2$totalwgt_kg <- d2$totalwgt_lb * 0.45359237
 head(d2)
 
 # o sauvegarde les fichiers créés
-write.csv(d2, file = "fichier_travail.Rda") # fichier simplifié
-write.csv(data, file = "fichier_complet.Rda") # fichier original. On le met dans .gitignore pour alléger les transferts
+write.csv(d2, file = "fichier_travail.csv") # fichier simplifié
+write.csv(data, file = "fichier_complet.csv") # fichier original. On le met dans .gitignore pour alléger les transferts
 
 ```
 
 analyse
 -------
 
+```{r init2}
+path =""
+d <- read.csv(paste0(path, "fichier_travail.csv"))
+
+```
+
+
 ```{r analyse}
-live <- d2[d2$outcome == 1,] # enfants vivants
-hist(d2$birthwgt_lb, xlab="pounds", main="Poids de naissance", col="blue", border="lightblue")
+live <- d[d$outcome == 1,] # enfants vivants
+hist(d$birthwgt_lb, xlab="pounds", main="Poids de naissance", col="blue", border="lightblue")
 
 
 ```

@@ -1,0 +1,236 @@
+<style>@import url(style.css);</style>
+[Introduction to Data Analysis](index.html "Course index")
+
+# 4.1. Imports and exports
+
+This section introduces data import and export (or "I/O", for "input/output") with R.
+
+```{r packages, message = FALSE, warning = FALSE}
+# Load packages.
+packages <- c("countrycode", "downloader", "foreign", "ggplot2", "plyr", "RCurl", "XML")
+packages <- lapply(packages, FUN = function(x) {
+  if(!require(x, character.only = TRUE)) {
+    install.packages(x)
+    library(x, character.only = TRUE)
+  }
+})
+```
+
+## Downloading a Google Spreadsheet
+
+We are going to use the [Daily Kos Elections' presidential results by congressional district for the 2012 and 2008 elections][dk], for which the data is accessible as a [Google spreadsheet][dk-gs]. The [Google Docs API documentation][gdocs] tells us that we can get the data in CSV format through a URL request that includes the identifier key of the spreadsheet and the format specification `output=csv`.
+
+[dk]: http://www.dailykos.com/story/2012/11/19/1163009/-Daily-Kos-Elections-presidential-results-by-congressional-district-for-the-2012-2008-elections?detail=hide
+[dk-gs]: https://docs.google.com/spreadsheet/pub?key=0Av8O-dN2giY6dEFCOFZ4ZnlKS0x3M3Y0WHd5aWFDWkE&single=true&gid=0&output=html
+[gdocs]: http://code.google.com/apis/spreadsheets/
+
+```{r dk-url, message=FALSE}
+# Create a filename for the dataset.
+file = "data/dailykos.votes.0812.csv"
+# Store the address of the spreadsheet.
+link = "https://docs.google.com/spreadsheet/pub?key=0Av8O-dN2giY6dEFCOFZ4ZnlKS0x3M3Y0WHd5aWFDWkE&output=csv"
+```
+
+We now need to get the data from that address, using the `getURL` command from the `RCurl` package to fetch the online spreadsheet from the `dk.link` object in which we stored the link. The `ssl.verifypeer` option is required to [avoid an issue][cg] with the SSL certification used by `HTTPS` links.
+
+[cg]: http://christophergandrud.blogspot.fr/2012/06/update-to-data-on-github-post-solution.html
+
+Note that the `getURL()` command is in a conditional statement that avoids downloading the same file again and again if you already have it.
+
+When the file is fetched from online, we convert the result, which is a large text file, to a proper CSV (comma-separated values) file. We specify that we do not want strings converted to factors, i.e. that we do not want a numeric structure for the text variables.
+
+```{r dk-grab}
+# Download dataset.
+if (!file.exists(file)) {
+  message("Dowloading the data...")
+  # Download and read HTML spreadsheet.
+  html <- textConnection(getURL(link, ssl.verifypeer = FALSE))
+  # Convert and export CSV spreadsheet.
+  write.csv(read.csv(html), file)
+}
+# Open file.
+dkos <- read.csv(file, stringsAsFactors = FALSE)
+# Check result.
+str(dkos)
+```
+
+We finally inspect the result by looking at the structure of the dataset with `str` and the first few rows of data with `head`. The plot shows the [regression line][ggplot2-abline] [two-dimensional density curves][ggplot2-density2d] of the Obama vote share in congressional districts held by Democrat and Republican congressmen in 2008 and 2012.
+
+[ggplot-abline]: http://docs.ggplot2.org/current/geom_abline.html
+[ggplot-density2d]: http://docs.ggplot2.org/current/geom_dotplot.html
+
+```{r dk-plot-auto, tidy = FALSE, warning = FALSE, fig.width = 11, fig.height = 8.3}
+# List first data rows.
+head(dkos)
+# Plot data points with regression line and density curves.
+qplot(data = dkos, y = Obama.2012, x = Obama.2008, 
+      colour = Party, size = I(2), geom = "point") + 
+  geom_abline(alpha = .5) + 
+  geom_density2d() +
+  scale_x_continuous(lim = c(0, 100)) + 
+  scale_y_continuous(lim = c(0, 100))
+```
+
+The overall trend is clearly interpretable, and you can easily spot some "safe states" for each party, as well as some "swing states". There are a few exceptions, like Joseph Cao, the sole Republican to vote with the Democrats on Barack Obama's health care reform (although he [opposed the final version][wiki-cao] of the bill over concerns about abortion).
+
+[wiki-cao]: https://en.wikipedia.org/wiki/Joseph_Cao#Health_care "Joseph Cao's voting record on health care (Wikipedia)"
+
+## Downloading and converting files
+
+This sections shows how to download the [Quality of Government (QOG)][qog] dataset, which we will use in future sessions. QOG datasets feature a wide range of variables from various sources, including UN data, World Development Indicators and several datasets compiled by academic researchers. We are going to use the [QOG Standard dataset][qog-std].
+
+[qog]: http://www.qog.pol.gu.se/
+[qog-std]: http://www.qog.pol.gu.se/data/datadownloads/qogstandarddata/
+
+The first code block will start by downloading the QOG codebook if it is not found in the `data` folder. Install the `downloader` package prior to running the code (by now, you should know how to install a package). Note that we first store the target locations for the data, that is, the link to its online location, and its desired download location on disk.
+
+```{r qog-codebook, eval = FALSE, results = 'hide'}
+# Target locations.
+link = "http://www.qogdata.pol.gu.se/data/Codebook_QoG_Std15May13.pdf"
+file = "data/qog.codebook.pdf"
+# Download Quality of Government Standard codebook.
+if(!file.exists(file)) download(link, file, mode = "wb")
+```
+
+The next code block checks whether you have the comma-separated values version of the data. If not, it downloads the QOG Standard cross-sectional dataset in Stata format, opens it using the `read.dta()` function from the `foreign` library, and converts it from that source. The Stata format has the advantage of holding variable and value labels; we will keep it as a backup.
+
+```{r qog-data-cs}
+# Extract Quality of Government Standard cross-sectional data from a ZIP archive.
+zip = "data/qog.cs.zip"
+qog = "data/qog.cs.csv"
+if(!file.exists(zip)) {
+  dta = "data/qog.cs.dta"
+  download("http://www.qogdata.pol.gu.se/data/qog_std_cs.dta", dta, mode = "wb")
+  write.csv(read.dta(dta, warn.missing.labels = FALSE), qog)
+  zip(zip, file = c(dta, qog))
+  file.remove(dta, qog)
+}
+qog = read.csv(unz(zip, qog), stringsAsFactors = FALSE)
+```
+
+'Cross-sectional' means that the data has only one observation per unit of analysis, which are countries in this case. 'Cross-sectional time series' would hold the same data, but for repeated observations over time, such as the fertility rate of each country in 1970, 1971, and so on. Consult the QOG codebook for more details the data.
+
+The concluding example below uses data from economic historians Barro and Lee and Maddison. Another advantage of Quality of Government data is that it comes with several country identifiers that allow to match external data to it, as we do below by adding continental origin based on ISO-3C country codes with the `countrycode` package.
+
+```{r qog-plot-auto, tidy = FALSE, warning = FALSE, fig.width = 11, fig.height = 8.3}
+# Add geographic continents using UN country codes.
+qog$continent = factor(countrycode(qog$ccodealp, "iso3c", "continent"))
+# Plot log-GDP/capita and female education, weighted by population (2002).
+qplot(data = qog, y = log(wdi_gdpc), x = bl_asy25f, 
+      colour = continent, size = mad_pop / 10^3, geom = "point") +
+  scale_colour_brewer("Continent\n", palette = "Set1") +
+  scale_size_area("Population\n", max_size = 24) + 
+  labs(y = "log GDP/capita", x = "Female schooling years")
+```
+
+This plot would be much more informative as an animated graph; we will come back to this.
+
+## Scraping
+
+For our purposes, scraping is the idea of taking information from online sources and to process it into a dataset. [Zarino Zappia][sw-zz], the creator of the [ScraperWiki][sw] website, has written great examples of such scrapers in the Python programming language, as with his [scraper][sw-ows-1] and [chronological map][sw-ows-2] of Occupy protest locations, using Wikipedia sources.
+
+[sw]: https://scraperwiki.com/
+[sw-zz]: https://scraperwiki.com/profiles/zarino/
+[sw-ms]: https://scraperwiki.com/scrapers/multiple_sclerosis_tweets_and_locations/
+[sw-ows-1]: https://scraperwiki.com/scrapers/occupy_protest_locations/
+[sw-ows-2]: https://views.scraperwiki.com/run/occupy_protest_locations_1/
+
+R can handle scraping of [XML][ds-xml] and [HTML][ds-html] content with the `XML` package. Once you know how to do that, you can scrape many different contents, like [Craigslist][dss-craigslist], and experiment with what the authors of that example have termed [data sociology][dss-datasociol] (_note:_ the links are written in French by two friends).
+
+[dss-datasociol]: http://quanti.hypotheses.org/647/
+[dss-craigslist]: http://quanti.hypotheses.org/724/
+[ds-xml]: http://is-r.tumblr.com/post/36059986744/gathering-realclearpolitics-polling-trends-with-xml "Gathering RealClearPolitics Polling Trends with XML (David Sparks)"
+[ds-html]: http://is-r.tumblr.com/post/36945206190/using-xml-to-grab-tables-from-the-web "Using XML to grab tables from the web (David Sparks)"
+
+Here's a quick example: go the [World Chess Federation][fide]'s website, which holds ratings for several thousands of registered chess players. Search for GrandMaster players, and familiarize yourself with the table that the search returns (the variables are explained at the bottom). We are going to save these tables into a dedicated folder.
+
+[fide]: http://ratings.fide.com/advseek.phtml
+
+```{r fide-folder, warning = FALSE}
+files = "data/fide"
+if(!file.exists(files)) dir.create(files)
+```
+
+Notice how the table is split over several pages that share almost the same address (URL), which can be defined as the `url` object below. The only parameter that changes from one page to the other is the final `offset` value, which starts at `0` and ends at `1400` by increments of 100 (the number of players shown on each page). We will therefore create a sequence to fit that presentation.
+
+```{r fide-setup}
+# Link to each table.
+url = "http://ratings.fide.com/advaction.phtml?title=g&offset="
+# Link parameter.
+i <- seq(0, 1400, 100)
+```
+
+We are now going to scrape that table from the HTML code of the web pages. The next code block retrieves that code and applies an [XPath][xpath] expression to select the second table of class `contentpaneopen` on each page, which corresponds to the players table in the HTML source code. We subset the table by dropping a few rows and one column, and then save it to CSV format.
+
+[xpath]: http://www.w3.org/TR/xpath/
+
+_Note that the next code block can take a little while to run, depending on your processor speed and bandwidth capacity. Our own tests on modern equipment took a maximum of one minute._
+
+```{r fide-scrape, message = FALSE}
+# Scraper function.
+fide <- sapply(i, FUN = function(x) {
+  # Define filename.
+  file = paste0(files, "/fide.table.", x, ".csv")
+  # Scrape if needed.
+  if(!file.exists(file)) {
+    message("Downloading data to ", file)
+    # Parse HTML.
+    html <- htmlParse(paste0(url, x))
+    # Select second table.
+    html <- xpathApply(html, "//table[@class='contentpaneopen']")[[2]]
+    # Import table.
+    data <- readHTMLTable(html, skip.rows = 1:3, header = TRUE)[, -1]
+    # Save as CSV.
+    write.csv(data, file, row.names = FALSE)
+  } else {
+    message("Skipping table #", x)
+  }
+  return(file)
+})
+# Zip archive.
+zip("data/fide.zip", fide)
+# Delete workfiles.
+message(fide)
+message(files)
+file.remove(fide, files)
+```
+
+The code above is verbose: it will tell you when it skips existing files, and it will tell you when it starts downloading one. If you already have all data tables in the `fide` folder of your `data` folder, try deleting one file from it and run the code again to see how it works. When you are done running the code, you will need to assemble all tables together, which is what we do below by reading them from the ZIP archive.
+
+```{r fide-data}
+# Import tables into a list.
+fide <- lapply(fide, function(x) {
+  read.csv(unz("data/fide.zip", x))
+})
+# Convert list to data frame.
+fide <- rbind.fill(fide)
+# Remove rows with no player.
+fide <- fide[!is.na(fide$Name), ]
+# Check result.
+tail(fide)
+```
+
+Note the use of the `rbind.fill()` function to [efficiently][rbind] collapse the list of dataframes contained in the object producted by the `lapply()` function, which itself reads through all `fide` filenames in the `fide` data folder. Finally, here's the distribution of FIDE ratings by sex and birth cohort, based on `r nrow(data)` GrandMaster players.
+
+[rbind]: http://rcrastinate.blogspot.fr/2013/05/the-rbinding-race-for-vs-docall-vs.html
+
+```{r fide-plot-auto, tidy = FALSE, warning = FALSE, fig.width = 9, fig.height = 6.8}
+# Determine birth cohort (decades).
+fide$cohort <- cut(fide$B.Year, 
+              breaks = seq(1919, 1999, 10), 
+              labels = seq(1920, 1999, 10))
+# Extract numeric rating substring.
+fide$Rtg <- as.numeric(substr(fide$Rtg, 0, 4))
+# Plot ratings over age and sex.
+qplot(data = subset(fide, !is.na(cohort)), 
+      x = cohort, y = Rtg, fill = S, alpha = I(.5),
+      geom = "boxplot") +
+	scale_fill_brewer("Sex\n", palette = "Set1") +
+	labs(x = "Birth cohort", y = "FIDE standard rating")
+```
+
+You should now be able to determine how far chess is in its demographic transition towards "player parity", and whether that turn is affecting the overall standard ratings of FIDE members. A student once had the great idea to throw in these ratings with economic performance variables: check out [the results][leung]!
+
+[leung]: http://www.chessbase.com/news/2011/Explaining%20Chess%20Success.pdf
+
+> __Next__: [Reshapes and aggregates](042_reshaping.html).

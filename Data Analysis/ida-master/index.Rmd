@@ -1,0 +1,223 @@
+<style>@import url(style.css);</style>
+
+# Introduction to Data Analysis
+
+[François Briatte](http://f.briatte.org/) and [Ivaylo Petev](http://ipetev.org/)  
+[Sciences Po](http://www.sciences-po.fr/), [Euro-American Campus](http://college.sciences-po.fr/sitereims/)  
+Spring 2013
+
+This course is an introduction to analyzing data with the [R](http://www.r-project.org/) software. It features some mathematics and statistics as well as some statistical computing and data visualization. You will need a laptop with an Internet connection to follow the class.
+
+To get started, [download the entire course](https://github.com/briatte/ida/archive/master.zip). To take a look at what the course material is made of, [view it on GitHub first](https://github.com/briatte/ida). It's not a large download.
+
+- [Syllabus][syllabus]
+- [Introduction][001]
+- [Readings][002]
+
+[syllabus]: https://github.com/briatte/ida/raw/master/syllabus.pdf
+[001]: 001_intro.html
+[002]: 002_readings.html
+
+> __Part 1: Introduction to Statistical Computing__. The course starts by one month dedicated to setting up R and learning its basic functionalities. All course logistics will be discussed in these weeks.
+
+## 1. [Setup][010]
+
+__Readings:__ Kabacoff, ch. 1 and Teetor, ch. 1 and 3.
+
+- [Installing R][011]
+- [Installing RStudio][012]
+- [Practice][013]
+
+[010]: 010_setup.html
+[011]: 011_r.html
+[012]: 012_rstudio.html
+[013]: 013_practice.html
+
+* * *
+
+## 2. [Objects][020]
+
+__Readings:__ Teetor, ch. 2 and 5.
+
+- [Vectors and matrices][021]
+- [Variables and factors][022]
+- [Practice][023]
+
+[020]: 020_objects.html
+[021]: 021_vectors.html
+[022]: 022_variables.html
+[023]: 023_practice.html
+
+* * *
+
+## 3. [Functions][030]
+
+__Readings:__ Kabacoff, ch. 5, and Teetor, ch. 8.
+
+<!-- Matloff, ch. 8. -->
+
+- [Control flow][031]
+- [Iteration][032]
+- [Practice][033]
+
+[030]: 030_functions.html
+[031]: 031_control.html
+[032]: 032_iteration.html
+[033]: 033_practice.html
+
+* * *
+
+## 4. [Data][040]
+
+__Readings:__ Kabacoff, ch. 4, and Teetor, ch. 4 and 6-7.
+
+- [Imports and exports][041]
+- [Reshapes and aggregates][042]
+- [Practice][043]
+
+[040]: 040_data.html
+[041]: 041_dataio.html
+[042]: 042_reshaping.html
+[043]: 043_practice.html
+
+* * *
+
+> __Part 2: Introduction to Statistical Analysis__. The course continues by showcasing some statistical techniques, from finding clusters of related data to modelling relationships between several variables.
+
+## 5. [Clusters][050]
+
+__Readings:__ Kabacoff, ch. 14, and Teetor, ch. 13.4, 13.6 and 13.9.
+
+- [Heatmaps][051]
+- [Principal components][052]
+- [Practice][053]
+
+[050]: / "050_clusters.html"
+[051]: / "051_heatmaps.html"
+[052]: / "052_pca.html"
+[053]: / "053_practice.html"
+
+* * *
+
+## 6. [Distributions][060]
+
+__Readings:__ Kabacoff, ch. 6, Teetor, ch. 10, and Urdan, ch. 4-6. See also Urdan, ch. 1-3, if you have forgotten everything about statistics.
+
+- [Descriptive statistics][061]
+- [Density functions][062]
+- [Practice][063]
+
+[060]: / "60_distributions.html"
+[061]: / "061_description.html"
+[062]: / "062_density.html"
+[063]: / "063_practice.html"
+
+* * *
+
+## 7. [Differences][070]
+
+__Readings:__ Kabacoff, ch. 7, Teetor, ch. 9, and Urdan, ch. 7, 9 and 14.
+
+- [Confidence intervals][071]
+- [Significance tests][072]
+- [Practice][073]
+
+[070]: / "070_differences.html"
+[071]: / "071_intervals.html"
+[072]: / "072_tests.html"
+[073]: / "073_practice.html"
+
+* * *
+
+## 8. [Models][080]
+
+__Readings:__ Kabacoff, ch. 8 and 11, Teetor, ch. 11, and Urdan, ch. 8, 10 and 13. Skim ANOVA to focus on OLS (simple and multiple linear regression).
+
+- [Linear correlation][081]
+- [Ordinary least squares][082]
+- [Practice][083]
+
+[080]: 080_models.html
+[081]: 081_correlation.html
+[082]: 082_ols.html
+[083]: 083_practice.html
+
+* * *
+
+> __Part 3: Introduction to Data Visualization__. The course ends by focusing on the graphic dimension of quantitative data. We will also try to have guest speakers to talk about their professional use of data.
+
+## 9. [Visualization in time: Time series][090]
+
+__Reading:__ Teetor, ch. 14. Focus on detrending and read ARIMA only if you plan to earn millions as a financial analyst.
+
+- [Autocorrelation][091]
+- [Smoothing][092]
+- [Practice][093]
+
+[090]: 090_ts.html
+[091]: 091_lags.html
+[092]: 092_smoothing.html
+[093]: 093_practice.html
+
+* * *
+
+## 10. [Visualization in space: Maps][100]
+
+**Special guest:** [Joël Gombin][jg] on reproducible science.
+
+[jg]: http://www.joelgombin.fr
+
+<!-- __Reading:__ B. Sue Bell *et al.*, "[Current practices in spatial analysis of cancer data mapping health statistics to inform policymakers and the public](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1647272/)", 2006. -->
+
+- [Geocoding][101]
+- [Choropleths][102]
+
+[100]: 100_maps.html
+[101]: 101_geocoding.html
+[102]: 102_choropleths.html
+
+<!-- [Links][103] (read at home)
+[103]: 103_practice.html -->
+
+* * *
+
+## 11. [Networks][110]
+
+<!-- __Reading:__ David Siegel, "[Social Networks in Comparative Perspective](http://opensiuc.lib.siu.edu/cgi/viewcontent.cgi?article=1045&context=pn_wp)", 2011. -->
+
+**Special guest:** [Alexandre Léchenet][al] on data-driven journalism.
+
+[al]: http://alphoenix.net
+
+- [Influence][111]
+- [Network(d)s][112]
+
+[110]: 110_networks.html
+[111]: 111_influence.html
+[112]: 112_networkds.html
+
+<!-- [Links][113] (read at home)
+[113]: 113_practice.html  -->
+
+* * *
+
+## 12. [Data-driven advances][120]
+
+__Special guest:__ [Samuel Goëta][sg] will speak in the [Distinguished Lecture Series][dls-talk] on open data and open government.
+
+[120]: 120_data.html
+
+[sg]: http://coulisses-opendata.com
+[dls-talk]: https://www.facebook.com/events/123760981144191/
+
+* * *
+
+We're done!
+
+__Thanks to__ [Baptiste Coulmont](http://coulmont.com/), [Joël Gombin ](http://joelgombin.fr/) and [Timothée Poisot](https://github.com/tpoisot/RCourse2012) for very valuable advice and comments, to [GitHub](http://github.com/) for hosting and to users at [StackExchange](http://stackexchange.com/) for coding assistance.
+
+Special thanks to the Sciences Po Reims staff and students for indefectible support.
+
+__Inspired by__ [Christopher Adolph](http://faculty.washington.edu/cadolph/index.php?page=22), [Dave Armstrong](http://quantoid.net/ICPSRR.html), [Christopher Gangrud](https://github.com/christophergandrud/Introduction_to_Statistics_and_Data_Analysis_Yonsei/), [Andrew Gelman](http://andrewgelman.com/2012/12/textbook-for-data-visualization/), [Rebecca Nugent](http://www.stat.cmu.edu/~rnugent/teaching/introR/), [Gaston Sanchez](https://gastonsanchez.wordpress.com/), [Cosma Shalizi](http://www.stat.cmu.edu/~cshalizi/), [David Sparks](http://is-r.tumblr.com/) and [Hadley Wickham](http://had.co.nz/ggplot2/).
+
+This course has its own [GitHub repository](https://github.com/briatte/ida); fork at will. This HTML version was compiled from source on `r format(Sys.time(), "%A %B %d, %Y")`.

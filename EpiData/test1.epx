@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EpiData xmlns="http://www.epidata.dk/XML/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.epidata.dk/XML/2.0 http://www.epidata.dk/XML/2.0/epx.xsd" version="3" xml:lang="en" cycle="1">
+  <Settings dateSeparator="/" timeSeparator="." decimalSeparator=","/>
+  <ProjectSettings autoIncStart="1" timedBackupInterval="10" backupOnShutdown="true" showFieldNames="false" showFieldBorders="true"/>
+  <StudyInfo>
+    <Abstract>
+      <Text xml:lang="en">Ceci est mon premier projet</Text>
+    </Abstract>
+    <Funding>
+      <Text xml:lang="en">NO</Text>
+    </Funding>
+    <GeographicalCoverage>
+      <Text xml:lang="en">France</Text>
+    </GeographicalCoverage>
+    <Publisher>
+      <Text xml:lang="en">CESU</Text>
+    </Publisher>
+    <Population>
+      <Text xml:lang="en">Alsaciens</Text>
+    </Population>
+    <Rights>
+      <Text xml:lang="en">FREE</Text>
+    </Rights>
+    <Title>
+      <Text xml:lang="en">Projet test</Text>
+    </Title>
+    <UnitOfObservation>
+      <Text xml:lang="en"> ans et plus</Text>
+    </UnitOfObservation>
+    <Author>JCB</Author>
+    <Agency/>
+    <Created>2015/05/01 10.57.29</Created>
+    <DataCollectionStart>2015/01/01 00.00.00</DataCollectionStart>
+    <DataCollectionEnd>2015/12/21 00.00.00</DataCollectionEnd>
+    <Identifier>V1</Identifier>
+    <Keywords/>
+    <Modified>2015/05/01 10.57.29</Modified>
+    <Notes/>
+    <Version>1</Version>
+  </StudyInfo>
+  <ValueLabelSets>
+    <ValueLabelSet id="sexe" type="ftString" scope="vlsInternal">
+      <ValueLabel order="2" value="H">
+        <Label xml:lang="en">Homme</Label>
+      </ValueLabel>
+      <ValueLabel order="3" value="F">
+        <Label xml:lang="en">Femme</Label>
+      </ValueLabel>
+    </ValueLabelSet>
+  </ValueLabelSets>
+  <DataFiles>
+    <DataFile id="dataform_1" created="2015/05/01 10.57.29" modified="2015/05/01 10.57.29" version="" afterRecordState="arsNewRecord">
+      <Caption>
+        <Text xml:lang="en">Dataform 1</Text>
+      </Caption>
+      <Sections>
+        <Section id="MAIN" top="0" left="0" width="0" height="0"/>
+      </Sections>
+      <Records modified="2015/05/01 10.57.29" encryptedSalt=""/>
+    </DataFile>
+  </DataFiles>
+  <Relations>
+    <Relation id="relation_id_1" dataFileRef="dataform_1"/>
+  </Relations>
+</EpiData>

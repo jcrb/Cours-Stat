@@ -1,0 +1,17 @@
+Gestion documentaire
+====================
+
+[Zotero](http://www.framasoft.net/article4711.html)
+
+Liste de programmes [Framasoft](http://www.framasoft.net/rubrique439.html)
+
+[Kimios](http://www.kimios.com/home) remplace Quotero
+
+[Alfresco]() Linux pratique hors-série n°26 février-mars 2013
+
+[Paperwork](https://github.com/jflesch/paperwork/blob/stable/doc/install.debian.markdown) Plus simple, multi plate forme. Installation compliquée car multiples dépendances à installer.
+
+[Pandoc]() Linux magazine n°158 mars 2013 pp.16
+
+[KOHA]() Logiciel de gestion de bibliothèque open-source.
+    - ref.utilisation: Linux pratique n°86 nov/dec 2014 pp.90

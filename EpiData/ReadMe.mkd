@@ -1,0 +1,25 @@
+Logiciel EpiData
+================
+
+_date: 01/05/2015_
+
+Logiciel libre d'origine danoise disponible sur toutes plateformes: linux, mac et windows. Permet notamment de faire un descriptif complet de l'étude et des variables utilisées.
+
+Utilisé par le réseau de perinatalité de la [Loire](http://www.reseau-naissance.fr/index.php?module=Contenus&func=viewpub&tid=2&pid=28&highlight=epidata&1=1). Plusieurs modes d'emploi et une version du logiciel en français mais uniquement pour windows.
+
+Leur documentation est dans le dossier __Doc__.
+
+Les sources Linux et Windows sont dans le dossier __Sources__.
+
+La page web officielle et les [versions téléchargeables](http://www.epidata.dk/download.php)
+
+Se compose d'une suite de deux logiciels:
+
+__EpiData Entry__ is used for simple or programmed data entry and data documentation. Entry handles simple forms or related systems Optimised documentation and error detection features. E.g. double entry verification, list of ID numbers in several files, codebook overview of data, date added to backup and encryption procedures.
+
+__EpiData Analysis__ performs basic statistical analysis, graphs, and comprehensive data management. E.g. descriptive statistics, SPC Charts, Recoding data, label values and variables. Defining missing values. 
+
+Exemple d'utilisation:[Effects of propofol versus thiopental on Apgar scores in newborns and peri-
+operative outcomes of women undergoing emergency cesarean section: a
+randomized clinical trial](http://www.biomedcentral.com/1471-2253/15/63/abstract)
+ou aussi [Article URL](http://dx.doi.org/10.1186/s12871-015-0044-6)
