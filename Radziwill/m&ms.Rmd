@@ -1,0 +1,94 @@
+---
+title: "Radziwill"
+author: "jcb"
+date: "14 mai 2015"
+output: html_document
+---
+
+Cours de statistiques de Nicole Radziwill
+=========================================
+
+Utilise pour des TP en groupe des paquets de [M&M's](http://fr.wikipedia.org/wiki/M%26M%27s). Chaque étudiant dispose d'un paquet dont il détermine pour chaque friandise, le nombre et les éventuelles anomalies. Les résultats sont accessibles sur github:
+
+```{r data}
+library(RCurl)
+library(qcc) # pour pareto
+library(waffle) # pour waffle
+
+# chargement initial des données qui seront stockées en interne pour un usage hors ligne.
+# url <- "https://raw.githubusercontent.com/NicoleRadziwill/Data-for-R-Examples/master/mnm-clean.csv"
+# x <- getURL(url, ssl.verifypeer = FALSE)
+# mnms <- read.csv(text = x)
+# names(mnms)
+# write.csv(mnms, file = "mnms.csv") # sauvegarde
+
+mnms <- read.csv("mnms.csv") # dataframe mnms
+head(mnms)
+
+```
+
+Le nombre de m&m est-ille même dans chaque paquet ?
+```{r nombre}
+n.student <- table(mnms$student)
+sum(n.student)
+n.student
+sd(n.student)
+summary(as.numeric(n.student))
+```
+
+Pie et Waffle chart (p 118)
+---------------------------
+
+```{r pie}
+
+mm.counts <- as.vector(table(mnms$color))
+names(mm.counts) <- c("blue","brown","green","orange","red","yellow")
+mm.counts
+percents <- round(mm.counts/sum(mm.counts)*100)
+my.labels <- paste(names(mm.counts), " ", percents, "%", sep = "")
+my.labels
+pie(mm.counts, labels = my.labels, main = "Couleur des M&M")
+pie(mm.counts, labels = my.labels, main = "Couleur des M&M", col = names(mm.counts))
+pie(mm.counts, labels = my.labels, main = "Couleur des M&M", col = heat.colors(length(mm.counts)))
+pie(mm.counts, labels = my.labels, main = "Couleur des M&M", col = terrain.colors(length(mm.counts)))
+pie(mm.counts, labels = my.labels, main = "Couleur des M&M", col = topo.colors(length(mm.counts)))
+pie(mm.counts, labels = my.labels, main = "Couleur des M&M", col = topo.colors(length(mm.counts)), density = 10)
+
+```
+
+```{r waffle}
+waffle(mm.counts/10)
+waffle(mm.counts/10, rows = 7)
+waffle(mm.counts/10, rows = 7, colors = names(mm.counts))
+waffle(mm.counts/10, rows = 7, colors = names(mm.counts), title = "Couleur des M&M", xlab = "1 carré = 10 M&M")
+
+```
+
+
+Diagramme de Pareto (p.125)
+---------------------------
+Le diagramme de Pareto (DP) permet de représenter une variable catégorielle dont on connait la fréquence de chaque catégories (comme la couleur). Les fréquences sont triées par ordre décroissant et représentées de la gauche vers la droite sous forme d'un graphique en barre surmonté d'une courbe représentant les fréquences cumulées. A partir des fréquences cumulées il est aisé d'identifier les catégories responsables de 80% de l'effet. Selon la loi de Pareto, 20% des catégories sont responsables de 80% de l'effet. On peut ainsi séparer les "vital few" des "trivial many" (arbres de défaillance).
+
+Exemple: cause des retards en cours des étudiants.
+```{r retards}
+defect.counts <- c(12,29,18,3, 34,4)
+names(defect.counts) <- c("Météo","Sommeil","Réveil","Changement Horaire","Circulation","Autre")
+defect.counts
+df.defects <- data.frame(defect.counts)
+df.defects
+
+```
+Le diagramme de Pareto nécessite uniquement un vecteur des fréquences:
+```{r pareto}
+p <- pareto.chart(defect.counts)
+p
+colnames(p) <- c("Fréquence","Fréq.Cum.","Pourcentage","Pourc.Cum.")
+p
+p <- pareto.chart(defect.counts, ylab = "Fréquence", ylab2 = "Pourcentage cumulé", las = 1, cex.names = 0.6, col=topo.colors(6))
+abline(h = (sum(defect.counts) * 0.8), col = "red", lwd = 4)
+
+```
+
+Trois causes expliquent 80% des retards. Pour explorer ces raisons on peut utiliser le diagramme d'[Ishikawa](http://fr.wikipedia.org/wiki/Diagramme_de_causes_et_effets) (existe dans le package qqc).
+
+

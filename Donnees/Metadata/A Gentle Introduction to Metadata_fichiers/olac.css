@@ -1,0 +1,88 @@
+body, p, h1, h2, h3, h4, h5, h6, ul, dl, ol, li
+{
+    text-align: left;
+    font-family: sans-serif;
+    color:#000030;
+    background-color:white;
+}
+
+body, p, ul, dl, ol, li, a
+{
+    font-size:11pt;
+}
+
+h1 {font-size:24pt;}
+h2 {font-size:18pt;}
+h3 {font-size:14pt;}
+h4 {font-size:12pt;}
+
+td, th, blockquote {
+    font-family:sans-serif;
+    color:#000030;
+    background-color:white;
+    vertical-align:top;
+}
+
+td {font-size:11pt;}
+th {font-size:12pt;}
+
+blockquote {font-size: 11pt;}
+
+.repo {background-color:yellow;}
+
+.outline {background-color:silver;}
+
+.number {text-align:right;}
+
+.arch {font-size:10pt;}
+
+.lookup {
+    text-align:right;
+    background-color:#E7E7E7;
+}
+
+.banner, .banner td, .banner th, .banner h1,
+.banner a:link, .banner a:visited, .banner a:active,
+.sec, .sec a:link, .sec a:visited, .sec a:active, .title
+{
+    background-color:#000030;
+    color:#d2d2d2;
+    font-family:sans-serif;
+    font-size:12pt;
+    text-decoration:plain;
+}
+
+.title {font-size:24pt;}
+
+.frame {background-color:#000030;}
+
+.timestamp {
+    margin-top: 2pt;
+    font-size:10pt;
+    color:gray; sans-serif;
+}
+
+.div {
+    font-family: sans-serif;
+    font-size:11pt;
+    color:#505050;
+}
+
+.doc_header {
+    border-style: groove none groove none;
+    border-width: 2px;
+    border-color: light-gray;
+    width: 100%;
+}
+
+.doc_header_logobox {
+    width: 132px;
+}
+
+.doc_header td, .doc_header img {
+    border-width: 0px;
+    vertical-align: middle;
+    font-size: 24pt;
+    font-weight: bold;
+    color: #000030;
+}

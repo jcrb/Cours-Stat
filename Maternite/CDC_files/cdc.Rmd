@@ -5,11 +5,16 @@ date: "22/11/2014"
 output: html_document
 ---
 
+<<<<<<< HEAD
 Le livre [Think Stats, 2nd Edition](http://it-ebooks.info/book/4370/) téléchargeable au format .pdf. Une approche intéressante car développe toute l'approche statistique à partir d'un exemple concret qui sert de fil conducteur tout au long du livre. E l'occurrence il s'agit d'une enquête du centre des maladies américain (CDC) concernant notamment les accouchements. ça m'intéresse car depuis cette année, je fais des cours de stat aux sage-femmes et cela donne des exemples concrets. Les programmes sont en python mais je les transpose en R. Je viens de terminer le premier chapitre qui concerne le chargement des données. Pas simple d'ailleurs car les données source sont volumineuses et fournies sous forme de fichiers compacts, sans séparateurs de colonnes et qu'il faut redécouper sans se tromper.
 
 La page consacrée à cette étude se touve [ici](http://www.cdc.gov/nchs/nsfg.htm), la [documentation technique](http://www.cdc.gov/nchs/nsfg/nsfg_2011_2013_puf.htm) et les [données](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NSFG/) sont également fournies (il faut accepter les conditions d'utilisation).
 
 ```{}
+=======
+Le livre [Think Stats, 2nd Edition](http://it-ebooks.info/book/4370/) téléchargeable au format .pdf. Une approche intéressante car développe toute l'approche statistique à partir d'un exemple concret qui sert de fil conducteur tout au long du livre. E l'occurrence il s'agit d'une enquête du centre des maladies américain (CDC) concernant notamment les accouchements. ça m'intéresse car depuis cette année, je fais des cours de stat aux sage-femmes et cela donne des exemples concrets. Les programmes sont en python mais je les transpose en R. Je viens de terminer le premier chapitre qui concerne le chargement des données. Ps simple d'ailleurs car les données source sont volumineuses et fournies sous forme de fichiers compacts, sans séparateurs de colonnes et qu'il faut redécouper sans se tromper
+
+>>>>>>> 851e81527b9a8f712960f251739c08f3444ff3ab
 file <- "Maternite/CDC_files/2002FemPreg.dat"
 d <- readLines(file, n = 1)
 d
@@ -30,8 +35,11 @@ the number of respondents in each of these groups is large enough to draw valid 
 Of course, the drawback of oversampling is that it is not as easy to draw conclusions about the general population based on statistics from the survey. We will come back to this point later.
 When working with this kind of data, it is important to be familiar with the __code‐book__, which documents the design of the study, the survey questions, and the encoding of the responses. The codebook and user’s guide for the NSFG data are available from the [CDC’s website](http://1.usa.gov/1pi2BP2).
 
+<<<<<<< HEAD
 Nettoyage des données
 =====================
+=======
+>>>>>>> 851e81527b9a8f712960f251739c08f3444ff3ab
 ```{}
 path <- "Maternite/CDC_files/"
 

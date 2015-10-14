@@ -1,0 +1,657 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>A Gentle Introduction to Metadata</title>
+<script src="A%20Gentle%20Introduction%20to%20Metadata_fichiers/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="A%20Gentle%20Introduction%20to%20Metadata_fichiers/gatrack.js"></script>
+<link rel="stylesheet" type="text/css" href="A%20Gentle%20Introduction%20to%20Metadata_fichiers/olac.css">
+</head>
+<body bgcolor="white">
+<hr>
+<table cellpadding="10"><tbody><tr><td><a href="http://www.language-archives.org/"><img src="A%20Gentle%20Introduction%20to%20Metadata_fichiers/olac100.gif" alt="" border="0"></a></td>
+<td>
+<h1>
+<font color="#00004a">
+A Gentle Introduction to Metadata
+</font>
+</h1>
+
+<table><tbody><tr>
+  <td><b>Jeff Good</b><br>University of California, Berkeley</td>
+</tr>
+</tbody></table>
+
+</td></tr>
+</tbody></table>
+
+<hr>
+<h3>Table of contents</h3>
+<ol>
+
+<li>
+<a href="#Introduction">Introduction</a>
+</li>
+
+<li>
+<a href="#Whatitis">What metadata is</a>
+</li>
+
+<li>
+<a href="#Whatcan">What can be done with metadata</a>
+</li>
+
+<li>
+<a href="#Whatcant">What can't be done with metadata</a>
+</li>
+
+<li>
+<a href="#Why">Why should linguists create metadata</a>
+</li>
+
+<li>
+<a href="#Creation">Steps required for metadata creation</a>
+</li>
+
+<li>
+<a href="#Distribution">How to distribute metadata</a>
+</li>
+
+<li>
+<a href="#Nextsteps">Next steps and further resources</a>
+</li>
+
+</ol>
+
+<hr>
+
+<h2><a name="Introduction"></a>1. Introduction</h2>
+
+<i>Metadata</i> is a new word based on an old concept.
+Any summary of the contents of a library or archive, like
+a card catalog, contains metadata. It is the preferred term of the technical community
+to refer to ``card-catalog'' data, and it will, therefore, become
+increasingly used as more technical tools are developed for linguistic
+research. The purpose
+of this document is to provide a non-technical introduction describing
+what metadata is, what the general linguist should know about
+it, and also to describe some aspects of the metadata standard
+used by the <a href="http://www.language-archives.org/">Open Language Archives Community</a> (OLAC).
+
+
+
+<h2><a name="Whatitis"></a>2. What metadata is</h2>
+
+<p align="justify">
+There is little conceptually new about metadata. The shortest definition
+for the term is ``data about data,'' and, while many of us may not be
+accustomed to thinking about metadata very much, we create it and make use
+of it all the time. A citation like the one below, is a form of metadata:
+</p>
+
+
+<p align="justify">
+Bloomfield, Leonard. 1933. <i>Language</i>. New York: Holt, Rinehart &amp; Winston.
+</p>
+
+<p align="justify">
+The reference above is information about a book--that is, data about data.
+</p>
+
+
+<p align="justify">
+Something important to note about a reference like the one above
+is that we understand the information it is trying to convey by convention.
+The first element is the author's name, then the year, then the title,
+then the city and publisher. Also, our knowledge of the basic structure
+of references allows us to be fairly sure this citation refers to
+a book.
+</p>
+
+<p align="justify">
+Another way of representing the metadata in the above reference
+would be as follows:
+</p>
+
+
+<table border="1">
+	<tbody><tr>
+		<td><b>Document type</b></td> <td>Book</td>
+	</tr>
+	<tr>
+		<td><b>Last name of author</b></td> <td>Bloomfield</td>
+	</tr>
+	<tr>
+		<td><b>First name of auther&nbsp;&nbsp;</b></td> <td>Leonard</td>
+	</tr>
+	<tr>
+		<td><b>Year of publication</b></td> <td>1933</td>
+	</tr>
+	<tr>
+		<td><b>Title</b></td> <td>Language</td>
+	</tr>
+	<tr>
+		<td><b>City</b></td> <td>New York</td>
+	</tr>
+	<tr>
+		<td><b>Publisher</b></td> <td>Holt, Rinehart &amp; Winston</td>
+	</tr>
+</tbody></table>
+
+<p align="justify">
+The standard citation and the above table are both different representations
+of the same metadata. The table has the advantage of explicitly marking
+the category of information encoded in the various pieces of the citation.
+</p>
+
+<p align="justify">
+A book citation is a fairly well-known kind of metadata, but the general
+idea of ``data about data'' is far more inclusive. An annotated bibliography, for example,
+also constitutes metadata which is very much like a list of references except
+that it also includes an extra level of description in addition to the basic
+metadata for the document.
+</p>
+
+<p align="justify">
+Though they do not match the traditional notion of ``data type'', it's also
+easy to find metadata about linguistic software, which can often be quite
+valuable. Below is metadata about the SIL Shoebox field linguist's tool.
+</p>
+
+<table border="1">
+	<tbody><tr>
+		<td><b>Name</b></td>  <td>The Linguist's Shoebox</td>
+	</tr>
+	<tr>
+		<td><b>Platform(s)</b></td>  <td>Windows (3.1, 95/98, NT), Macintosh (OS 6, OS 7, 68K, PPC)</td>
+	</tr>
+	<tr>
+		<td><b>Categories</b></td> <td>data management, parser, text analysis</td>
+	</tr>
+	<tr>
+		<td><b>Domains</b></td> <td>morphology, syntax, discourse, lexicon/dictionary</td>
+	</tr>
+	<tr>
+		<td><b>Keywords</b></td> <td>field notes</td>
+	</tr>
+	<tr>
+		<td><b>Version</b></td> <td>5</td>
+	</tr>
+	<tr>
+		<td><b>Date</b></td> <td>September 2000</td>
+	</tr>
+	<tr>
+		<td><b>Description</b></td> <td>Shoebox is a computer program that 
+helps field linguists and anthropologists integrate various kinds of 
+text data: lexical, cultural, grammatical, etc. It has flexible options 
+for sorting, selecting, and displaying data. It is especially useful for
+ helping researchers build a dictionary as they use it to analyze and 
+interlinearize text.</td>
+	</tr>
+	<tr>
+		<td><b>More information</b></td> <td><a href="http://www.sil.org/computing/shoebox/">Shoebox Home</a></td>
+	</tr>
+	<tr>
+		<td><b>Contact</b></td> <td>shoebox_support@sil.org</td>
+	</tr>
+	<tr>
+		<td><b>Licensing</b></td> <td>Shoebox is licensed for $45.00</td>
+	</tr>
+</tbody></table>
+
+<p align="justify">
+One can make metadata for any linguistic resource--there could even be metadata
+about metadata. For example, a description of a collection of bibliographies
+would be data about data about data (a.k.a. meta-metadata).
+</p>
+
+<p align="justify">
+It's also fairly common to include the metadata about a linguistic resource
+within the resource itself. The title page of a book is one example. 
+The suject and language indices often found at the end of a linguistics book are
+also good examples of metadata. Both types of indices tell the user about
+the internal content of that book.
+</p>
+
+<p align="justify">
+While the basic idea behind metadata may be old, the rise of the internet
+will allow it to become more useful than it ever has been since metadata will
+be much more accessible than before--and if metadata is more accessible,
+then linguistic resources of all kinds will also be more accessible.
+In order for this to happen, however, researchers must become aware
+of how to produce good metadata and how to use metadata produced by others.
+</p>
+
+
+
+<h2><a name="Whatcan"></a>3. What can be done with metadata</h2>
+
+<p align="justify">
+One of the most important uses for metadata is to locate a resource.
+Thus, a book reference is designed to give enough information to allow
+someone to find that book.
+</p>
+
+<p align="justify">
+The other primary use of metadata is resource discovery--that is,
+finding resources relevant to one's research but which one
+is unaware of. The subject
+index of a card catalog is a metadata collection which is good for such a
+purpose. With the advent of new technologies, there are many more possibilities for
+the discovery of resources than were previously available.
+Online indexes of abstracts, like
+LexisNexis, are well-known tools which makes use of metadata and new
+technology to greatly enhance the researcher's ability to find relevant
+resources. These tools are not yet perfect, by any means, but they
+do represent a significant step forward in resource discovery.
+</p>
+
+<p align="justify">
+One of the primary goals of the <a href="http://www.language-archives.org/">Open Language Archives Community</a>
+(OLAC) is to help linguists create metadata and distribute it in order to assist in
+the discovery and location specifically of linguistic resources.
+The basic reason linguists should consider creating metadata for their resources
+is to allow other researchers to locate those resources. Of course, this might
+not confer direct benefit to the owner of the resource. However, as more
+metadata becomes available, all linguists will ultimately benefit since it
+will allow them to the find resources the need more easily.
+</p>
+
+
+
+<h2><a name="Whatcant"></a>4. What can't be done with metadata</h2>
+
+<p align="justify">
+It's important to realize that metadata is simply data about data and not
+the data in and of itself. Thus, making metadata public is fairly safe--metadata
+alone does not give people access to the data. A
+book reference is not a book, and metadata about online data
+is also not the online data itself.
+</p>
+
+<p align="justify">
+The most useful metadata makes it clear how a resource, once discovered,
+can be located and accessed. The owner of the resource gets to determine how
+easy or difficult access should be. Obviously, it's not very useful to let
+people access metadata for a document that no one will ever be allowed
+to access. However, it's important to realize that making your metadata
+publicly available in no way implies that the resource the metadata describes
+is also publicly available.
+</p>
+
+<p align="justify">
+Furthermore, the creator of the metadata gets to determine what information
+will be included in publicly-accessible metadata. While organizations like
+OLAC will typically have recommendations for what needs to be included in
+the metadata for a resource, these recommendations can be overridden if
+there are any concerns about making any information publicly available.
+</p>
+
+
+<h2><a name="Why"></a>5. Why should linguists create and distribute metadata</h2>
+
+<p align="left">
+There are a range of reasons to create and distribute metadata. Some of
+them are listed below.
+</p>
+
+<p align="left">
+<b>Management of an archive</b>: Good metadata makes it much easier for
+a researcher to manage and keep track of the resources in an archive. Large
+archives almost always have internal metadata standards which are important
+to their maintenace. Metadata is crucial for the maintenance of
+any archive in the long term, since it is the best way to ensure that
+a resource in an archive can be tracked down when someone other than the original
+archivist needs to locate it.
+</p>
+
+<p align="left">
+<b>Increasing awareness of your resources</b>: Though not always desirable,
+many researchers actively want academics and the general public to be aware of the
+resources they maintain. Good metadata helps people find resources since it
+creates an easy way for them to get basic information about them. Using
+a standard metadata format (like the OLAC standard) is especially useful
+in this area since search tools are being developed which make
+direct use of these standards.
+</p>
+
+<p align="left">
+<b>Increasing the value of community-wide metadata resources</b>: Metadata
+is one of those things that becomes more valuable as more of it is made
+available. If every linguist creates metadata for their resources, then
+we all benefit by being able to find the data we need for our research. So,
+even if one of your priorities is not to ``advertise'' your resources,
+unless you have a good reason to keep them unavailable, you should consider
+making and distributing metadata about them so that other people
+will know they are out there. While this may not confer a direct benefit
+to you, the indirect benefits of being part of a community of researchers
+where there is an expectation that metadata will be made available are
+potentially enormous. Consider, for example, the possibilities of having
+a linguist's ``Google'' where you could type in a language name and
+be reasonably sure you've found the bulk of documentary work done
+on that language.
+</p>
+
+
+
+
+<h2><a name="Creation"></a>6. Steps required for metadata creation</h2>
+
+<p align="justify">
+Most researchers are already fairly skilled at making metadata, even if
+they are not skilled at making structured, machine-readable metadata. This simply
+requires understanding the important parameters needed to describe a resource
+and then recording those parameters in a standardized way. Creating a list of references
+at the end of a book or article requires a basic knowledge of metadata.
+Also, most well-managed archives have collected their metadata and stored
+it in a structured way, most typically in a database.
+</p>
+
+<p align="justify">
+One of the primary goals of OLAC is to create a standard way to document
+linguistic resources to assist in their location and
+discovery. Importantly, OLAC does not seek to dictate how linguists
+must design their metadata. Rather, it seeks to build a community-driven
+consensus about linguistic metadata. (An article giving an <a href="http://www.language-archives.org/docs/overview.html">overview
+of OLAC</a> is available on the OLAC web site at <a href="http://www.language-archives.org/">http://www.language-archives.org</a>
+as is an article describing the proposed <a href="http://www.language-archives.org/OLAC/olacms.html">OLAC metadata set</a>.)
+
+</p>
+
+<p align="justify">
+Also, even an OLAC-compliant archive can store its metadata in a
+non-OLAC format. Such a resource would simply ``translate'' its metadata
+into OLAC metadata in order to make it more widely available.
+</p>
+
+<p align="justify">
+A more technical term for translating metadata from one format to another
+is <i>mapping</i> and sometimes another term <i>crosswalking</i> is
+also used for this. Many archives have either created non-OLAC metadata or will
+have good reasons for wanting to do so. However, for the most part, mapping
+their metadata to OLAC metadata will be fairly straightforward since OLAC
+metadata uses very general descriptors like ``creator'', ``subject'', and ``format''.
+Since OLAC metadata is specifically designed for linguistic resources, it also includes
+a few descriptors like ``subject language'' which are of particular value to
+language researchers.
+</p>
+
+<p align="justify">
+An example will help to illustrate how mapping from a particular metadata format
+to the OLAC standard could work. The record below is taken from the internal
+metadata database for the <a href="http://linguistics.berkeley.edu/CBOLD">Comparative Bantu Online Dictionary</a>.
+</p>
+
+<table border="1">
+	<tbody><tr>
+		<td><b>Folder Name</b></td> <td>Gevove.vdVeen1994</td>
+	</tr>
+	<tr>
+		<td><b>Language</b></td> <td>Gevove</td>
+	</tr>
+	<tr>
+		<td><b>Guthrie</b></td> <td>B.30 (A.30?)</td>
+	</tr>
+	<tr>
+		<td><b>Contributor</b></td> <td>Van Der Veen, Lolke</td>
+	</tr>
+	<tr>
+		<td><b>Institution</b></td> <td>DDL</td>
+	</tr>
+	<tr>
+		<td><b>Author</b></td> <td>Van Der Veen, Lolke</td>
+	</tr>
+	<tr>
+		<td><b>Citation</b></td> <td>Van Der Veen 1994</td>
+	</tr>
+	<tr>
+		<td><b>Count</b></td> <td>1450</td>
+	</tr>
+	<tr>
+		<td><b>Formats</b></td> <td>Word 5, Text</td>
+	</tr>
+	<tr>
+		<td><b>Gloss Language</b></td> <td>French</td>
+	</tr>
+	<tr>
+		<td><b>Condition</b></td> <td>1</td>
+	</tr>
+	<tr>
+		<td><b>Web Search</b></td> <td>Y</td>
+	</tr>
+	<tr>
+		<td><b>MapMaker Status</b></td> <td>None</td>
+	</tr>
+	<tr>
+		<td><b>Recon Status</b></td> <td>None</td>
+	</tr>
+	<tr>
+		<td><b>Remarks</b></td> <td>The Word version has a nice introduction which I made into an info file. --JG</td>
+	</tr>
+	<tr>
+		<td><b>Record date</b></td> <td>9/23/2001</td>
+	</tr>
+	<tr>
+		<td><b>Set</b></td> <td>CBOLD:dictionaries</td>
+	</tr>
+</tbody></table>
+
+<p align="justify">
+This record contains a range of information, not all of which is likely to be of equal
+importance to linguists for resource location and discovery.
+The language, Gevove, is of obvious interest, and the name
+of the creator of the data is also fairly important. Other parameters
+like ``Recon Status'' (meaning how much lexical
+reconstruction had been done on the resource) are likely to be less important for the
+general researcher (though they may be of importance to a minority of them).
+</p>
+
+<p align="justify">
+The information in the above metadata record was mapped to OLAC metadata
+by the author of this article in the following way:
+</p>
+
+<table border="1">
+	<tbody><tr>
+		<td><b>Title</b></td> <td>Gevove.vdVeen1994</td>
+	</tr>
+	<tr>
+		<td><b>Subject language</b></td> <td>Gevove</td>
+	</tr>
+	<tr>
+		<td><b>Contributor</b></td> <td>Van Der Veen, Lolke</td>
+	</tr>
+	<tr>
+		<td><b>Date</b></td> <td>2001-09-23</td>
+	</tr>
+	<tr>
+		<td><b>Type</b></td> <td>dataset</td>
+	</tr>
+	<tr>
+		<td><b>Formats</b></td> <td>Word 5, Text</td>
+	</tr>
+	<tr>
+		<td><b>Identifier</b></td> <td>http://bantu.berkeley.edu/CBOLDFTP/CBOLD_Data/Gevove.vdVeen1994</td>
+	</tr>
+	<tr>
+		<td><b>Language</b></td> <td>French</td>
+	</tr>
+	<tr>
+		<td><b>Rights</b></td> <td>See: http://linguistics.berkeley.edu/CBOLD/Data/CBOLD.data.html</td>
+	</tr>
+</tbody></table>
+
+<p align="justify">
+The first thing to note about the mapping from CBOLD internal metadata to
+OLAC metadata is that information is lost--for example, there is no
+mention of ``Recon status'' in the OLAC version. OLAC standard metadata
+does not contain a ``Recon status'' field since this is too specific
+for general language resources. Translating from a more specific metadata format
+to a more general one often involves losing some information. This isn't
+generally a problem unless it substantially hinders resource location and
+discovery.
+</p>
+
+<p align="justify">
+It would have been possible to include information like ``Recon status''
+in the OLAC metadata because the OLAC standard is flexible. For
+example, though it does not define a ``Recon status'' field, it does
+define a <i>Description</i> field, where any information not belonging to
+another field can be put.
+</p>
+
+<p align="justify">
+If it is possible to put information like ``Recon status'' into OLAC metadata
+via the <i>Description</i> field, why wasn't it done? As the creator of
+the above metadata records, I can say that this was because because it made the task
+of mapping simpler for me. I made sure the most important aspects
+of the metadata (like subject language) appeared in OLAC metadata, of course,
+but also chose to leave some information out.
+</p>
+
+<p align="justify">
+This ``incomplete'' mapping of CBOLD-internal metadata to OLAC metadata illustrates
+an important point: Ideal metadata would contain all information possible about a
+resource. However, OLAC does not enforce this. Rather, it leaves it up to
+the creator to decide what information to put in the metadata. OLAC standard metadata
+must have a particular structure and make use of OLAC-defined descriptive
+parameters, but the creator of the metadata otherwise has a lot of flexibility.
+</p>
+
+<p align="justify">
+If there's one general piece of advice to give for making metadata, it is
+to think of the needs of the potential end user of it. This can be difficult,
+because it is hard to exactly who will need to use your resource. From the OLAC
+perspective, though, it will usually be worthwhile to think about what
+kinds of linguists might find yourself valuable and what sort of search
+criteria would they be likely to use to locate it.
+</p>
+
+
+
+<h2><a name="Distribution"></a>7. How to distribute metadata</h2>
+
+<p align="justify">
+Many archives have already designed ways to distribute their metadata,
+most typically through some sort of online access to their database.
+The Linguistic Data Consortium, for example, has on <a href="http://www.ldc.upenn.edu/Catalog/">online catalog</a>
+to allow access to its metadata.
+</p>
+
+<p align="justify">
+Online archive access managed by the archive is certainly very valuable,
+but it has the problem that the user must know about the archive in the
+first place in order to locate resources in that archive. Ideally, metadata
+from all linguistic archives could be accessed and searched in a centralized
+way so that a linguist need not know about a relevant archive in order
+to locate useful resources--this requires a generalized system of
+metadata distribution.
+</p>
+
+<p align="justify">
+The OLAC metadata standard is specifically designed to make general distribution
+of linguistic metadata possible. This metadata standard is the first step to the creation
+of search engines designed specifically for the needs of language researchers. 
+There are various ways to distribute OLAC metadata,
+some of which are simpler than others. These ways are described in
+the <a href="http://www.language-archives.org/tools/faq">Implementers FAQ</a> document.
+<!--
+The simplest way is to use the <a href="/docs/implement.html#ORE">OLAC Repository Editor</a>.
+-->
+</p>
+
+<p align="justify">
+Search engines making use of OLAC metadata already exist, the most important
+being the one hosted by the <a href="http://linguistlist.org/">LINGUIST List</a>
+at <a href="http://www.linguistlist.org/olac/">http://www.linguistlist.org/olac/</a>.
+The value of these search engines is largely contingent on the metadata
+made available to them. The more researchers who create OLAC standard metadata,
+the easier it will be for all researchers to find the data they need.
+</p>
+
+
+<h2><a name="Nextsteps"></a>8. Next steps and further resources</h2>
+
+<p align="justify">
+There are a number of resources on the web for anyone interested in
+learning more about metadata. For linguists, the OLAC implementers
+site is very useful.
+</p>
+
+<p align="left">
+<a href="http://www.language-archives.org/docs/implement.html">http://www.language-archives.org/docs/implement.html</a>
+</p>
+
+<p align="left">
+This site tells you how to become and OLAC data provider and gives various
+menthods to do so.
+</p>
+
+<p align="left">
+Another important set of documents can be found at:
+</p>
+
+<p align="left">
+<a href="http://www.language-archives.org/documents.html">http://www.language-archives.org/documents.html</a>
+</p>
+
+<p align="left">
+There, you can find documentation for the latest OLAC metadata 
+standards. These are community-driven standards. So, comments and suggestions
+for improving them can be made by anyone who intends on using the OLAC standards.
+</p>
+
+<p align="left">
+The OLAC metadata standard is based on the metadata standards developed
+by the <a href="http://dublincore.org/">Dublin Core Metadata Initiative</a>.
+The Dublin Core standard is meant to describe all types of resources,
+and the OLAC standard is an elaboration of the Dublin Core tailored for
+language resources. The Dublin Core Usage Guide can be found at
+</p>
+
+<p align="left">
+<a href="http://dublincore.org/documents/usageguide/">http://dublincore.org/documents/usageguide/</a>
+</p>
+
+<p align="left">
+This guide is a more technical introduction to metadata than the present
+document but is still fairly accessible. In addition to basic information
+on metadata, it outlines the basic rationale behind the Dublin Core and also
+gives some examples about how metadata can actually be represented in
+digital document--something which has not been discussed here.
+</p>
+
+<p align="left">
+The standard language for encoding OLAC metadata is XML (Extensible
+Markup Language). XML can be understood as a more generalized form
+of HTML, the standard language used for web documents. The
+<a href="http://www.tei-c.org/Guidelines2/index.html">Text Encoding Initiative Guidelines</a>
+contain a useful chapter introducing some of the basic concepts of
+XML:
+</p>
+
+<p align="left">
+<a href="http://www.tei-c.org/P4X/SG.html">http://www.tei-c.org/P4X/SG.html</a>
+</p>
+
+<p align="left">
+Another very useful resource is the home page for the Cornell University
+Library Metadata Working Group, which contains links to a wide range
+of online metadata resources:
+</p>
+
+<p align="left">
+<a href="http://metadata-wg.mannlib.cornell.edu/readings/index.htm">http://metadata-wg.mannlib.cornell.edu/readings/index.htm</a>
+</p>
+
+<p align="left">
+Finally, if you have any questions that weren't answered by this
+document, please feel free to contact the OLAC coordinators
+at <a href="mailto:olac-admin@language-archives.org">olac-admin@language-archives.org</a>.
+</p>
+
+<hr>
+
+<a href="mailto:jcgood@socrates.berkeley.edu">Jeff Good</a> (2002)
+
+
+
+</body></html>
