@@ -1,16 +1,6 @@
----
-title: "Haguenau"
-author: "JcB"
-date: "14/10/2015"
-output:
-  html_document:
-    keep_md: yes
-    number_sections: yes
-  pdf_document:
-    number_sections: yes
-    toc: yes
-  word_document: default
----
+# Haguenau
+JcB  
+14/10/2015  
 
 Objectifs
 =========
@@ -54,14 +44,25 @@ Un [traitement de texte simple](http://rmarkdown.rstudio.com/) pour prendre des 
 ### les "Chunks"
 
 Aujourd'hui, je crée mon premier programme R en fusionnant mon texte, mes calculs et graphiques dans le même document grace aux _chunks_:
-```{r}
-print("Hello, R")
 
+```r
+print("Hello, R")
+```
+
+```
+## [1] "Hello, R"
+```
+
+```r
 a <- 2 + 2
 a
 ```
 
-Il semble que 2 + 2 fassent `r a`
+```
+## [1] 4
+```
+
+Il semble que 2 + 2 fassent 4
 
 ### Prouire un document
 
@@ -122,9 +123,17 @@ Manipulation de R
 - dans __R__ on stocke des données dans des conteneurs appelés __variables__ que l'un désigne par un __nom__: n, x, tartampion, ...
 - pour relier la variable __n__ à une valeur, on utilise le symbole d'affectation "<-"
 
-```{r}
+
+```r
 n <- 10
 n * n
+```
+
+```
+## [1] 100
+```
+
+```r
 b <- n * n / 5
 ```
 
@@ -132,10 +141,17 @@ Créer un vecteur de données
 ----------------------------
 
 Un vecteur est un groupe de données créé avec l'opérateur de __c__oncaténation
-```{r}
+
+```r
 ages <- c(25, 18, 21, 21, 23, 22, 23, 18, 25, 19, 22, 22, 22, 22)
 ages
+```
 
+```
+##  [1] 25 18 21 21 23 22 23 18 25 19 22 22 22 22
+```
+
+```r
 n <- 1:10
 ```
 
@@ -144,9 +160,20 @@ Tableau de données
 
 - Un tableau rectangulaire de données constitue un __dataframe__
 - une feuille de tableur au format __.csv__ est un exemple de _dataframe_
-```{r}
+
+```r
 data <- data.frame(Seatbelts)
 head(data)
+```
+
+```
+##   DriversKilled drivers front rear   kms PetrolPrice VanKilled law
+## 1           107    1687   867  269  9059   0.1029718        12   0
+## 2            97    1508   825  265  7685   0.1023630         6   0
+## 3           102    1507   806  319  9963   0.1020625        12   0
+## 4            87    1385   814  407 10955   0.1008733         8   0
+## 5           119    1632   991  454 11823   0.1010197        10   0
+## 6           106    1511   945  427 12391   0.1005812        13   0
 ```
 
 
@@ -162,63 +189,127 @@ Paramètres statistiques de base
 
 ### taille
 
-```{r}
+
+```r
 n <- length(ages)
 n
 ```
 
+```
+## [1] 14
+```
+
 ### Propotions et rapports [qual.]
 
-```{r}
+
+```r
 # on crée un vecteur de 12 hommes et 8 femmes avec la commande 'rep'ète et on vérifie avec la commande 'table'
 sexe <- c(rep("H", 12), rep("F", 8))
 sexe
+```
 
+```
+##  [1] "H" "H" "H" "H" "H" "H" "H" "H" "H" "H" "H" "H" "F" "F" "F" "F" "F"
+## [18] "F" "F" "F"
+```
+
+```r
 ts <- table(sexe)
 ts
+```
 
+```
+## sexe
+##  F  H 
+##  8 12
+```
+
+```r
 hommes <- ts[2]
 femmes <- ts[1]
 
 rapport_de_masculinite <- hommes / femmes
 rapport_de_masculinite
+```
 
+```
+##   H 
+## 1.5
+```
+
+```r
 sex_ratio <- hommes / (hommes + femmes)
 sex_ratio
 ```
 
+```
+##   H 
+## 0.6
+```
+
 ### mode
 Le mode identifie la valeur la plus fréquemment observée
-```{r}
+
+```r
 # pas de fonction, il faut en créer une
 names(sort(-table(a)))[1]
+```
 
+```
+## [1] "4"
 ```
 
 
 ### moyenne (mean) [quant.]
 
-```{r}
+
+```r
 (25 + 18 + 21 + 21 + 23 + 22 + 23 + 18 + 25 + 19 + 22) / 11
+```
 
+```
+## [1] 21.54545
+```
+
+```r
 sum(ages) / length(ages)
+```
 
+```
+## [1] 21.64286
+```
+
+```r
 mean(ages)
+```
+
+```
+## [1] 21.64286
 ```
 
 ### Variance (variance) [quant.]
 
 C'est la moyenne des écarts à la moyenne. Plus la variance est grande et plus l'effectif est dispersé.
-```{r}
+
+```r
 var(ages)
+```
+
+```
+## [1] 4.708791
 ```
 
 
 ### écart-type (standard déviation) [quant.]
 
 C'est la racine carrée de la variance
-```{r}
+
+```r
 sd(ages)
+```
+
+```
+## [1] 2.169975
 ```
 Si les données se distribuent selon un __loi normale__, alors 99% des données se situent dans l'intervalle défini par la moyenne +/- 3 fois l'écart-type.
 
@@ -228,46 +319,55 @@ Graphiques
 
 ### camemgerts (pie-chart)
 
-```{r}
+
+```r
 pie(ts)
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-11-1.png) 
+
+```r
 pie(ts, main = "Répartitions homme/femmes")
 ```
+
+![](haguenau_files/figure-html/unnamed-chunk-11-2.png) 
 
 ### Histogramme [quant.]
 
 Conducteurs anglais tués par mois de janvier 1969 à décembre 1984.
 
-```{r}
+
+```r
 data <- data.frame(Seatbelts)
 data$an <- time(Seatbelts)
 data$mois <- cycle(Seatbelts)
 hist(data$DriversKilled)
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-12-1.png) 
+
+```r
 hist(data$DriversKilled, ylab = "Fréquence", xlab = "Nomnre de tués", main = "Nombre de tués sur les routes anglaises\n de 1969 à 1984", col = "cornflowerblue", border = "white")
 
 m <- mean(data$DriversKilled)
 s <- sd(data$DriversKilled)
 x <- seq(60, 200, 0.1)
 lines(x, dnorm(x, m, s) * 4400, type = "l", col="blue")
-
 ```
+
+![](haguenau_files/figure-html/unnamed-chunk-12-2.png) 
 
 ### Barplot [quant.]
 
-```{r}
+
+```r
 mm.counts <- c(12,6,8,10,6,7)
 mm.colors <- c("blue","brown","green","orange","red","yellow")
 names(mm.counts) <- mm.colors
 barplot(mm.counts, main="Mon paquet de  M&M ",xlab="Couleur des M&M",ylab="Nombre de M&Ms dans le sachet", col=mm.colors)
 ```
 
-### Boites à moustaches (Boxplot) [quant./qual.]
-
-Tests
----+-
-
-### Comparer deux moyennes
-
-
+![](haguenau_files/figure-html/unnamed-chunk-13-1.png) 
 
 
 Transféréer les données

@@ -4,7 +4,7 @@ JcB
 
 source:
 
-- package __epi__
+- package __Epi__
 - Gebolini Christophe: [Lire, compter, tester... avec R](http://cran.r-project.org/doc/contrib/Genolini-LireCompterTesterR.pdf)
 
 Plan
@@ -155,7 +155,7 @@ The following object is masked from 'package:base':
  NA's   :10                        
 ```
 
-![](./Births_files/figure-html/births-1.png) ![](./Births_files/figure-html/births-2.png) 
+![](Births_files/figure-html/births-1.png) ![](Births_files/figure-html/births-2.png) 
 
 ```
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -168,14 +168,14 @@ The following object is masked _by_ .GlobalEnv:
     preterm
 ```
 
-![](./Births_files/figure-html/births-3.png) ![](./Births_files/figure-html/births-4.png) 
+![](Births_files/figure-html/births-3.png) ![](Births_files/figure-html/births-4.png) 
 
 ```
 
 	Pearson's product-moment correlation
 
 data:  births$bweight and births$gestwks
-t = 22.4135, df = 488, p-value < 2.2e-16
+t = 22.413, df = 488, p-value < 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
  0.6656286 0.7532743
@@ -184,14 +184,14 @@ sample estimates:
 0.7122162 
 ```
 
-![](./Births_files/figure-html/births-5.png) ![](./Births_files/figure-html/births-6.png) ![](./Births_files/figure-html/births-7.png) 
+![](Births_files/figure-html/births-5.png) ![](Births_files/figure-html/births-6.png) ![](Births_files/figure-html/births-7.png) 
 
 ```
 
 	Welch Two Sample t-test
 
 data:  births$bweight by births$sex
-t = 3.4916, df = 492.914, p-value = 0.0005233
+t = 3.4916, df = 492.91, p-value = 0.0005233
 alternative hypothesis: true difference in means is not equal to 0
 95 percent confidence interval:
   86.17495 307.96706
@@ -211,7 +211,6 @@ library(epicalc)
 ```
 Loading required package: foreign
 Loading required package: survival
-Loading required package: splines
 Loading required package: MASS
 Loading required package: nnet
 ```
@@ -252,7 +251,7 @@ c2
 	Pearson's Chi-squared test with Yates' continuity correction
 
 data:  t
-X-squared = 18.1213, df = 1, p-value = 2.073e-05
+X-squared = 18.121, df = 1, p-value = 2.073e-05
 ```
 
 ```r
@@ -281,7 +280,7 @@ Poids faible    non    oui
 cc(births$lowbw, births$hyp)
 ```
 
-![](./Births_files/figure-html/chi2-1.png) 
+![](Births_files/figure-html/chi2-1.png) 
 
 ```
 
@@ -362,13 +361,13 @@ f <- dnorm(x)                              # loi normale de moyenne 0 et sd = 1
 ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line()
 ```
 
-![](./Births_files/figure-html/courbe_normale-1.png) 
+![](Births_files/figure-html/courbe_normale-1.png) 
 
 ```r
 ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line() + geom_vline(xintercept=c(-3,-2,-1,1,2,3), linetype=2)
 ```
 
-![](./Births_files/figure-html/courbe_normale-2.png) 
+![](Births_files/figure-html/courbe_normale-2.png) 
 
 - 68% des observations sont dans l'intervalle (m - sd, m + sd)
 - 95% des observations sont dans l'intervalle (m - 2*sd, m + 2*sd)

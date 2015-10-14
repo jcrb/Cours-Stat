@@ -24,7 +24,9 @@ library(waffle) # pour waffle
 
 mnms <- read.csv("mnms.csv") # dataframe mnms
 head(mnms)
-
+names(mnms)
+summary(mnms)
+str(mnms)
 ```
 
 Le nombre de m&m est-ille même dans chaque paquet ?
@@ -35,6 +37,21 @@ n.student
 sd(n.student)
 summary(as.numeric(n.student))
 ```
+
+Histogramme
+------------
+```{r}
+t <- table(mnms$student)
+t
+hist(t)
+hist(t, breaks = 10)
+hist(t, breaks = 10, xlim = c(48,60))
+hist(t, breaks = 10, xlim = c(48,60), col = "cornflowerblue")
+hist(t, breaks = 10, xlim = c(48,60), col = "cornflowerblue", border = "white")
+hist(t, breaks = 10, xlim = c(48,60), col = "cornflowerblue", border = "white", main = "Nombre de M&M's par paquet", xlab = "N", ylab = "Freéquence")
+
+```
+
 
 Pie et Waffle chart (p 118)
 ---------------------------
@@ -91,4 +108,14 @@ abline(h = (sum(defect.counts) * 0.8), col = "red", lwd = 4)
 
 Trois causes expliquent 80% des retards. Pour explorer ces raisons on peut utiliser le diagramme d'[Ishikawa](http://fr.wikipedia.org/wiki/Diagramme_de_causes_et_effets) (existe dans le package qqc).
 
+
+Générer des nombres aléatoires
+==============================
+
+```{r}
+set.seed(1234)
+# 1000 nombres entre 1 et 20
+n <- round(runif(1000, 1, 20), 0)
+
+```
 
