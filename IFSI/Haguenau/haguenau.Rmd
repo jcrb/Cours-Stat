@@ -3,13 +3,13 @@ title: "Haguenau"
 author: "JcB"
 date: "14/10/2015"
 output:
-  html_document:
-    keep_md: yes
-    number_sections: yes
+  word_document: default
   pdf_document:
     number_sections: yes
     toc: yes
-  word_document: default
+  html_document:
+    keep_md: yes
+    number_sections: yes
 ---
 
 Objectifs
@@ -19,6 +19,13 @@ Objectifs
 - savoir collecter correctement des données (tableur)
 - transmettre les données au logiciel
 - appliquer une démarche statistique
+
+Le logiciel R parmis les autres logiciels statistiques
+======================================================
+
+![r](img/logiciels_2015-10-15.png)
+
+source:
 
 Organiser son travail
 ======================
@@ -106,14 +113,16 @@ La collecte des données
 
 Application: analyse des friandises contenues dans un paquet de [M&M's](http://fr.wikipedia.org/wiki/M%26M%27s) fabriquées à Haguenau.
 
-![mms](img/Briacmonnierm&m's2.jpg)
+![mms](img/mms.png)
 
-Noter dans un tableur
+Noter dans un tableur:
 
 - nom
-- couleur
+- couleur: __R__ed, __Y__ellow, __G__reen, __B__lue, __M__aroon, __B__lack
+
 - nombre
-- aspect
+- aspect: __E__bréché, __F__endu, __P__arfait, __N__on marqué
+
 
 
 Manipulation de R
@@ -262,6 +271,34 @@ barplot(mm.counts, main="Mon paquet de  M&M ",xlab="Couleur des M&M",ylab="Nombr
 
 ### Boites à moustaches (Boxplot) [quant./qual.]
 
+Une boxplot résume sur le même graphique 5 informations:
+
+- minimum
+- maximum
+- 1er quartiles (25% des valeurs)
+- médiane = 2éme quartile (50% des valeurs)
+- 3ème quartile (75% des valeurs)
+
+Exemple: comparaison du nombre mensuel de blessés graves selon le siège occuppé:
+```{r}
+data <- data.frame(Seatbelts) # on récupère les données
+boxplot(data$front, data$rear)
+# avec habillage
+boxplot(data$front, data$rear, 
+        names = c("passagers avant", "passagers arrière"), 
+        ylab = "nombre de blessés graves", 
+        main = "Nombre mensuel de blessés graves au cours des accidents de la voie publique\n en Angleterre (1969-2004) selon le siège occuppé",
+        col = c("green", "yellow"))
+```
+
+Idem en prenant en compte le port de la ceinture de sécurité:
+```{r}
+d1 <- data[data$law < 1,] # 
+d2 <- data[data$law > 0,]
+boxplot(d1$front, d1$rear, d2$front, d2$rear, ylab = "Nombre de blessés graves", names = c("passager avant\n non ceinturé", "passager avant\n ceinturé", "passager arrière\n non ceinturé", "passager arrière\n ceinturé"), col = c("red","red","yellow","yellow"), main = "Impact de la ceinture de sécurité sur le nombre mensuel de blessés graves\n selon la place occuppée (Angleterre)")
+```
+
+
 Tests
 -----
 
@@ -326,8 +363,40 @@ Travail collaboratif
 - Organiser des réunions: http://framadate.org/
 - Mind Mapping: http://framindmap.org/
 
+Lecture du tableur Framasoft
+----------------------------
+
+- nécessite le package RCurl pour connexion sécurisée (Https)
+- pour récupérer les données au format .csv, il suffit d'ajouter ".csv" au nom du tableur
+
+```{r}
+library(RCurl)
+jcb_url <- getURL("https://framacalc.org/qKe5wD44QU.csv")
+jcb_data <- read.csv(textConnection(jcb_url), header = TRUE)
+jcb_data
+```
+
+
 Organiser un questionnaire en ligne
 -----------------------------------
 
 - __Lime survey__ (libre) [LimeSurvey](https://www.limesurvey.org/en/)
 - __Form__ (propriétaire) google drive
+
+Pour finir
+===========
+
+License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+You are free to:
+
+- Share
+- copy and redistribute the material
+- Adapt
+- rebuild and transform the material
+
+Under the following conditions:
+
+- Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- NonCommercial: You may not use this work for commercial purposes.
+- Share Alike: If you remix, transform, or build upon this work, you must distribute your contributions under the same license to this one.

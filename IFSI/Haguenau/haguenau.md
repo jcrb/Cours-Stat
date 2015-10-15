@@ -10,6 +10,13 @@ Objectifs
 - transmettre les données au logiciel
 - appliquer une démarche statistique
 
+Le logiciel R parmis les autres logiciels statistiques
+======================================================
+
+![r](img/logiciels_2015-10-15.png)
+
+source:
+
 Organiser son travail
 ======================
 
@@ -107,14 +114,16 @@ La collecte des données
 
 Application: analyse des friandises contenues dans un paquet de [M&M's](http://fr.wikipedia.org/wiki/M%26M%27s) fabriquées à Haguenau.
 
-![mms](img/Briacmonnierm&m's2.jpg)
+![mms](img/mms.png)
 
 Noter dans un tableur
 
 - nom
-- couleur
+- couleur: __R__ed, __Y__ellow, __G__reen, __B__lue, __M__aroon, __B__lack
+
 - nombre
-- aspect
+- aspect: __E__bréché, __F__endu, __P__arfait, __N__on marqué
+
 
 
 Manipulation de R
@@ -371,6 +380,45 @@ barplot(mm.counts, main="Mon paquet de  M&M ",xlab="Couleur des M&M",ylab="Nombr
 
 ### Boites à moustaches (Boxplot) [quant./qual.]
 
+Une boxplot résume sur le même graphique 5 informations:
+
+- minimum
+- maximum
+- 1er quartiles (25% des valeurs)
+- médiane = 2éme quartile (50% des valeurs)
+- 3ème quartile (75% des valeurs)
+
+Exemple: comparaison du nombre mensuel de blessés graves selon le siège occuppé:
+
+```r
+data <- data.frame(Seatbelts) # on récupère les données
+boxplot(data$front, data$rear)
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-14-1.png) 
+
+```r
+# avec habillage
+boxplot(data$front, data$rear, 
+        names = c("passagers avant", "passagers arrière"), 
+        ylab = "nombre de blessés graves", 
+        main = "Nombre mensuel de blessés graves au cours des accidents de la voie publique\n en Angleterre (1969-2004) selon le siège occuppé",
+        col = c("green", "yellow"))
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-14-2.png) 
+
+Idem en prenant en compte le port de la ceinture de sécurité:
+
+```r
+d1 <- data[data$law < 1,] # 
+d2 <- data[data$law > 0,]
+boxplot(d1$front, d1$rear, d2$front, d2$rear, ylab = "Nombre de blessés graves", names = c("passager avant\n non ceinturé", "passager avant\n ceinturé", "passager arrière\n non ceinturé", "passager arrière\n ceinturé"), col = c("red","red","yellow","yellow"), main = "Impact de la ceinture de sécurité sur le nombre mensuel de blessés graves\n selon la place occuppée (Angleterre)")
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-15-1.png) 
+
+
 Tests
 -----
 
@@ -399,7 +447,7 @@ lines(x, dnorm(x, m[1], s[1]) * 4400, type = "l", col="red")
 legend("topright", legend = c("Avec ceinture", "Sans ceinture"), col = c("blue", "red"), lty = 1, bty = "n")
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-15-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-17-1.png) 
 
 test: on compare la mortalité mensuelle moyenne avant et après la promulgation de la loi ave le test de Student. 
 
@@ -427,7 +475,7 @@ t.test(data$DriversKilled ~ data$law, var.equal = TRUE)
 ##        125.8698        100.2609
 ```
 
-__Question:__ peut-on tirer les mêmes conclusions pour les blessés draves situés à l'avant (colonne 'front') ou situés à l'arrière ('rear') du véhicule ?
+__Question:__ peut-on tirer les mêmes conclusions pour les blessés graves situés à l'avant (colonne 'front') ou situés à l'arrière (colonne 'rear') du véhicule ?
 
 
 Transféréer les données
@@ -453,8 +501,59 @@ Travail collaboratif
 - Organiser des réunions: http://framadate.org/
 - Mind Mapping: http://framindmap.org/
 
+Lecture du tableur Framasoft
+----------------------------
+
+- nécessite le package RCurl pour connexion sécurisée (Https)
+- pour récupérer les données au format .csv, il suffit d'ajouter ".csv" au nom du tableur
+
+
+```r
+library(RCurl)
+```
+
+```
+## Loading required package: bitops
+```
+
+```r
+jcb_url <- getURL("https://framacalc.org/qKe5wD44QU.csv")
+jcb_data <- read.csv(textConnection(jcb_url), header = TRUE)
+jcb_data
+```
+
+```
+##   https...framacalc.org.le_nom_de_mon_calc.csv      X     X.1        X.2
+## 1                                   Nom_Pseudo mms_ID Couleur       Etat
+## 2                                          jcb      1     Red    Ebréché
+## 3                                          jcb      2  Yellow      Fendu
+## 4                                          jcb      3   Green    Parfait
+## 5                                          jcb      4    Blue Non marqué
+## 6                                          jcb      5  Maroon           
+## 7                                          jcb      6   Black
+```
+
+
 Organiser un questionnaire en ligne
 -----------------------------------
 
 - __Lime survey__ (libre) [LimeSurvey](https://www.limesurvey.org/en/)
 - __Form__ (propriétaire) google drive
+
+Pour finir
+===========
+
+License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+You are free to:
+
+- Share
+- copy and redistribute the material
+- Adapt
+- rebuild and transform the material
+
+Under the following conditions:
+
+- Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+- NonCommercial: You may not use this work for commercial purposes.
+- Share Alike: If you remix, transform, or build upon this work, you must distribute your contributions under the same license to this one.
