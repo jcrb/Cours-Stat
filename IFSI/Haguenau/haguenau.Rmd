@@ -70,7 +70,7 @@ a
 
 Il semble que 2 + 2 fassent `r a`
 
-### Prouire un document
+### Produire un document
 
 A partir de ce document écrit avec _markdown_ je peut produire directement:
 
@@ -123,6 +123,12 @@ Noter dans un tableur:
 - nombre
 - aspect: __E__bréché, __F__endu, __P__arfait, __N__on marqué
 
+```{r}
+# Récupération des données
+source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
+data_mms <- slurp("IFSI/Haguenau/Data/")
+
+```
 
 
 Manipulation de R
