@@ -116,7 +116,7 @@ Application: analyse des friandises contenues dans un paquet de [M&M's](http://f
 
 ![mms](img/mms.png)
 
-Noter dans un tableur
+Noter dans un tableur:
 
 - nom
 - couleur: __R__ed, __Y__ellow, __G__reen, __B__lue, __M__aroon, __B__lack
