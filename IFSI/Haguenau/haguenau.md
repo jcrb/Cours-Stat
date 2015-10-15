@@ -369,6 +369,66 @@ barplot(mm.counts, main="Mon paquet de  M&M ",xlab="Couleur des M&M",ylab="Nombr
 
 ![](haguenau_files/figure-html/unnamed-chunk-13-1.png) 
 
+### Boites à moustaches (Boxplot) [quant./qual.]
+
+Tests
+-----
+
+### Comparer deux moyennes (test de Student)
+
+L'Angleterre à rendu obligatoire le port de la ceinture de sécurité sur les sièges avants le 31 décembre 1983.
+Cette mesure à t'elle eu un impact sur la mortalité routière ?
+
+- Hypothèse neutre (ou nulle ou H0): il n'y a pas de différence de mortalité chez les conducteurs anglais selon qu'ils portent ou non une ceinture de sécurité.
+
+
+```r
+data <- data.frame(Seatbelts) # on récupère les données
+m <- tapply(data$DriversKilled, data$law, mean) # moyenne
+s <- tapply(data$DriversKilled, data$law, sd) # écart-type
+```
+- mortalité mensuelle moyenne AVANT: 125.8698225 (+/- 24.2608758)
+- mortalité mensuelle moyenne APRES: 100.2608696 (+/- 22.2286003)
+
+Aspect graphique:
+
+```r
+x <- seq(40, 200, 0.1)
+plot(x, dnorm(x, m[2], s[2]) * 4400, type = "l", col="blue", ylab = "Nombre de mois", main = "Mortalité routière avec et sans ceinture de sécurité")
+lines(x, dnorm(x, m[1], s[1]) * 4400, type = "l", col="red")
+legend("topright", legend = c("Avec ceinture", "Sans ceinture"), col = c("blue", "red"), lty = 1, bty = "n")
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-15-1.png) 
+
+test: on compare la mortalité mensuelle moyenne avant et après la promulgation de la loi ave le test de Student. 
+
+- Le test donne la probabilité (p) que la différence observée entre les deux moyennes soit due au hasard.
+- C'est l'expérimentateur qui fixe le seuil à partir duquel on considère que ce n'est plus du hasard. De manière __consensuelle__ (accord d'expert) cette limite est fixée à __0.05__ ou __5%__.
+- Si le résultat du test, p < 0.05, on considère que la différence n'est pas due au hasard et que l'hypothèse nulle doit être rejetée et par défaut on accepte l'hypothèse alternative: "le port de la ceinture de sécurité à un impact sur la mortalité des conducteurs"
+
+
+```r
+# test
+t.test(data$DriversKilled ~ data$law, var.equal = TRUE)
+```
+
+```
+## 
+## 	Two Sample t-test
+## 
+## data:  data$DriversKilled by data$law
+## t = 4.7942, df = 190, p-value = 3.288e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  15.07239 36.14552
+## sample estimates:
+## mean in group 0 mean in group 1 
+##        125.8698        100.2609
+```
+
+__Question:__ peut-on tirer les mêmes conclusions pour les blessés draves situés à l'avant (colonne 'front') ou situés à l'arrière ('rear') du véhicule ?
+
 
 Transféréer les données
 =======================
@@ -379,6 +439,19 @@ Passer du tableur à __R__
 - format d'échange universel: .csv (comma separated values)
 - Tableur -> Enregistrer sous -> TEXT CSV (.csv)
 - ouvrir le fichier à partir de R avec __read.csv__
+
+Travail collaboratif
+--------------------
+
+- respectueux de la vie privée: __Framacalc__ (+++) https://framacalc.org/_start
+
+        - libre, gratuit (dons à partir de 5€)
+        - permet de travailler à plusieurs sur le même tableur
+        - import direct à partir de __R__: https://framacalc.org/le_nom_de_mon_calc.csv
+        - exemple: https://framacalc.org/qKe5wD44QU
+- Traitement de texte collaboratif: https://framapad.org/
+- Organiser des réunions: http://framadate.org/
+- Mind Mapping: http://framindmap.org/
 
 Organiser un questionnaire en ligne
 -----------------------------------
