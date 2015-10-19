@@ -1,0 +1,20 @@
+ID;COULEUR;DIAMETRE;POIDS ;QUALITE;IMPRESSION
+1;J;petit;NA;bonne;NC
+2;J;moyen;NA;bonne;NC
+3;J;grand;NA;bonne;NC
+4;V;petit;NA;bonne;C
+5;V;petit;NA;bonne;NC
+6;B;moyen;NA;bonne;C
+7;R;petit;NA;bonne;NC
+8;R;moyen;NA;bonne;NC
+9;R;grand;NA;bonne;C
+10;BR;petit;NA;bonne;C
+11;BR;petit;NA;bonne;C
+12;BR;petit;NA;bonne;C
+13;BR;moyen;NA;bonne;NC
+14;BR;grand;NA;bonne;NC
+15;BR;grand;NA;bonne;NC
+16;O;petit;NA;bonne;C
+17;O;moyen;NA;bonne;C
+18;O;moyen;NA;bonne;NC
+19;O;moyen;NA;bonne;NC

@@ -1,0 +1,20 @@
+ID	Couleur	Diamätre	Poids	QualitÇ	Impression
+1	Bl			Fendu	Oui
+2	Bl			Normal	Oui
+3	Bl			Normal	Oui
+4	Bl			Normal	Non
+5	V			Normal	Oui
+6	J			Fendu	Oui
+7	J			Normal	Oui
+8	J			Normal	Oui
+9	J			Normal	Oui
+10	J			Normal	Non
+11	J			Normal	Oui
+12	J		Obäse	Normal	Oui
+13	O			Normal	Oui
+14	R			Normal	Oui
+15	R			Normal	Oui
+16	Br			Normal	Non
+17	Br			Normal	Oui
+18	Br			Normal	Oui
+19	Br			Normal 	Oui 
