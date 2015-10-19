@@ -125,8 +125,13 @@ Noter dans un tableur:
 
 ```{r}
 # Récupération des données
+
 #source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
 #data_mms <- slurp("IFSI/Haguenau/Data/")
+
+source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
+# data_mms <- slurp("Data/")
+
 
 ```
 
@@ -374,12 +379,24 @@ Lecture du tableur Framasoft
 
 - nécessite le package RCurl pour connexion sécurisée (Https)
 - pour récupérer les données au format .csv, il suffit d'ajouter ".csv" au nom du tableur
+- le datafrme contient l'analyse d'un paquet de 330 grammes de m&ms
 
 ```{r}
 library(RCurl)
 jcb_url <- getURL("https://framacalc.org/qKe5wD44QU.csv")
 jcb_data <- read.csv(textConnection(jcb_url), header = TRUE)
-jcb_data
+# jcb_data
+
+str(jcb_data)
+summary(jcb_data)
+hist(jcb_data$VOLUME)
+
+boxplot(jcb_data$VOLUME ~ jcb_data$COULEUR)
+
+f <- aov(jcb_data$VOLUME ~ jcb_data$COULEUR)
+f
+summary(f)
+
 ```
 
 
