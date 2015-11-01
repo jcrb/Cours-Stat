@@ -71,7 +71,7 @@ a
 
 Il semble que 2 + 2 fassent 4
 
-### Prouire un document
+### Produire un document
 
 A partir de ce document écrit avec _markdown_ je peut produire directement:
 
@@ -116,7 +116,7 @@ Application: analyse des friandises contenues dans un paquet de [M&M's](http://f
 
 ![mms](img/mms.png)
 
-Noter dans un tableur
+Noter dans un tableur:
 
 - nom
 - couleur: __R__ed, __Y__ellow, __G__reen, __B__lue, __M__aroon, __B__lack
@@ -124,6 +124,16 @@ Noter dans un tableur
 - nombre
 - aspect: __E__bréché, __F__endu, __P__arfait, __N__on marqué
 
+
+```r
+# Récupération des données
+
+#source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
+#data_mms <- slurp("IFSI/Haguenau/Data/")
+
+source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
+# data_mms <- slurp("Data/")
+```
 
 
 Manipulation de R
@@ -326,20 +336,20 @@ Si les données se distribuent selon un __loi normale__, alors 99% des données 
 Graphiques
 ----------
 
-### camemgerts (pie-chart)
+### camemberts (pie-chart)
 
 
 ```r
 pie(ts)
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-11-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-12-1.png) 
 
 ```r
 pie(ts, main = "Répartitions homme/femmes")
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-11-2.png) 
+![](haguenau_files/figure-html/unnamed-chunk-12-2.png) 
 
 ### Histogramme [quant.]
 
@@ -353,7 +363,7 @@ data$mois <- cycle(Seatbelts)
 hist(data$DriversKilled)
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-12-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-13-1.png) 
 
 ```r
 hist(data$DriversKilled, ylab = "Fréquence", xlab = "Nomnre de tués", main = "Nombre de tués sur les routes anglaises\n de 1969 à 1984", col = "cornflowerblue", border = "white")
@@ -364,7 +374,7 @@ x <- seq(60, 200, 0.1)
 lines(x, dnorm(x, m, s) * 4400, type = "l", col="blue")
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-12-2.png) 
+![](haguenau_files/figure-html/unnamed-chunk-13-2.png) 
 
 ### Barplot [quant.]
 
@@ -376,7 +386,7 @@ names(mm.counts) <- mm.colors
 barplot(mm.counts, main="Mon paquet de  M&M ",xlab="Couleur des M&M",ylab="Nombre de M&Ms dans le sachet", col=mm.colors)
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-13-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-14-1.png) 
 
 ### Boites à moustaches (Boxplot) [quant./qual.]
 
@@ -395,7 +405,7 @@ data <- data.frame(Seatbelts) # on récupère les données
 boxplot(data$front, data$rear)
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-14-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-15-1.png) 
 
 ```r
 # avec habillage
@@ -406,7 +416,7 @@ boxplot(data$front, data$rear,
         col = c("green", "yellow"))
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-14-2.png) 
+![](haguenau_files/figure-html/unnamed-chunk-15-2.png) 
 
 Idem en prenant en compte le port de la ceinture de sécurité:
 
@@ -416,7 +426,7 @@ d2 <- data[data$law > 0,]
 boxplot(d1$front, d1$rear, d2$front, d2$rear, ylab = "Nombre de blessés graves", names = c("passager avant\n non ceinturé", "passager avant\n ceinturé", "passager arrière\n non ceinturé", "passager arrière\n ceinturé"), col = c("red","red","yellow","yellow"), main = "Impact de la ceinture de sécurité sur le nombre mensuel de blessés graves\n selon la place occuppée (Angleterre)")
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-15-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-16-1.png) 
 
 
 Tests
@@ -447,7 +457,7 @@ lines(x, dnorm(x, m[1], s[1]) * 4400, type = "l", col="red")
 legend("topright", legend = c("Avec ceinture", "Sans ceinture"), col = c("blue", "red"), lty = 1, bty = "n")
 ```
 
-![](haguenau_files/figure-html/unnamed-chunk-17-1.png) 
+![](haguenau_files/figure-html/unnamed-chunk-18-1.png) 
 
 test: on compare la mortalité mensuelle moyenne avant et après la promulgation de la loi ave le test de Student. 
 
@@ -506,6 +516,7 @@ Lecture du tableur Framasoft
 
 - nécessite le package RCurl pour connexion sécurisée (Https)
 - pour récupérer les données au format .csv, il suffit d'ajouter ".csv" au nom du tableur
+- le datafrme contient l'analyse d'un paquet de 330 grammes de m&ms
 
 
 ```r
@@ -519,18 +530,85 @@ library(RCurl)
 ```r
 jcb_url <- getURL("https://framacalc.org/qKe5wD44QU.csv")
 jcb_data <- read.csv(textConnection(jcb_url), header = TRUE)
-jcb_data
+# jcb_data
+
+str(jcb_data)
 ```
 
 ```
-##   https...framacalc.org.le_nom_de_mon_calc.csv      X     X.1        X.2
-## 1                                   Nom_Pseudo mms_ID Couleur       Etat
-## 2                                          jcb      1     Red    Ebréché
-## 3                                          jcb      2  Yellow      Fendu
-## 4                                          jcb      3   Green    Parfait
-## 5                                          jcb      4    Blue Non marqué
-## 6                                          jcb      5  Maroon           
-## 7                                          jcb      6   Black
+## 'data.frame':	144 obs. of  9 variables:
+##  $ TYPE_PAQ: Factor w/ 1 level "M350": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ ID_PAD  : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ POIDS   : int  2 2 2 3 3 2 3 2 3 2 ...
+##  $ TRANS   : num  14.1 12 14 15.5 13.5 13 16 14.5 18.5 13.5 ...
+##  $ LONG    : num  18 19.5 16.5 19 20 16 19 17 15.5 19 ...
+##  $ COULEUR : Factor w/ 6 levels "blue","brown",..: 3 4 4 4 4 4 4 4 4 4 ...
+##  $ ASPECT  : Factor w/ 2 levels "NM","sp": 2 2 2 2 2 2 2 1 2 2 ...
+##  $ VOLUME  : num  14990 11762 13547 19121 15268 ...
+##  $ X       : logi  NA NA NA NA NA NA ...
+```
+
+```r
+summary(jcb_data)
+```
+
+```
+##  TYPE_PAQ       ID_PAD      POIDS           TRANS            LONG      
+##  M350:144   Min.   :1   Min.   :1.000   Min.   : 9.00   Min.   : 6.50  
+##             1st Qu.:1   1st Qu.:2.000   1st Qu.:12.88   1st Qu.:16.50  
+##             Median :1   Median :2.000   Median :13.50   Median :17.50  
+##             Mean   :1   Mean   :2.229   Mean   :13.46   Mean   :17.39  
+##             3rd Qu.:1   3rd Qu.:3.000   3rd Qu.:14.03   3rd Qu.:18.50  
+##             Max.   :1   Max.   :4.000   Max.   :18.50   Max.   :22.00  
+##    COULEUR   ASPECT       VOLUME         X          
+##  blue  :32   NM:  2   Min.   : 3921   Mode:logical  
+##  brown :21   sp:142   1st Qu.:11326   NA's:144      
+##  green :21            Median :13116                 
+##  orange:37            Mean   :13449                 
+##  red   :16            3rd Qu.:15208                 
+##  yellow:17            Max.   :25422
+```
+
+```r
+hist(jcb_data$VOLUME)
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-20-1.png) 
+
+```r
+boxplot(jcb_data$VOLUME ~ jcb_data$COULEUR)
+```
+
+![](haguenau_files/figure-html/unnamed-chunk-20-2.png) 
+
+```r
+f <- aov(jcb_data$VOLUME ~ jcb_data$COULEUR)
+f
+```
+
+```
+## Call:
+##    aov(formula = jcb_data$VOLUME ~ jcb_data$COULEUR)
+## 
+## Terms:
+##                 jcb_data$COULEUR  Residuals
+## Sum of Squares         121800708 1642712950
+## Deg. of Freedom                5        138
+## 
+## Residual standard error: 3450.176
+## Estimated effects may be unbalanced
+```
+
+```r
+summary(f)
+```
+
+```
+##                   Df    Sum Sq  Mean Sq F value Pr(>F)  
+## jcb_data$COULEUR   5 1.218e+08 24360142   2.046 0.0759 .
+## Residuals        138 1.643e+09 11903717                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 
 
@@ -557,3 +635,26 @@ Under the following conditions:
 - Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made.
 - NonCommercial: You may not use this work for commercial purposes.
 - Share Alike: If you remix, transform, or build upon this work, you must distribute your contributions under the same license to this one.
+
+Notes Cours
+===========
+
+Télécharger la library knitr
+
+a <- 1:10
+a
+# je calcule une moyenne
+mean(a)
+a <- 1:20
+mean(a)
+
+Variance = moyenne des écarts à la moyenne
+
+```r
+var(a)
+```
+
+```
+## [1] NA
+```
+

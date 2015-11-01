@@ -3,12 +3,21 @@ title: "Haguenau"
 author: "JcB"
 date: "14/10/2015"
 output:
+<<<<<<< HEAD
   pdf_document:
     number_sections: yes
     toc: yes
   html_document:
     keep_md: yes
     number_sections: yes
+=======
+  html_document:
+    keep_md: yes
+    number_sections: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+>>>>>>> b1e8fc8cd58f7b3063a253d48054a62eea8619c6
   word_document: default
 ---
 
@@ -135,8 +144,13 @@ Noter dans un tableur:
 
 ```{r}
 # Récupération des données
+
+#source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
+#data_mms <- slurp("IFSI/Haguenau/Data/")
+
 source('~/Documents/CESU/Cours-Stat/IFSI/Haguenau/haguenau.R')
 # data_mms <- slurp("Data/")
+
 
 ```
 
@@ -251,7 +265,7 @@ Si les données se distribuent selon un __loi normale__, alors 99% des données 
 Graphiques
 ----------
 
-### camemgerts (pie-chart)
+### camemberts (pie-chart)
 
 ```{r}
 pie(ts)
@@ -428,3 +442,21 @@ Under the following conditions:
 - Attribution: You must give appropriate credit, provide a link to the license, and indicate if changes were made.
 - NonCommercial: You may not use this work for commercial purposes.
 - Share Alike: If you remix, transform, or build upon this work, you must distribute your contributions under the same license to this one.
+
+Notes Cours
+===========
+
+Télécharger la library knitr
+
+a <- 1:10
+a
+# je calcule une moyenne
+mean(a)
+a <- 1:20
+mean(a)
+
+Variance = moyenne des écarts à la moyenne
+```{r}
+var(a)
+```
+
