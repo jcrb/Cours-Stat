@@ -3,13 +3,13 @@ title: "Haguenau"
 author: "JcB"
 date: "14/10/2015"
 output:
-  word_document: default
   pdf_document:
     number_sections: yes
     toc: yes
   html_document:
     keep_md: yes
     number_sections: yes
+  word_document: default
 ---
 
 Objectifs
@@ -43,6 +43,16 @@ Savoir utiliser un logiciel de statistiques
 - __R__ est _libre_, _gratuit_, _multiplateforme_, _complet_, _évolutif_ grâce à une énorme bibliothèque de fonctions appelées __Pakages__ (environ 6000 à ce jour).
 - On peut l'utiliser nativement ou par l'intermédiaire d'un IDE appelé __RStudio__.
 - _RStudio_ utilise le concept de __recherche reproductible__ et permet de mettre en place une chaîne de production allant de la saisie des données à la production d'un document (mémoire, thèse, etc.) publiable.
+
+### Etapes
+
+- installer R
+
+        - [Windows](https://cran.r-project.org/bin/windows/base/)
+        - [MAC](https://cran.r-project.org/bin/macosx/)
+        - [Linux](https://cran.r-project.org/)
+- installer RStudio [desktop](https://www.rstudio.com/products/RStudio/) (ne pas choisir 'server')
+- dans RStudio ajouter le package __knitr__
 
 Caractéristiques de RStudio
 ---------------------------
@@ -359,7 +369,7 @@ Passer du tableur à __R__
 Travail collaboratif
 --------------------
 
-- respectueux de la vie privée: __Framacalc__ (+++) https://framacalc.org/_start
+- respectueux de la vie privée: __Framacalc__ (+++) https://framacalc.org/_start (voir la FAQ) pour une aide.
 
         - libre, gratuit (dons à partir de 5€)
         - permet de travailler à plusieurs sur le même tableur

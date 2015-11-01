@@ -42,7 +42,7 @@ Description
 -----------
 Données provenant de 500 naissances uniques (singleton births) dans un hôpital de Londres.
 
-Origine: données __Births__ du pacfage __epi__.
+Origine: données __Births__ du package __epi__.
 
 Usage
 
@@ -78,6 +78,8 @@ Exploration des données
 
 ```{r births,echo=FALSE,comment=""}
 library("Epi")
+library(MEMSS)
+
 data(births)
 head(births)
 str(births)
@@ -207,3 +209,23 @@ ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line() + geom_vline(x
 - 99% des observations sont dans l'intervalle (m - 3*sd, m + 3*sd)
 
 Une observation se situant à plus de 3 ecart-type est anormale.
+
+ðonnées non normales
+====================
+
+Score d'Aggar de 700 nouveau-né dont la mère, épileptique, est traitée par du phénobabital
+
+source: _Phenobarb_ du package MEMSS.
+
+```{r, echo=FALSE}
+data(Phenobarb)
+head(Phenobarb)
+hist(as.numeric(Phenobarb$Apgar, breaks = 10), xlim = c(0,10), axes = FALSE, main = "Histogramme des scores d'Apgar à 5 mn", ylab = "Fréquence", xlab = "score d'Apgar", col = "cornflowerblue", border = "white")
+axis(2, col = "blue")
+axis(1, at = 0:10, col = "red")
+
+m <- mean(as.numeric(Phenobarb$Apgar))
+s <- sd(as.numeric(Phenobarb$Apgar))
+
+```
+

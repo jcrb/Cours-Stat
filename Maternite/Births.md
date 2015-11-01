@@ -32,7 +32,7 @@ Description
 -----------
 Données provenant de 500 naissances uniques (singleton births) dans un hôpital de Londres.
 
-Origine: données __Births__ du pacfage __epi__.
+Origine: données __Births__ du package __epi__.
 
 Usage
 
@@ -74,6 +74,22 @@ Attaching package: 'Epi'
 The following object is masked from 'package:base':
 
     merge.data.frame
+
+Loading required package: lme4
+Loading required package: Matrix
+
+Attaching package: 'lme4'
+
+The following object is masked from 'package:Epi':
+
+    factorize
+
+
+Attaching package: 'MEMSS'
+
+The following objects are masked from 'package:datasets':
+
+    CO2, Orange, Theoph
 ```
 
 ```
@@ -213,6 +229,12 @@ Loading required package: foreign
 Loading required package: survival
 Loading required package: MASS
 Loading required package: nnet
+
+Attaching package: 'epicalc'
+
+The following objects are masked from 'package:Matrix':
+
+    expand, pack
 ```
 
 ```r
@@ -322,6 +344,27 @@ Beal (1994), dans Davidian et Giltinan (1995), et en Littell et al. (1996).
 
 ```r
 library(nlme)
+```
+
+```
+## 
+## Attaching package: 'nlme'
+## 
+## The following objects are masked from 'package:MEMSS':
+## 
+##     Alfalfa, Assay, BodyWeight, Cefamandole, Dialyzer, Earthquake,
+##     ergoStool, Fatigue, Gasoline, Glucose, Glucose2, Gun, IGF,
+##     Machines, MathAchieve, Meat, Milk, Muscle, Nitrendipene, Oats,
+##     Orthodont, Ovary, Oxide, PBG, Phenobarb, Pixel, Quinidine,
+##     Rail, RatPupWeight, Relaxin, Remifentanil, Soybean, Spruce,
+##     Tetracycline1, Tetracycline2, Wafer, Wheat, Wheat2
+## 
+## The following object is masked from 'package:lme4':
+## 
+##     lmList
+```
+
+```r
 d <- Phenobarb
 str(d)
 ```
@@ -374,3 +417,25 @@ ggplot(data.frame(x = x, y = f), aes(x = x, y = y)) + geom_line() + geom_vline(x
 - 99% des observations sont dans l'intervalle (m - 3*sd, m + 3*sd)
 
 Une observation se situant à plus de 3 ecart-type est anormale.
+
+ðonnées non normales
+====================
+
+Score d'Aggar de 700 nouveau-né dont la mère, épileptique, est traitée par du phénobabital
+
+source: _Phenobarb_ du package MEMSS.
+
+
+```
+## Grouped Data: conc ~ time | Subject
+##   Subject  Wt Apgar ApgarInd time dose conc
+## 1       1 1.4     7     >= 5  0.0 25.0   NA
+## 2       1 1.4     7     >= 5  2.0   NA 17.3
+## 3       1 1.4     7     >= 5 12.5  3.5   NA
+## 4       1 1.4     7     >= 5 24.5  3.5   NA
+## 5       1 1.4     7     >= 5 37.0  3.5   NA
+## 6       1 1.4     7     >= 5 48.0  3.5   NA
+```
+
+![](Births_files/figure-html/unnamed-chunk-2-1.png) 
+
